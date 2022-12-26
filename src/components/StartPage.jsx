@@ -3,7 +3,11 @@ import Ellipse2 from '../assets/bg-img/ellipse-2.svg'
 import Ellipse3 from '../assets/bg-img/ellipse-3.svg'
 import Logo from '../assets/logo/logo-white.svg'
 
+
 const StartPage = () => {
+  
+
+
   return (
     <>
         <div className='circles'>
@@ -12,6 +16,8 @@ const StartPage = () => {
             <img src={Ellipse2} className="circle circle2" />
             <img src={Ellipse3} className="circle circle3" />
         </div>
+        < LoginForm />
+        
     </>
   )
 }
