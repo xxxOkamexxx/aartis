@@ -16,7 +16,7 @@ const StartPage = () => {
             <img src={Ellipse2} className="circle circle2" />
             <img src={Ellipse3} className="circle circle3" />
         </div>
-        < LoginForm />
+ 
         
     </>
   )
