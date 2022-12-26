@@ -1,10 +1,10 @@
-import Container from 'react-bootstrap/Container'
+import StartPage from "../components/StartPage"
 
 const HomePage = () => {
 	return (
-		<Container className="py-3">
-			<h1>Welcome!</h1>
-		</Container>
+		<>
+			<StartPage />
+		</>
 	)
 }
 
