@@ -4,36 +4,17 @@ import React from 'react'
 import CardTemp from '../components/CardTemp';
 
 // material ui
-import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-import CardActions from '@mui/material/CardActions';
 import { CardContent } from '@mui/material';
 
+import {fieldsStyle} from '../helper/textFieldStyle'
+
 const LoginPage = () => {
-    const fieldsStyle = {
-        '& label.Mui-focused': {
-            color: '#9D9876',
-          },
-          '& .MuiInput-underline:after': {
-            borderBottomColor: '#9D9876',
-          },
-          '& .MuiOutlinedInput-root': {
-            '& fieldset': {
-              borderColor: '#fcfcfc',
-              backgroundColor: '#fcfcfc'
-            },
-            '&:hover fieldset': {
-              borderColor: '#9D9876',
-            },
-            '&.Mui-focused fieldset': {
-              borderColor: '#9D9876',
-            },
-          },
-      }
+  
 
   return (
     <div className='page-bg'>

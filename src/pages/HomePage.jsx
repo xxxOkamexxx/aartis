@@ -1,11 +1,9 @@
-import StartPage from "../components/StartPage"
+import React from 'react'
 
 const HomePage = () => {
-	return (
-		<>
-			<StartPage />
-		</>
-	)
+  return (
+    <div>HomePage</div>
+  )
 }
 
 export default HomePage

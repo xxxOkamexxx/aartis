@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
+import MenuList from '@mui/material/MenuList';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
@@ -155,6 +156,7 @@ export default function PrimarySearchAppBar() {
         >
           <AccountCircle />
         </IconButton>
+       
         <p>Profile</p>
       </MenuItem>
     </Menu>
