@@ -1,58 +1,92 @@
-    .uploadWrapper {
+.uploadWrapper {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .formWrapper {
         display: flex;
         justify-content: center;
         flex-direction: column;
+        margin: auto;
+        width: 70vw;
+        background-color: #343530;
+        opacity: 90% !important;
+        padding: 3em;
 
-        .formWrapper {
+        .radioWrapper {
             display: flex;
-            justify-content: center;
-            flex-direction: column;
-            margin: auto;
-            width: 70vw;
-            background-color: #343530;
-            opacity: 90% !important;
-            padding: 3em;
-
-            .radioWrapper {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 9px;
-                align-items: center;   
-                border: 1px solid #fcfcfc;
-                background-color: #fcfcfc;
-                font-weight: 400;
-                font-size: 1rem;
-                border-radius: 4px; 
-                
-                .label {
-                    padding-left: 6px
-                }
+            flex-direction: row;
+            justify-content: space-between;
+            padding: 9px;
+            align-items: center;   
+            border: 1px solid #fcfcfc;
+            background-color: #fcfcfc;
+            font-weight: 400;
+            font-size: 1rem;
+            border-radius: 4px; 
+            
+            .label {
+                padding-left: 6px
             }
         }
-
-        .textField {
-            margin-bottom: 2em;
-        }
-
-        .bgColor {
-            background-color: #fcfcfc;
-            border-radius: 4px;
-        }
-
-        .label {
-            color: #9D9876;
-        }
-
-        .btnSave {
-            background-color: #AD9510;
-            color: #fcfcfc;
-            margin-top: 2em;
-            margin-bottom: 2em;
-        }
-
-        .btnSave:hover {
-            background-color: #9D9876;
-            color: #fcfcfc;
-        }
     }
+
+    .textField {
+        margin-bottom: 2em;
+    }
+
+    .bgColor {
+        background-color: #fcfcfc;
+        border-radius: 4px;
+    }
+
+    .label {
+        color: #9D9876;
+    }
+
+    .btnSave {
+        background-color: #AD9510;
+        color: #fcfcfc;
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    .btnSave:hover {
+        background-color: #9D9876;
+        color: #fcfcfc;
+    }
+}
+
+#upload-image-dropzone-wrapper {
+    background-color: #eee;
+    border-radius: 4px;
+    border: 2px dashed #ccc;
+    height: 30vh;
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 1.5rem 1rem;
+    text-align: center;
+
+    cursor: pointer;
+
+    &.drag-accept {
+        background-color: #d4edda;
+        border-color: #c3e6cb;
+        color: #155724;
+    }
+
+    &.drag-reject {
+        background-color: #f8d7da;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    .alert {
+        margin-bottom: 0;
+    }
+}

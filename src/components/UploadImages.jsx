@@ -1,31 +1,64 @@
-import React from 'react'
+import { useState } from 'react'
+import { useDropzone } from 'react-dropzone';
+import classNames from 'classnames'
 
-//bootstrap
-import { Container } from 'react-bootstrap'
+// bootstrap
+import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 
-// material ui
-import TextField from '@mui/material/TextField';
-import Chip from '@mui/material/Chip';
-import Autocomplete from '@mui/material/Autocomplete';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
-import Button from '@mui/material/Button';
 
-import {fieldsStyle} from '../helper/textFieldStyle'
-
+// Temporary option list
+const tagList = ['test', 'Landscape', 'Fashion illust', 'Fantasy']
 
 const UploadImages = () => {
-    const tagList = ['test', 'landscape']
+    const [uploadImage, setUploadImage] = useState([])
 
+    const {
+		acceptedFiles,
+		getRootProps,
+		getInputProps,
+		isDragActive,
+		isDragAccept,
+		isDragReject,
+	} = useDropzone({
+        accept: {
+			'image/gif': ['.gif'],
+			'image/jpeg': ['.jpg', '.jpeg'],
+			'image/png': ['.png'],
+			'image/webp': ['.webp'],
+		},
+		maxFiles: 5,
+		maxSize: 2 * 1024 * 1024, // 2 MB
+		multiple: false,
+		//onDrop,
+	})
+    const cssClasses = classNames({
+		'drag-accept': isDragAccept,
+		'drag-reject': isDragReject,
+	})
 
   return (
     <>
         <div className='uploadWrapper'>
-            <div>Upload</div>
-            <div className='formWrapper'>
+            <div {...getRootProps()} id="upload-image-dropzone-wrapper" className={cssClasses}>
+                <input {...getInputProps()} />
+                    {
+                        isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                    }
+
+                    {acceptedFiles.length > 0 && (
+                        <div className="accepted-files mt-2">
+                            <ul className="list-unstyled">
+                                {acceptedFiles.map(file => (
+                                    <li key={file.name}>{file.name} ({Math.round(file.size / 1024)} kB)</li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+            </div>
+
+            {/* <div className='formWrapper'>
                 <TextField fullWidth label="title" id="title" className='textField' sx={fieldsStyle} />
                 
                 <TextField fullWidth label="description" id="description" multiline rows={4} className='textField bgColor' sx={fieldsStyle} />
@@ -80,9 +113,9 @@ const UploadImages = () => {
                 </FormControl>
                 
                 <Button className='btnSave'>SAVE</Button>
-            </div>
+            </div> */}
             
-        </div>
+        </div> 
         
       
     </>

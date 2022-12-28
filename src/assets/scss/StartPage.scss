@@ -32,10 +32,47 @@
     .startLogo{
         z-index: 5;
     }
+    .buttonGroup {
+        z-index: 6;
+        display: flex;
+        flex-direction: row;
+        align-self:flex-end;
+        margin-bottom: 15em;
+        
+
+        .btn {
+            font-weight: 700;
+            text-decoration: none;
+            margin: 10px;
+            background-color: #7B7C71;
+            color: #fcfcfc;
+            width: 15em;
+        }
+
+        .btn:hover {
+            background-color: #9D9876;
+            
+        }    
+    }
 }
 
-@media (max-width: 1280px) {
-    .startLogo{
-        width: 80vw;
+
+@media (max-width: 844px) {
+
+    .circles {
+
+        .startLogo{
+            width: 80vw;
+        }
+    
+        .buttonGroup {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 5em;
+            
+            .btn {
+                width: 80vw;
+            }
+        }
     }
 }

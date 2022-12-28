@@ -1,37 +1,61 @@
-import React from 'react'
+import { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-// components
-import CardTemp from '../components/CardTemp';
+// context
+//import { useAuthContext } from '../contexts/AuthContext'
 
-// material ui
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import { CardContent } from '@mui/material';
-
-import {fieldsStyle} from '../helper/textFieldStyle'
+// bootstrap
+import { 
+  Container, 
+  Row, 
+  Col, 
+  Form, 
+  Button, 
+  Card, 
+  Image 
+} from 'react-bootstrap'
 
 const LoginPage = () => {
+  const emailRef = useRef()
+	const passwordRef = useRef()
+  const [error, setError] = useState(null)
+	const [loading, setLoading] = useState(false)
+	//const { login } = useAuthContext()
+	const navigate = useNavigate()
   
 
   return (
     <div className='page-bg'>
-        <div className='cardWrapper'>
-            <CardTemp title='Login'>
-                <CardContent className='card-content'>
-                    <TextField label="User Name" fullWidth className='textField' sx={fieldsStyle}></TextField>
-                    <TextField label="Password" fullWidth className='textField' sx={fieldsStyle}></TextField>
-                    <FormControlLabel control={<Checkbox defaultChecked />} label="Keep me logged in" />
-                    <Button fullWidth className='btnField'>Login</Button>               
-                    <p>Forgot username or password?</p>
-                </CardContent>
-                <h5>Join AARTIS?</h5>
+      <div className='cardWrapper'>
+          <Form title='Log in'>
+              
+              <Form.Group id='email' className='mb-3'>
+                <Form.Label>E-mail *</Form.Label>
+                <Form.Control 
+                  type='email' 
+                  ref={emailRef} 
+                  required />
+              </Form.Group>
+              
+              <Form.Group id='password' className='mb-3'>
+                <Form.Label>Password *</Form.Label>
+                <Form.Control 
+                  type='password' 
+                  ref={passwordRef} 
+                  required />
+              </Form.Group>
+
+              <Button className='btnField'>Login</Button>
+              
+                
+              <h5><a href='/signup'>Join AARTIS?</a></h5>
                 <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
-            </CardTemp>
-        </div> 
-    </div>   
+                                
+          </Form>
+      </div>
+    </div> 
+    
+  
   )
 }
 
