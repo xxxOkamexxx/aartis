@@ -1,6 +1,16 @@
 @import 'bootstrap/scss/bootstrap';
 @import 'Navbar';
 @import 'StartPage';
-@import 'Card';
+@import 'Form';
 @import 'UploadImage';
 
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Bebas Neue', cursive;
+}
+
+p, .btnFont, .formFont, a {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

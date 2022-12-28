@@ -26,10 +26,10 @@ const LoginPage = () => {
 
   return (
     <div className='page-bg'>
-      <div className='cardWrapper'>
+      <div className='formWrapper'>
           <Form title='Log in'>
-              
-              <Form.Group id='email' className='mb-3'>
+              <h3 className='text-center title'>LOGIN</h3>
+              <Form.Group id='email' className='mb-3 formFont'>
                 <Form.Label>E-mail *</Form.Label>
                 <Form.Control 
                   type='email' 
@@ -37,7 +37,7 @@ const LoginPage = () => {
                   required />
               </Form.Group>
               
-              <Form.Group id='password' className='mb-3'>
+              <Form.Group id='password' className='mb-3 formFont'>
                 <Form.Label>Password *</Form.Label>
                 <Form.Control 
                   type='password' 
@@ -45,10 +45,10 @@ const LoginPage = () => {
                   required />
               </Form.Group>
 
-              <Button className='btnField'>Login</Button>
+              <Button className='btnField btnFont'>LOGIN</Button>
               
                 
-              <h5><a href='/signup'>Join AARTIS?</a></h5>
+              <div className='text-center'>Join AARTIS? <a href='/signup' className='linkText'>CREATE ACCOUNT</a></div>
                 <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
                                 
           </Form>

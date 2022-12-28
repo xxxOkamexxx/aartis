@@ -13,8 +13,8 @@ function App() {
 			<Navigation />
 
 			<Routes>
-				<Route path="/en" element={<StartPage />} />
-				<Route path="/" element={<HomePage />} />
+				<Route path="/" element={<StartPage />} />
+				<Route path="/home" element={<HomePage />} />
 				<Route path="*" element={<NotFound />} />
 				<Route path="/login" element={<LoginPage />} />
 				<Route path="/signup" element={<SignupPage />} />

@@ -19,10 +19,10 @@ const StartPage = () => {
             <img src={Logo} className="circle startLogo" />
             <div className='buttonGroup'>
               <Link to="/login" style={{textDecoration:'none'}}>                
-                <Button className='btn'>Login</Button>
+                <Button className='btn btnFont'>Login</Button>
               </Link>
               <Link to="/signup" style={{textDecoration:'none'}}>
-                <Button className='btn'>Join AArtis</Button>               
+                <Button className='btn btnFont'>Join AArtis</Button>               
               </Link>
             </div>  
 

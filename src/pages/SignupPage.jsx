@@ -13,7 +13,7 @@ import {
   Form, 
   Button, 
   Card, 
-  Image 
+  Image,
 } from 'react-bootstrap'
 
 
@@ -25,7 +25,7 @@ const SignupPage = () => {
 	const passwordConfirmRef = useRef()
   const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const [icon, setIcon] = useState(false)
+	const [avatar, setAvatar] = useState(false)
 
 	const { signup } = useAuthContext()
 	
@@ -33,19 +33,19 @@ const SignupPage = () => {
 
   const handleFileChange = (e) => {
 		if (!e.target.files.length) {
-			setIcon(null)
+			setAvatar(null)
 			return
 		}
 
-		setPhoto(e.target.files[0])
+		setAvatar(e.target.files[0])
 		console.log("File changed!", e.target.files[0])
 	}
 
 
-  const onSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+    if (passwordRef.current.value !== passwordConfirmRef.current.value, avatar) {
 			return setError("The passwords does not match")
 		}
     
@@ -55,10 +55,10 @@ const SignupPage = () => {
 
       setLoading(true)
 
-      await signup(userNameRef.current.value, emailRef.current.value, passwordRef.current.value, icon)
+      await signup(userNameRef.current.value, emailRef.current.value, passwordRef.current.value, avatar)
       
       await reloadUser()
-      navigate('/')
+      navigate('/home')
 
     } catch (err) {
       setError(err.message)
@@ -71,17 +71,30 @@ const SignupPage = () => {
 
   return (
     <div className='page-bg'>
-      <div className='cardWrapper'>
-          <Form title='Sign up'>
-              <Form.Group id='userName' className='mb-3'>
+      <div className='formWrapper'>
+          <Form onSubmit={handleSubmit} title='Sign up'>
+              <h3 className='text-center title'>SIGN UP</h3>
+              <Form.Group id='userName' className='mb-3 formFont'>
                 <Form.Label>User Name *</Form.Label>
                 <Form.Control 
                   type='text' 
                   ref={userNameRef} 
                   required />
               </Form.Group>
+
+              <Form.Group id="avatar" className="mb-3 formFont">
+									<Form.Label>Avatar</Form.Label>
+									<Form.Control type="file" onChange={handleFileChange} className="custom-file-input"/>
+									<Form.Text>
+										{
+											avatar
+												? `${avatar.name} (${Math.round(avatar.size/1024)} kB)`
+												: 'No photo selected'
+										}
+									</Form.Text>
+								</Form.Group>
               
-              <Form.Group id='email' className='mb-3'>
+              <Form.Group id='email' className='mb-3 formFont'>
                 <Form.Label>E-mail *</Form.Label>
                 <Form.Control 
                   type='email' 
@@ -89,7 +102,7 @@ const SignupPage = () => {
                   required />
               </Form.Group>
               
-              <Form.Group id='password' className='mb-3'>
+              <Form.Group id='password' className='mb-3 formFont'>
                 <Form.Label>Password *</Form.Label>
                 <Form.Control 
                   type='password' 
@@ -97,7 +110,7 @@ const SignupPage = () => {
                   required />
               </Form.Group>
               
-              <Form.Group id="password-confirm" className="mb-3">
+              <Form.Group id="password-confirm" className="mb-3 formFont">
                 <Form.Label>Password Confirmation *</Form.Label>
                 <Form.Control 
                   type='password' 
@@ -108,14 +121,15 @@ const SignupPage = () => {
                 
                   <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
                   
-                  <Button 
-                    className='btnField'
-                    onClick={onSubmit}
+                  <Button
+                    disabled={loading} 
+                    className='btnField btnFont'
+                    type="submit"
                   >
-                    Sign up
+                    CREATE ACCOUNT
                   </Button>               
                
-              <h5>Already a member? <a href="/login">Log In</a></h5>
+              <div className='text-center'>Already a member? <a href="/login" className='linkText'>Log In</a></div>
 
           </Form>
       </div>
