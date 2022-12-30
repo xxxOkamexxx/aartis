@@ -60,7 +60,9 @@
 
 @media (max-width: 992px){
     .page-bg {
-        height: 100%;
+        margin: auto;
+        background-size: cover;
+        
         .formWrapper {
             margin: auto;
             padding: 1em 3em 1em 3em;  

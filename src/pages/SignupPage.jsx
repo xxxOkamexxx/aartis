@@ -71,7 +71,7 @@ const SignupPage = () => {
   return (
     <div className='page-bg'>
       <div className='formWrapper'>
-          <Form onSubmit={handleSubmit} title='Sign up'>
+          <Form onSubmit={handleSubmit} title='Signup'>
               <h3 className='text-center title'>SIGN UP</h3>
 
               {error && (<Alert variant="danger">{error}</Alert>)}

@@ -1,16 +1,33 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { useDropzone } from 'react-dropzone';
+import { TagsInput } from "react-tag-input-component";
+
+// firebase
+import { useAuthContext } from '../context/AuthContext'
+import { doc, onSnapshot } from "firebase/firestore"
+import { db } from "../firebase/config"
+
 import classNames from 'classnames'
 
 // bootstrap
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 
 
-// Temporary option list
-const tagList = ['test', 'Landscape', 'Fashion illust', 'Fantasy']
 
 const UploadImages = () => {
+    
+    const titleRef = useRef('')
+    const captionRef = useRef('')
+    const [tags, setTags] = useState([])
+    const [category, setCategory] = useState(null)
     const [uploadImage, setUploadImage] = useState([])
+    
+    const { currentUser, userName, userEmail, userPhotoUrl} = useAuthContext()
+
+
+    //console.log('tags', tags)
+    console.log('category', category)
+
 
     const {
 		acceptedFiles,
@@ -36,84 +53,99 @@ const UploadImages = () => {
 		'drag-reject': isDragReject,
 	})
 
+    const handleSubmit = () => {
+        console.log('changed!')
+    }
+
+    //console.log('user', currentUser?.displayName) // 'aaa' ok
+
   return (
     
     <div className='uploadWrapper'>
-        <div {...getRootProps()} id="upload-image-dropzone-wrapper" className={cssClasses}>
-            <input {...getInputProps()} />
-                {
-                    isDragActive ?
-                    <p>Drop the files here ...</p> :
-                    <p>Drag 'n' drop some files here, or click to select files</p>
-                }
 
-                {acceptedFiles.length > 0 && (
-                    <div className="accepted-files mt-2">
-                        <ul className="list-unstyled">
-                            {acceptedFiles.map(file => (
-                                <li key={file.name}>{file.name} ({Math.round(file.size / 1024)} kB)</li>
-                            ))}
-                        </ul>
+        <Form Form onSubmit={handleSubmit} title='upload' >
+            <div {...getRootProps()} id="upload-image-dropzone-wrapper" className={cssClasses}>
+                <input {...getInputProps()} />
+                    {
+                        isDragActive ?
+                        <p>Drop the files here ...</p> :
+                        <p>Drag 'n' drop some files here, or click to select files</p>
+                    }
+
+                    {acceptedFiles.length > 0 && (
+                        <div className="accepted-files mt-2">
+                            
+                            <ul className="list-unstyled">
+                                {acceptedFiles.map(file => (
+                                    <>
+                                        <Image thumbnail src={file.name} />
+                                        <li key={file.name}>{file.name} ({Math.round(file.size / 1024)} kB)</li>
+                                    </>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
+            </div>
+            
+                       
+            <div className='formWrapper'>
+                <Form.Group id='title' className='mb-3 formFont'>
+                    <Form.Label>Title *</Form.Label>
+                    <Form.Control 
+                        type='text' 
+                        ref={titleRef} 
+                        required 
+                    />
+                </Form.Group>
+
+                <Form.Group id='caption' className='mb-3 formFont'>
+                    <Form.Label>Caption</Form.Label>
+                    <Form.Control 
+                        type='text' 
+                        as="textarea" 
+                        rows={3}
+                        ref={captionRef} 
+                    />
+                </Form.Group>
+
+                <Form.Group id='tags' className='mb-3 formFont'>
+                    <Form.Label>Tags</Form.Label>
+                    <TagsInput
+                        value={tags}
+                        onChange={setTags}
+                        name="tags"
+                        placeHolder="enter tags"
+                    />
+                </Form.Group>
+
+                <Form.Group id='category' className='mb-3 formFont formRadio'>
+                    <Form.Label>Category</Form.Label>
+                    <div>
+                        <Form.Check
+                            inline
+                            label="Illustration"
+                            name="category"
+                            type='radio'
+                            id='radio-il'
+                            value='illustration'
+                            onChange={() => setCategory('illustration')}
+                        />
+                        <Form.Check
+                            inline
+                            label="Photography"
+                            name="category"
+                            type='radio'
+                            id='radio-ph'
+                            value='photography'
+                            onChange={() => setCategory('photography')}
+                        />
                     </div>
-                )}
-        </div>
-
-        {/* <div className='formWrapper'>
-            <TextField fullWidth label="title" id="title" className='textField' sx={fieldsStyle} />
-            
-            <TextField fullWidth label="description" id="description" multiline rows={4} className='textField bgColor' sx={fieldsStyle} />
-            
-            <Autocomplete
-                multiple
-                id="tags-filled"
-                options={tagList.map((option) => option)}
-                getOptionLabel={(option) => {
-                    // Value selected with enter, right from the input
-                    if (typeof option === 'string') {
-                    return option;
-                    }
-                    // Add "xxx" option created dynamically
-                    if (option.inputValue) {
-                    return option.inputValue;
-                    }
-                    // Regular option
-                    return option;
-                }}
-                renderOption={(props, option) => <li {...props}>{option}</li>}
-                // defaultValue={[tagList[13].title]}
-                freeSolo
-                renderTags={(value, getTagProps) =>
-                value.map((option, index) => (
-                    <Chip variant="outlined" label={option} {...getTagProps({ index })} />
-                ))
-                }
-                renderInput={(params) => (
-                <TextField
-                    {...params}
-                    fullWidth
-                    variant="outlined"
-                    label="Tags"
-                    className='textField bgColor'
-                    sx={fieldsStyle}
-                />
+                </Form.Group>
+                        
                 
-                )}
-            />
-            <FormControl className='radioWrapper'>
-                <FormLabel id="demo-radio-buttons-group-label" className='label'>Category</FormLabel>
-                <RadioGroup
-                    row
-                    aria-labelledby="demo-radio-buttons-group-label"
-                    defaultValue="illustration"
-                    name="radio-buttons-group"
-                >
-                    <FormControlLabel value="illustration" control={<Radio />} label="Illustration" />
-                    <FormControlLabel value="photography" control={<Radio />} label="Photography" />
-                </RadioGroup>
-            </FormControl>
-            
-            <Button className='btnSave'>SAVE</Button>
-        </div> */}
+                <Button type='submit' className='btnSave'>SAVE</Button>
+            </div>
+        </Form>
         
     </div> 
         
