@@ -53,40 +53,7 @@ const FileUpload = (props) => {
 	})
 
     props.setImages(uploadFile.isUrl)
-    //console.log(uploadFile.isUrl)
-    //console.log(props.images)
-    
-
-    // const handleFileChange = (e) => {
-    //     // generate random 16 digits string
-    //     const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-    //     const N = 16;
-    //     const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map((n) => S[n%S.length]).join('')
-
-    //     const file = e.target.files[0]
-    //     const imageRef = ref(storage, 'works_image/'+ fileName) 
-    //     // uploadBytes(imageRef, file).then((snapshot) => {
-    //     //     console.log('file uploaded!')
-    //     // })
-    //     const uploadImage = uploadBytesResumable(imageRef, file)
-
-    //     uploadImage.on("state_changed", (snapshot) => {
-    //             setLoading(true)
-                
-    //         },
-    //         (err) => {
-    //             console.log(err)
-    //         },
-    //         () => {
-    //             const url = getDownloadURL(imageRef)
-    //             props.setImages(url)
-    //             console.log(props.images)
-    //             setLoading(false)
-    //             setIsUploaded(true)
-    //             props.setImages()
-    //         }
-    //     )   
-    // }
+   
     
   return (
     <>
@@ -94,7 +61,7 @@ const FileUpload = (props) => {
                 {  !uploadFile.isUrl && 
                     <>
                         <div {...getRootProps()} id="dropzone-wrapper">
-                                    <input {...getInputProps()} className="imageUploadInput" />
+                                    <input {...getInputProps()} className="imageUploadInput" required/>
 
                                     <div className="indicator" >
                                                                             

@@ -56,8 +56,8 @@ const UploadWork = () => {
             url: images
         })  
         // setIsUploaded(true)
-        // console.log('changed!')   
-        // navigate('/home')
+        console.log('changed!')   
+        navigate('/home')
                  
     }
     //console.log('url', images)
