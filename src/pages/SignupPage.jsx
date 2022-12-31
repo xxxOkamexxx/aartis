@@ -23,9 +23,9 @@ const SignupPage = () => {
   const emailRef = useRef()
 	const passwordRef = useRef()
 	const passwordConfirmRef = useRef()
+	const [photo, setPhoto] = useState()
   const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
-	const [photo, setPhoto] = useState()
 
 	const { signup, reloadUser } = useAuthContext()
 	

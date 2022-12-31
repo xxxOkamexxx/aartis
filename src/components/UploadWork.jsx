@@ -1,92 +1,79 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone';
 import { TagsInput } from "react-tag-input-component";
+import { Link, useNavigate } from 'react-router-dom';
+
 
 // firebase
 import { useAuthContext } from '../context/AuthContext'
-import { doc, onSnapshot } from "firebase/firestore"
-import { db } from "../firebase/config"
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase/config';
 
-import classNames from 'classnames'
+// components
+import FileUpload from './FileUpload'
 
 // bootstrap
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 
+// hooks
+import useUploadImage from '../hooks/useUploadImage';
 
 
-const UploadImages = () => {
+
+
+const UploadWork = () => {
+    const uploadFile = useUploadImage()
     
     const titleRef = useRef('')
     const captionRef = useRef('')
     const [tags, setTags] = useState([])
     const [category, setCategory] = useState(null)
-    const [uploadImage, setUploadImage] = useState([])
-    
-    const { currentUser, userName, userEmail, userPhotoUrl} = useAuthContext()
+    const [images, setImages] = useState([])
+    const [error, setError] = useState(null)
+	const [loading, setLoading] = useState(false)
+	const [isUploaded, setIsUploaded] = useState(false)
+
+    const { currentUser } = useAuthContext()
+    const navigate = useNavigate()
 
 
     //console.log('tags', tags)
-    console.log('category', category)
+    //console.log('category', category)
+    //console.log('title', titleRef.current.value)
 
+    
 
-    const {
-		acceptedFiles,
-		getRootProps,
-		getInputProps,
-		isDragActive,
-		isDragAccept,
-		isDragReject,
-	} = useDropzone({
-        accept: {
-			'image/gif': ['.gif'],
-			'image/jpeg': ['.jpg', '.jpeg'],
-			'image/png': ['.png'],
-			'image/webp': ['.webp'],
-		},
-		maxFiles: 1,
-		maxSize: 2 * 1024 * 1024, // 2 MB
-		multiple: false,
-		//onDrop,
-	})
-    const cssClasses = classNames({
-		'drag-accept': isDragAccept,
-		'drag-reject': isDragReject,
-	})
-
-    const handleSubmit = () => {
-        console.log('changed!')
+    const handleSubmit = async(e) => {  
+        e.preventDefault()       
+              
+        await addDoc(collection(db, 'work'), {
+            title: titleRef.current.value,
+            caption: captionRef.current.value,
+            tags: tags,
+            category: category,
+            author_id: currentUser.uid,
+            author_name: currentUser.displayName,
+            url: images
+        })  
+        // setIsUploaded(true)
+        // console.log('changed!')   
+        // navigate('/home')
+                 
     }
-
+    //console.log('url', images)
     //console.log('user', currentUser?.displayName) // 'aaa' ok
 
   return (
     
     <div className='uploadWrapper'>
 
-        <Form Form onSubmit={handleSubmit} title='upload' >
-            <div {...getRootProps()} id="upload-image-dropzone-wrapper" className={cssClasses}>
-                <input {...getInputProps()} />
-                    {
-                        isDragActive ?
-                        <p>Drop the files here ...</p> :
-                        <p>Drag 'n' drop some files here, or click to select files</p>
-                    }
-
-                    {acceptedFiles.length > 0 && (
-                        <div className="accepted-files mt-2">
-                            
-                            <ul className="list-unstyled">
-                                {acceptedFiles.map(file => (
-                                    <>
-                                        <Image thumbnail src={file.name} />
-                                        <li key={file.name}>{file.name} ({Math.round(file.size / 1024)} kB)</li>
-                                    </>
-                                ))}
-                            </ul>
-                        </div>
-                    )}
-            </div>
+        <Form onSubmit={handleSubmit} title='upload' >
+           
+            < FileUpload images={images} setImages={setImages}/>
             
+            {/* form */}
+            {error && (<Alert variant="danger">{error}</Alert>)}
+            <div></div>
                        
             <div className='formWrapper'>
                 <Form.Group id='title' className='mb-3 formFont'>
@@ -154,4 +141,4 @@ const UploadImages = () => {
   )
 }
 
-export default UploadImages
+export default UploadWork

@@ -1,7 +1,7 @@
 import React from 'react'
 
 // components
-import UploadImages from '../components/UploadImages'
+import UploadWork from '../components/UploadWork'
 
 
 
@@ -9,7 +9,7 @@ import UploadImages from '../components/UploadImages'
 const UploadPage = () => {
   return (
     <>
-        <UploadImages />
+        <UploadWork />
     </>
   )
 }

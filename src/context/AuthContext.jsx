@@ -53,7 +53,7 @@ const AuthContextProvider = ({ children }) => {
 		await reloadUser()
 
 		// create user document
-		const docRef = doc(db, 'users', auth.currentUser.uid)
+		const docRef = doc(db, 'user', auth.currentUser.uid)
 		await setDoc(docRef, {
 			name,
 			email,
@@ -78,7 +78,7 @@ const AuthContextProvider = ({ children }) => {
 		await reloadUser()
 		console.log('auth.currentUser', auth.currentUser)
 	
-		await updateDoc(doc(db, 'users', auth.currentUser.uid), {
+		await updateDoc(doc(db, 'user', auth.currentUser.uid), {
 			email,
 			name:auth.currentUser.displayName,
 			photoURL:auth.currentUser.photoURL,			
@@ -101,7 +101,7 @@ const AuthContextProvider = ({ children }) => {
 
 		if (photo) {
 			// create a reference to upload the file to
-			const fileRef = ref(storage, `user_photos'/${auth.currentUser.email}/${photo.name}`)
+			const fileRef = ref(storage, `user_photos/${auth.currentUser.email}/${photo.name}`)
 			
 			// upload photo to fileRef
 			const uploadResult = await uploadBytes(fileRef, photo)
