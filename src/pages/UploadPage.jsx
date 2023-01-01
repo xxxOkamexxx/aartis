@@ -1,7 +1,7 @@
 import React from 'react'
 
 // components
-import UploadWork from '../components/UploadWork'
+import UploadWork from '../components/CreateWorkComponents/UploadWork'
 
 
 

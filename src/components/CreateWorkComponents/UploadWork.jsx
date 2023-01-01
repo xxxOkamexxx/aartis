@@ -1,22 +1,22 @@
 import { useRef, useState, useEffect, useCallback } from 'react'
 import { useDropzone } from 'react-dropzone';
-import { TagsInput } from "react-tag-input-component";
 import { Link, useNavigate } from 'react-router-dom';
 
 
 // firebase
-import { useAuthContext } from '../context/AuthContext'
+import { useAuthContext } from '../../context/AuthContext'
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase/config';
+import { db } from '../../firebase/config';
 
 // components
 import FileUpload from './FileUpload'
+import { TagsInput } from "react-tag-input-component";
 
 // bootstrap
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 
 // hooks
-import useUploadImage from '../hooks/useUploadImage';
+import useUploadImage from '../../hooks/useUploadImage';
 
 
 

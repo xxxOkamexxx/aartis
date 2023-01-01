@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import classNames from 'classnames'
 
 import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from 'firebase/storage'
-import { storage } from '../firebase/config';
+import { storage } from '../../firebase/config';
 
 // bootstrap
 import ProgressBar from 'react-bootstrap/ProgressBar'
@@ -15,7 +15,7 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material'
 
-import useUploadImage from '../hooks/useUploadImage';
+import useUploadImage from '../../hooks/useUploadImage';
 import { useEffect } from 'react';
 
 

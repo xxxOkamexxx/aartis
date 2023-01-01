@@ -5,9 +5,9 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 import NavItems from "./NavItems"
 
 // firebase
-import { useAuthContext } from '../context/AuthContext'
+import { useAuthContext } from '../../context/AuthContext'
 import { doc, onSnapshot } from "firebase/firestore"
-import { db } from "../firebase/config"
+import { db } from "../../firebase/config"
 
 // bootstrap
 import Container  from "react-bootstrap/Container"
@@ -19,7 +19,7 @@ import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button"
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
-import Logo from '../assets/logo/logo-initial-white.svg'
+import Logo from '../../assets/logo/logo-initial-white.svg'
 
 
 const Navigation = () => {
