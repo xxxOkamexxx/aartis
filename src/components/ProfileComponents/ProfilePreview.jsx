@@ -1,9 +1,12 @@
-import React from 'react'
-import ProfileBox from '../ProfileBox'
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
+
+import ProfileBox from '../ProfileBox'
+import useUser from '../../hooks/useUser'
+
 import { useAuthContext } from '../../context/AuthContext'
 import { Button, Image } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
+
 import BGImage from '../../assets/bg-img/banner.svg'
 
 const ProfilePreview = () => {
@@ -14,10 +17,12 @@ const ProfilePreview = () => {
         setPassword, 
         userPhotoUrl,
         userDescription,
-      } = useAuthContext()
+    } = useAuthContext()
+    const id = currentUser.uid
+    
+    const { data, loading } = useUser(id)
 
-
-      console.log(userPhotoUrl)
+      console.log(data.description)
   return (
     <ProfileBox>
         <div>
@@ -36,7 +41,7 @@ const ProfilePreview = () => {
             <h2>{currentUser.displayName}</h2>
         </div>
         <div>
-            <p>{userDescription}</p>
+            <p>{data.description}</p>
         </div>
         <Link to="/profile-edit" style={{textDecoration:'none'}}>
             <Button className='btnFont btn-submit'>EDIT</Button>

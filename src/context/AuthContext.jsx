@@ -26,7 +26,6 @@ const AuthContextProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState(null)
 	const [userName, setUserName] = useState(null)
 	const [userEmail, setUserEmail] = useState(null)
-	const [userDescription, setUserDescription] = useState(null)
 	const [userPhotoUrl, setUserPhotoUrl] = useState(null)
 	const [loading, setLoading] = useState(true)
 
@@ -60,6 +59,7 @@ const AuthContextProvider = ({ children }) => {
 			email,
 			photoURL: auth.currentUser.photoURL,
 			admin: false,
+			description,
 		})
 	}
 
@@ -71,9 +71,8 @@ const AuthContextProvider = ({ children }) => {
 		return signOut(auth)
 	}
 
-	const update = async({name, email, photo, description}) => {
+	const update = async({name, email, photo}) => {
 		await setUserDisplay(name, photo)
-		await setUserDescription(description)
 
 		await setEmail(email)
 		
@@ -83,8 +82,7 @@ const AuthContextProvider = ({ children }) => {
 		await updateDoc(doc(db, 'user', auth.currentUser.uid), {
 			email,
 			name:auth.currentUser.displayName,
-			photoURL:auth.currentUser.photoURL,
-			description:auth.currentUser.description			
+			photoURL:auth.currentUser.photoURL		
 		})
 	}
 	
@@ -95,7 +93,6 @@ const AuthContextProvider = ({ children }) => {
 		setUserName(auth.currentUser.displayName)
 		setUserEmail(auth.currentUser.email)
 		setUserPhotoUrl(auth.currentUser.photoURL)
-		setUserDescription(auth.currentUser.description)
 		return true
 	}
 
@@ -123,7 +120,6 @@ const AuthContextProvider = ({ children }) => {
 		return updateProfile(auth.currentUser, {
 			displayName: name,
 			photoURL,
-			userDescription,
 		})
 	}
 
@@ -135,7 +131,6 @@ const AuthContextProvider = ({ children }) => {
 			setUserName(user?.displayName)
 			setUserEmail(user?.email)
 			setUserPhotoUrl(user?.photoURL)
-			setUserDescription(user?.description)
 			setLoading(false)
 		})
 
@@ -156,7 +151,6 @@ const AuthContextProvider = ({ children }) => {
 		userName,
 		userEmail,
 		userPhotoUrl,
-		userDescription,
 	}
 	
 
