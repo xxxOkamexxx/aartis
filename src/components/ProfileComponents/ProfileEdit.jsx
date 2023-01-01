@@ -1,6 +1,8 @@
 import { createRef, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuthContext } from '../../context/AuthContext'
+import { doc, updateDoc } from "firebase/firestore";
+import { db, storage } from '../../firebase/config'
 // bootstrap
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 
@@ -14,8 +16,7 @@ const ProfileEdit = () => {
   const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
-  const { 
-    update, 
+  const {  
     currentUser, 
     reloadUser, 
     setUserDisplay, 
@@ -23,6 +24,8 @@ const ProfileEdit = () => {
     setPassword, 
   } = useAuthContext()
   const navigate = useNavigate()
+
+  
 
   const handleFileChange = (e) => {
     if (!e.target.files.length) {
@@ -57,21 +60,24 @@ const ProfileEdit = () => {
 			}
 
 			// update email
-			// if (emailRef.current.value !== currentUser.email) {
-			// 	await setEmail(emailRef.current.value)
-			// }
+			if (emailRef.current.value !== currentUser.email) {
+				await setEmail(emailRef.current.value)
+			}
 
-			//update password
+			// update password
 			if (passwordRef.current.value) {
 				await setPassword(passwordRef.current.value)
 			}
 			
-			update({
-				name:userNameRef.current.value, 
-				email:emailRef.current.value, 
-				photo,
+      const updateRef = doc(db, "user", currentUser.uid);
+
+      await updateDoc(updateRef, {
+        name:userNameRef.current.value, 
+        email:emailRef.current.value, 
+        //photo,
         description:descriptionRef.current.value
-			})
+      });
+			
 			await reloadUser()
 
 			setMessage("Profile successfully updated")
@@ -126,6 +132,11 @@ const ProfileEdit = () => {
               defaultValue={currentUser.description}
             />
           </Form.Group> 
+
+          <Form.Group id="email" className="mb-3">
+            <Form.Label>New Password</Form.Label>
+            <Form.Control type="email" ref={emailRef} />
+          </Form.Group>
 
           <Form.Group id="password" className="mb-3">
             <Form.Label>New Password</Form.Label>

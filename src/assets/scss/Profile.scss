@@ -2,11 +2,26 @@
     margin: auto;
     background-color: #343530;
     width: 80vw;
-    padding: 3em;
+    //padding: 3em;
     color: #fcfcfc;
 
-   
+    .profile-header {
+        width: 100%;
+        position: relative;
 
+        .user-display{
+            position: absolute;
+            bottom: -80px;
+            padding: 0 10%;
+        }
+    }
+
+    .profile-contents {
+        margin: auto;
+        width: 80%;
+        margin-top: 6em;
+    }
+   
     .btn-submit {
         background-color: #AD9510;
         border-color: #AD9510;

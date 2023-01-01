@@ -59,7 +59,7 @@ const AuthContextProvider = ({ children }) => {
 			email,
 			photoURL: auth.currentUser.photoURL,
 			admin: false,
-			description,
+			description:'',
 		})
 	}
 

@@ -25,27 +25,29 @@ const ProfilePreview = () => {
       console.log(data.description)
   return (
     <ProfileBox>
-        <div>
+        <div className='profile-header'>
             <img src={BGImage} alt="" style={{maxWidth:'100%'}}/>
-        </div>           
-            <Image
-                className="photo-placeholder me-5"
-                src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
-                height={70}
-                width={70}
-                fluid
-                roundedCircle
-            />
+            <div className='user-display'>
+                <Image
+                    className="photo-placeholder "
+                    src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
+                    height={70}
+                    width={70}
+                    fluid
+                    roundedCircle
+                />
 
-        <div>
-            <h2>{currentUser.displayName}</h2>
-        </div>
-        <div>
+                <div>
+                    <h2>{currentUser.displayName}</h2>
+                </div>
+            </div>
+        </div>           
+        <div className='profile-contents'>
             <p>{data.description}</p>
+            <Link to="/profile-edit" style={{textDecoration:'none'}}>
+                <Button className='btnFont btn-submit'>EDIT</Button>
+            </Link>
         </div>
-        <Link to="/profile-edit" style={{textDecoration:'none'}}>
-            <Button className='btnFont btn-submit'>EDIT</Button>
-        </Link>
     </ProfileBox>
   )
 }
