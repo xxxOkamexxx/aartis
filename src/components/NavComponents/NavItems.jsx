@@ -1,6 +1,8 @@
 import React from 'react'
 import { NavLink } from 'react-router-dom';
 
+import { useAuthContext } from '../../context/AuthContext'
+
 // mui
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
@@ -8,7 +10,11 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 
+import NavDropdown from 'react-bootstrap/NavDropdown'
+import Image from 'react-bootstrap/Image'
+
 const NavItems = () => {
+  const { currentUser, userName, userEmail, userPhotoUrl} = useAuthContext()
   const theme = createTheme({
     palette: {
       primary: {
@@ -22,7 +28,7 @@ const NavItems = () => {
   });
 
   return (
-    <div>
+    <div className='d-flex align-items-center justify-content-end'>
       
       <ThemeProvider theme={theme}>
 
@@ -35,6 +41,26 @@ const NavItems = () => {
         </Badge>
 
       </ThemeProvider>
+      <NavDropdown
+          title={ 
+                  <Image
+                      className="photo-placeholder me-5"
+                      src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
+                      height={30}
+                      width={30}
+                      fluid
+                      roundedCircle
+                  />
+                }
+          id='offcanvasNavbarDropdown'
+        >
+          <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+          <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="/logout">
+            Logout
+          </NavDropdown.Item>
+      </NavDropdown>
     </div>
   )
 }

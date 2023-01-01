@@ -1,0 +1,31 @@
+.profile-box {
+    margin: auto;
+    background-color: #343530;
+    width: 80vw;
+
+    h2{
+        color: #fcfcfc;
+    }
+
+    .btn-submit {
+        background-color: #AD9510;
+        border-color: #AD9510;
+        color: #fcfcfc;
+        margin-top: 2em;
+        margin-bottom: 2em;
+    }
+
+    .btn-submit:hover {
+        background-color: #9D9876;
+        border-color: #9D9876;
+        color: #fcfcfc;
+    }
+
+}
+
+@media (max-width: 992px){
+    .profile-box {      
+        width: 100vw;
+
+    }
+}

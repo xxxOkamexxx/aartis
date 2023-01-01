@@ -112,11 +112,11 @@ const Navigation = () => {
                   
                 </Navbar.Offcanvas>
 
-                <NavDropdown
+                {/* <NavDropdown
                   title={ userPhotoUrl
                           ? <Image
                               className="photo-placeholder"
-                              src={userPhotoUrl}
+                              src={userPhotoUrl || 'https://via.placeholder.com/225'}
                               height={30}
                               width={30}
                               fluid
@@ -125,13 +125,13 @@ const Navigation = () => {
                           : userName || userEmail}
                   id='offcanvasNavbarDropdown'
                 >
-                  <NavDropdown.Item href="#">Profile</NavDropdown.Item>
+                  <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
                   <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="/logout">
                     Logout
                   </NavDropdown.Item>
-                </NavDropdown>
+                </NavDropdown> */}
               </>
             )
             :(

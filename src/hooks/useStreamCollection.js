@@ -4,7 +4,7 @@ import {
 	onSnapshot,
 	query
 } from 'firebase/firestore'
-import { db } from '../firebase'
+import { db } from '../firebase/config'
 
 const useStreamCollection = (col, ...queryConstraints) => {
 	const [data, setData] = useState([])
