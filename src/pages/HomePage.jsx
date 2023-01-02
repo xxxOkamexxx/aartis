@@ -1,8 +1,11 @@
 import React from 'react'
+import WoksList from '../components/HomeComponents/WoksList'
 
 const HomePage = () => {
   return (
-    <div>HomePage</div>
+    <div>
+      <WoksList />
+    </div>
   )
 }
 
