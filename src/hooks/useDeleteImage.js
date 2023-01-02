@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { ref, deleteObject } from 'firebase/storage'
 import { db, storage } from '../firebase/config'
 
+
 const useDeleteImage = () => {
 	const [error, setError] = useState(null)
 	const [isError, setIsError] = useState(false)
@@ -16,17 +17,19 @@ const useDeleteImage = () => {
 		setIsMutating(true)
 		setIsSuccess(false)
 
-		console.log(image.fullpath)
-	
 		// run mutation that will delete image from storage and db
 		try {
+			// verify that the current user actually owns this image before allowing it to be deleted
+			// if (image.user !== currentUser.uid) {
+			// 	throw new Error("This meme are not belong to you")
+			// }
+
 			// get ref to image in storage
 			const storageRef = ref(storage, image.fullpath)
 			
 			// delete image from storage
 			await deleteObject(storageRef)
 			
-
 
 			// // get ref to image in db
 			// const dbRef = doc(db, 'work', image.id)

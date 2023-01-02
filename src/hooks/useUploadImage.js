@@ -11,7 +11,12 @@ const useUploadImage = () => {
 	const [isSuccess, setIsSuccess] = useState(null)
 	const [isUploading, setIsUploading] = useState(null)
 	const [progress, setProgress] = useState(null)
-    const [isUrl, setisUrl] = useState(null)
+  const [isUrl, setisUrl] = useState(null)
+	const [isFullpath, setFullpath] = useState(null)
+	const [isName, setIsName] = useState(null)
+	const [isTime, setIsTime] = useState(null)
+	const [isSize, setIsSize] = useState(null)
+	const [isType, setIsType] = useState(null)
 
 	const { currentUser } = useAuthContext()
 
@@ -24,13 +29,16 @@ const useUploadImage = () => {
 
 		try {
 
-            // generate random 16 digits string
-            const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            const N = 16;
-            const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map((n) => S[n%S.length]).join('')
+			// // generate random 16 digits string
+			// const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+			// const N = 16;
+			// const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map((n) => S[n%S.length]).join('')
+			
+			// generate a uuid for the file
+			const uuid = uuidv4() 
 
 			// construct reference to storage
-			const storageRef = ref(storage, 'works_image/' + fileName)
+			const storageRef = ref(storage, 'works_image/' + uuid)
 
 			// start upload of image
 			const uploadTask = uploadBytesResumable(storageRef, image)
@@ -50,23 +58,28 @@ const useUploadImage = () => {
 
 			// get download url to uploaded image
 			const url = await getDownloadURL(storageRef)
-            setisUrl(url)
+      setisUrl(url)
+			console.log(storageRef)
+			setFullpath(storageRef.fullPath)
+			setIsName(storageRef.name)
+			setIsSize(image.size)
+			setIsTime(serverTimestamp())
+		
 
-			// // create reference to db-collection 'memes'
-			// const collectionRef = collection(db, 'memes')
+			// const collectionRef = collection(db, 'work')
 
 			// // create document in db for the uploaded image
 			// await addDoc(collectionRef, {
 			// 	created: serverTimestamp(),
-			// 	name: image.name,			// lolcat.gif
-			// 	path: storageRef.fullPath,	// memes/1663155420000-lolcat.gif
+			// 	name: image.name,		
+			// 	path: storageRef.fullPath,	
 			// 	type: image.type,
 			// 	size: image.size,
 			// 	user: currentUser.uid,
 			// 	url,
 			// })
 
-			// profit 💰
+
 			setProgress(null)
 			setIsSuccess(true)
 
@@ -89,7 +102,12 @@ const useUploadImage = () => {
 		isUploading,
 		progress,
 		upload,
-        isUrl,
+    isUrl,
+		isFullpath,
+		isName,
+		isSize,
+		isTime,
+		isType,
 	}
 }
 

@@ -11,7 +11,6 @@ import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
 // components
-import FileUpload from './FileUpload'
 import { TagsInput } from "react-tag-input-component";
 import classNames from 'classnames'
 
@@ -25,59 +24,60 @@ import { IconButton } from '@mui/material'
 
 // hooks
 import useUploadImage from '../../hooks/useUploadImage';
+import useDeleteImage from '../../hooks/useDeleteImage'
 
 
 
 
 const UploadWork = () => {
-    const uploadFile = useUploadImage()
-    
-    const titleRef = useRef('')
-    const captionRef = useRef('')
-    const [tags, setTags] = useState([])
-    const [category, setCategory] = useState(null)
-    const [images, setImages] = useState([])
-    const [error, setError] = useState(null)
+  const uploadFile = useUploadImage()
+  const deleteFile = useDeleteImage()
+  
+  const titleRef = useRef('')
+  const captionRef = useRef('')
+  const [tags, setTags] = useState([])
+  const [category, setCategory] = useState(null)
+  const [image, setImage] = useState([])
+  const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [isUploaded, setIsUploaded] = useState(false)
 
-    const { currentUser } = useAuthContext()
-    const navigate = useNavigate()
+  const { currentUser } = useAuthContext()
+  const navigate = useNavigate()
 
 
     //console.log('tags', tags)
     //console.log('category', category)
     //console.log('title', titleRef.current.value)
 
-    const onDrop = useCallback((acceptedFiles) => {
+  
+  const onDrop = useCallback((acceptedFiles) => {
 		if (!acceptedFiles.length) {
 			return
 		}
 
-		console.log("acceptedFiles", acceptedFiles[0])
+		console.log("acceptedFiles", acceptedFiles[0]) // 変換前のパス（オリジナル）
 
 		// trigger upload of the first image
-		uploadFile.upload(acceptedFiles[0])
-      
-
-        // const url = getDownloadURL(uploadFile)
-        
-        
+		uploadFile.upload(acceptedFiles[0]) // ここでプロパティの変換（UUID）
+            
 	}, [])
 
-    const { getRootProps, getInputProps} = useDropzone({
-		accept: {
-			'image/jpeg': [],
-			'image/jpg': [],
-			'image/png': [],
-		},
-		maxFiles: 1,
-		maxSize: 4 * 1024 * 1024, // 4 mb
-		onDrop,
+  const { getRootProps, getInputProps} = useDropzone({
+    accept: {
+      'image/jpeg': [],
+      'image/jpg': [],
+      'image/png': [],
+    },
+    maxFiles: 1,
+    maxSize: 4 * 1024 * 1024, // 4 mb
+    onDrop,
 	})
 
   const handleSubmit = async(e) => {  
-    e.preventDefault()       
+    e.preventDefault() 
+    
+    
           
     await addDoc(collection(db, 'work'), {
         title: titleRef.current.value,
@@ -86,8 +86,14 @@ const UploadWork = () => {
         category: category,
         author_id: currentUser.uid,
         author_name: currentUser.displayName,
-        url: images
-    })  
+        url: uploadFile.isUrl,
+        created: uploadFile.isTime,
+				name: uploadFile.isName,		
+				path: uploadFile.isFullpath,	
+				type: uploadFile.isType,
+				size: uploadFile.isSize,
+    }) 
+    
     // setIsUploaded(true)
     console.log('changed!')   
     navigate('/home')
@@ -141,7 +147,10 @@ const UploadWork = () => {
               {uploadFile.isSuccess && (
                 <>
                   <Image alt='preview' src={uploadFile.isUrl} className="img-thumbnail" />
-                  <IconButton sx={{backgroundColor:'#AD9510', marginTop: 2,}}>
+                  <IconButton 
+                    sx={{backgroundColor:'#AD9510', marginTop: 2,}}
+                    //onChange={deleteFile.mutate()}
+                  >
                     <DeleteIcon sx={{color:'#fcfcfc'}}/>
                   </IconButton>
                 </>

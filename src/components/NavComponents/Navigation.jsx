@@ -90,7 +90,7 @@ const Navigation = () => {
                   
                   <Offcanvas.Body>
                     <Nav className="d-flex align-items-center justify-content-end flex-grow-1 pe-3">
-                      <Nav.Link href="#action1">Home</Nav.Link>
+
                       <Nav.Link href="/upload">
                         <Button>CREATE</Button>
                       </Nav.Link>
@@ -112,34 +112,14 @@ const Navigation = () => {
                   
                 </Navbar.Offcanvas>
 
-                {/* <NavDropdown
-                  title={ userPhotoUrl
-                          ? <Image
-                              className="photo-placeholder"
-                              src={userPhotoUrl || 'https://via.placeholder.com/225'}
-                              height={30}
-                              width={30}
-                              fluid
-                              roundedCircle
-                              />
-                          : userName || userEmail}
-                  id='offcanvasNavbarDropdown'
-                >
-                  <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
-                  <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="/logout">
-                    Logout
-                  </NavDropdown.Item>
-                </NavDropdown> */}
               </>
             )
             :(
-              <>
+              <div className="d-flex">
                 {/* No user is logged in */}
-                <Nav.Link as={NavLink} to="/login">Login</Nav.Link>
-                <Nav.Link as={NavLink} to="/signup">Signup</Nav.Link>                
-              </>
+                <Nav.Link as={NavLink} to="/login" style={{color:'#fcfcfc',}} className='ms-3'>Login</Nav.Link>
+                <Nav.Link as={NavLink} to="/signup" style={{color:'#fcfcfc'}} className='ms-3'>Signup</Nav.Link>                
+              </div>
             )
           }
           </Container>
