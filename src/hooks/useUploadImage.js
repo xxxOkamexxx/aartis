@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { collection, addDoc, serverTimestamp, doc, setDoc } from 'firebase/firestore'
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import { useAuthContext } from '../context/AuthContext'
@@ -12,11 +12,8 @@ const useUploadImage = () => {
 	const [isUploading, setIsUploading] = useState(null)
 	const [progress, setProgress] = useState(null)
   const [isUrl, setisUrl] = useState(null)
-	const [isFullpath, setFullpath] = useState(null)
-	const [isName, setIsName] = useState(null)
-	const [isTime, setIsTime] = useState(null)
-	const [isSize, setIsSize] = useState(null)
-	const [isType, setIsType] = useState(null)
+	const [isUuid, setIsUuid] = useState(null)
+	
 
 	const { currentUser } = useAuthContext()
 
@@ -60,24 +57,22 @@ const useUploadImage = () => {
 			const url = await getDownloadURL(storageRef)
       setisUrl(url)
 			console.log(storageRef)
-			setFullpath(storageRef.fullPath)
-			setIsName(storageRef.name)
-			setIsSize(image.size)
-			setIsTime(serverTimestamp())
+			setIsUuid(uuid)
 		
+			console.log(uuid)
+			const collectionRef = doc(db, 'work',`${uuid}`)
 
-			// const collectionRef = collection(db, 'work')
-
-			// // create document in db for the uploaded image
-			// await addDoc(collectionRef, {
-			// 	created: serverTimestamp(),
-			// 	name: image.name,		
-			// 	path: storageRef.fullPath,	
-			// 	type: image.type,
-			// 	size: image.size,
-			// 	user: currentUser.uid,
-			// 	url,
-			// })
+			// create document in db for the uploaded image
+			await setDoc(doc(db, 'work', `${uuid}`),{
+				created: serverTimestamp(),
+				name: image.name,		
+				path: storageRef.fullPath,	
+				type: image.type,
+				size: image.size,
+				user: currentUser.uid,
+				uuid: uuid,
+				url,
+			})
 
 
 			setProgress(null)
@@ -103,11 +98,7 @@ const useUploadImage = () => {
 		progress,
 		upload,
     isUrl,
-		isFullpath,
-		isName,
-		isSize,
-		isTime,
-		isType,
+		isUuid
 	}
 }
 

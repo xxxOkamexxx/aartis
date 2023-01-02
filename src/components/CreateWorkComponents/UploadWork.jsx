@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from 'firebase/storage'
 import { storage } from '../../firebase/config'
 import { useAuthContext } from '../../context/AuthContext'
-import { collection, addDoc } from 'firebase/firestore';
+import { collection, setDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
 
 // components
@@ -77,22 +77,16 @@ const UploadWork = () => {
   const handleSubmit = async(e) => {  
     e.preventDefault() 
     
-    
+    console.log(uploadFile.isUuid)
           
-    await addDoc(collection(db, 'work'), {
+    await setDoc(doc(db, 'work', uploadFile.isUuid), {
         title: titleRef.current.value,
         caption: captionRef.current.value,
         tags: tags,
         category: category,
         author_id: currentUser.uid,
         author_name: currentUser.displayName,
-        url: uploadFile.isUrl,
-        created: uploadFile.isTime,
-				name: uploadFile.isName,		
-				path: uploadFile.isFullpath,	
-				type: uploadFile.isType,
-				size: uploadFile.isSize,
-    }) 
+    }, { merge: true }) 
     
     // setIsUploaded(true)
     console.log('changed!')   
