@@ -4,6 +4,8 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 // firebase
+import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from 'firebase/storage'
+import { storage } from '../../firebase/config'
 import { useAuthContext } from '../../context/AuthContext'
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
@@ -11,9 +13,15 @@ import { db } from '../../firebase/config';
 // components
 import FileUpload from './FileUpload'
 import { TagsInput } from "react-tag-input-component";
+import classNames from 'classnames'
 
 // bootstrap
-import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
+import { Container, Row, Col, Form, Button, Card, Alert, Image, ProgressBar } from 'react-bootstrap'
+
+// icon
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material'
 
 // hooks
 import useUploadImage from '../../hooks/useUploadImage';
@@ -41,27 +49,52 @@ const UploadWork = () => {
     //console.log('category', category)
     //console.log('title', titleRef.current.value)
 
-    
+    const onDrop = useCallback((acceptedFiles) => {
+		if (!acceptedFiles.length) {
+			return
+		}
 
-    const handleSubmit = async(e) => {  
-        e.preventDefault()       
-              
-        await addDoc(collection(db, 'work'), {
-            title: titleRef.current.value,
-            caption: captionRef.current.value,
-            tags: tags,
-            category: category,
-            author_id: currentUser.uid,
-            author_name: currentUser.displayName,
-            url: images
-        })  
-        // setIsUploaded(true)
-        console.log('changed!')   
-        navigate('/home')
-                 
-    }
-    //console.log('url', images)
-    //console.log('user', currentUser?.displayName) // 'aaa' ok
+		console.log("acceptedFiles", acceptedFiles[0])
+
+		// trigger upload of the first image
+		uploadFile.upload(acceptedFiles[0])
+      
+
+        // const url = getDownloadURL(uploadFile)
+        
+        
+	}, [])
+
+    const { getRootProps, getInputProps} = useDropzone({
+		accept: {
+			'image/jpeg': [],
+			'image/jpg': [],
+			'image/png': [],
+		},
+		maxFiles: 1,
+		maxSize: 4 * 1024 * 1024, // 4 mb
+		onDrop,
+	})
+
+  const handleSubmit = async(e) => {  
+    e.preventDefault()       
+          
+    await addDoc(collection(db, 'work'), {
+        title: titleRef.current.value,
+        caption: captionRef.current.value,
+        tags: tags,
+        category: category,
+        author_id: currentUser.uid,
+        author_name: currentUser.displayName,
+        url: images
+    })  
+    // setIsUploaded(true)
+    console.log('changed!')   
+    navigate('/home')
+                
+  }
+  //console.log('url', images)
+  //console.log('user', currentUser?.displayName) // 'aaa' ok
 
   return (
     
@@ -69,7 +102,55 @@ const UploadWork = () => {
 
         <Form onSubmit={handleSubmit} title='upload' >
            
-            < FileUpload images={images} setImages={setImages}/>
+           {/* ---------------dropzone---------------- */}
+           <>
+            <div className="outerBox">
+              {  !uploadFile.isUrl && 
+                <>
+                  <div {...getRootProps()} id="dropzone-wrapper">
+                    <input {...getInputProps()} className="imageUploadInput" required/>
+
+                    <div className="indicator" >
+                                                            
+                      <div className="imageUplodeBox">
+                        <div className="imageLogoAndText">
+                            
+                          <IconButton>
+                            <CloudUploadIcon  sx={{ fontSize: "50px", color:'#fcfcfc'}} />
+                          </IconButton>
+                                                          
+                          <h3>Drag and drop files here!</h3>
+                        </div>
+                      </div>
+                                                            
+                    </div>
+
+                    {/* Upload Progress Bar */}
+                    {uploadFile.progress !== null && (
+                      <ProgressBar
+                      className='progress_bar'
+                      now={uploadFile.progress}
+                      label={`${uploadFile.progress}%`}
+                      />
+                    )}
+
+                  </div>
+                </>  
+              }
+              {uploadFile.isError && <Alert variant='danger'>{uploadFile.error.message}</Alert>}
+              {uploadFile.isSuccess && (
+                <>
+                  <Image alt='preview' src={uploadFile.isUrl} className="img-thumbnail" />
+                  <IconButton sx={{backgroundColor:'#AD9510', marginTop: 2,}}>
+                    <DeleteIcon sx={{color:'#fcfcfc'}}/>
+                  </IconButton>
+                </>
+              )}
+            </div>
+        </>
+
+           {/* ---------------dropzone---------------- */}
+       
             
             {/* form */}
             {error && (<Alert variant="danger">{error}</Alert>)}
