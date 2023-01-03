@@ -2,7 +2,7 @@ import Alert from 'react-bootstrap/Alert'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import BeatLoader from 'react-spinners/BeatLoader'
-import ImageCard from './ImageCard'
+import WorksList from './WoksList'
 
 const ImageGrid = ({ query }) => {
 	if (query.isError) {
