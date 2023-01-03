@@ -1,0 +1,21 @@
+
+.list-container{
+  height: 200px;
+  padding: 10px;
+
+
+  .myworks-thumbnail-box {
+    position: relative;
+    overflow: hidden;
+    width: 150px;
+    height: 150px !important;
+
+
+      .myworks-thumbnail-image {
+        position: absolute;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;        
+      }
+  }
+}

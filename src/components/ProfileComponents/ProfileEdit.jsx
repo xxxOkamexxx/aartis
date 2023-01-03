@@ -1,8 +1,11 @@
 import { createRef, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
+
 import { useAuthContext } from '../../context/AuthContext'
+
 import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../../firebase/config'
+
 // bootstrap
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 
