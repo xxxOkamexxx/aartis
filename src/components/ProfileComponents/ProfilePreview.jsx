@@ -33,7 +33,6 @@ const ProfilePreview = () => {
                     src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
                     height={70}
                     width={70}
-                    fluid
                     roundedCircle
                 />
 

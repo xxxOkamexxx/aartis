@@ -1,11 +1,17 @@
 import React from 'react'
-import WoksList from '../components/HomeComponents/WoksList'
-import ImageGrid from '../components/HomeComponents/ImageGrid'
+
+import useWorks from '../hooks/useWorks'
+import ImageBox from '../components/HomeComponents/ImageBox'
 
 const HomePage = () => {
+  // get works
+  const imageQuery = useWorks()
+
   return (
     <div>
-      <WoksList image={image}/>
+      <p>Här kommer sök fält and result</p>
+
+      <ImageBox query={imageQuery}/>
     </div>
   )
 }

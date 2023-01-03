@@ -48,7 +48,6 @@ const NavItems = () => {
                       src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
                       height={30}
                       width={30}
-                      fluid
                       roundedCircle
                   />
                 }

@@ -105,10 +105,11 @@ const ProfileEdit = () => {
 
                 <Image 
                   src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
-                  cover
+                  
                   width='100px !important'
                   height='100px !important'
                   roundedCircle
+                
                   //style={{objectFit: 'cover !important', overflow:'hidden'}}
                 />
               
