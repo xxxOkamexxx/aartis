@@ -25,17 +25,17 @@ const useDeleteImage = () => {
 			// }
 
 			// get ref to image in storage
-			const storageRef = ref(storage, image.fullpath)
+			const storageRef = ref(storage, image.path)
 			
 			// delete image from storage
 			await deleteObject(storageRef)
 			
 
-			// // get ref to image in db
-			// const dbRef = doc(db, 'work', image.id)
+			// get ref to image in db
+			const dbRef = doc(db, 'work', image.id)
 
-			// // delete image from db
-			// await deleteDoc(dbRef)
+			// delete image from db
+			await deleteDoc(dbRef)
 
 		} catch (err) {
 			setIsError(true)

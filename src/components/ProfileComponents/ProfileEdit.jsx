@@ -102,13 +102,16 @@ const ProfileEdit = () => {
           
           <Form.Group>
             
-              <Image 
-                src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
-                fluid
-                width='100px'
-                height='100px'
-                roundedCircle
-              />
+
+                <Image 
+                  src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
+                  cover
+                  width='100px !important'
+                  height='100px !important'
+                  roundedCircle
+                  //style={{objectFit: 'cover !important', overflow:'hidden'}}
+                />
+              
             <input type="file" onChange={handleFileChange} />  
           </Form.Group>
           
@@ -134,7 +137,7 @@ const ProfileEdit = () => {
           </Form.Group> 
 
           <Form.Group id="email" className="mb-3">
-            <Form.Label>New Password</Form.Label>
+            <Form.Label>E-mail</Form.Label>
             <Form.Control type="email" ref={emailRef} />
           </Form.Group>
 

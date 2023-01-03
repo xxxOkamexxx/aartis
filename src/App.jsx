@@ -26,7 +26,7 @@ function App() {
 				<Route path="/logout" element={<LogoutPage />} />
 				<Route path="/dashboard" element={<Dashboard />} />				
 				<Route path="/profile" element={<ProfilePage />} />
-				<Route path="/profile-edit" element={<EditProfilePage />} />
+				<Route path="/profile-edit" element={<EditProfilePage />} />				
 			</Routes>
 		</div>
 	)

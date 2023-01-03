@@ -79,7 +79,8 @@ const UploadWork = () => {
     
     console.log(uploadFile.isUuid)
           
-    await setDoc(doc(db, 'work', uploadFile.isUuid), {
+    // Merge fields onto work-document
+    await setDoc(doc(db, 'work', uploadFile.isUuid), { 
         title: titleRef.current.value,
         caption: captionRef.current.value,
         tags: tags,
@@ -90,7 +91,7 @@ const UploadWork = () => {
     
     // setIsUploaded(true)
     console.log('changed!')   
-    navigate('/home')
+    navigate('/dashbord')
                 
   }
   //console.log('url', images)
