@@ -51,12 +51,12 @@ const AllWorks = ({ image }) => {
 						<h5>{image.title}</h5>
 						<div>
 							<Image 
-										src='https://via.placeholder.com/225'
+										src={image ?  image.creator_avatar : ''}
 										width='30px !important'
 										height='30px !important'
 										roundedCircle
 									/>
-							<span className='ms-2'>{image.author_name}</span>
+							<span className='ms-2'>{image.creator_name}</span>
 						</div>
 						<span>created: {created}</span>
 

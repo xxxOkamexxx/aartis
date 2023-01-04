@@ -85,8 +85,10 @@ const UploadWork = () => {
         caption: captionRef.current.value,
         tags: tags,
         category: category,
-        author_id: currentUser.uid,
-        author_name: currentUser.displayName,
+        creator_id: currentUser.uid,
+        creator_name: currentUser.displayName,
+        creator_avatar: currentUser.photoURL
+
     }, { merge: true }) 
     
     // setIsUploaded(true)

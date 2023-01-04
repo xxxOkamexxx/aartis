@@ -3,13 +3,11 @@ import { Link, useParams } from 'react-router-dom'
 
 // hooks
 import useWork from '../hooks/useWork'
-import useUser from '../hooks/useUser'
+
 
 // bootstrap
 import { Button, Image } from 'react-bootstrap'
 
-import { doc, getDoc } from "firebase/firestore";
-import { db } from '../firebase/config'
 
 import { useAuthContext } from '../context/AuthContext'
 
@@ -21,15 +19,8 @@ const WorkPage = () => {
   const { id } = useParams()
   const { data, loading } = useWork(id)
 
-  // get creators image
-  const docRef = doc(db, "user", `${data.author_id}`);
-  const docSnap = getDoc(docRef);
-
-  console.log("Document data:", docSnap);
- 
   
-  
-  console.log(data.author_id)
+  console.log(data.creator_id)
 
   return (
     <>
@@ -47,14 +38,14 @@ const WorkPage = () => {
       {/* creator info */}
       <div>  
           <Image
-            src={data ?  data.photoURL : ''}
+            src={data ?  data.creator_avatar : ''}
             height={70}
             width={70}
             roundedCircle
             style={{backgroundColor:'#fcfcfc'}}
           /> 
       
-          <h3>{data.author_name}</h3>
+          <h3>{data.creator_name}</h3>
       
           <div>
             <h2>{data.title}</h2>
