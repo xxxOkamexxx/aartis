@@ -23,7 +23,9 @@ const ImageBox = ({ query }) => {
 			<Row xs={1} sm={2} md={3} lg={4}>
 				{query.data && query.data.map(image => (
 					<Col key={image.id} className="d-flex mb-4">
-						<AllWorks image={image} />
+				
+							<AllWorks image={image} />
+
 					</Col>
 				))}
 			</Row>

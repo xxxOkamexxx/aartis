@@ -10,6 +10,7 @@ import UploadPage from './pages/UploadPage'
 import Dashboard from './pages/Dashboard'
 import ProfilePage from './pages/ProfilePage'
 import EditProfilePage from './pages/EditProfilePage'
+import WorkPage from './pages/WorkPage'
 import './assets/scss/App.scss'
 function App() {
 	return (
@@ -25,8 +26,9 @@ function App() {
 				<Route path="/upload" element={<UploadPage />} />
 				<Route path="/logout" element={<LogoutPage />} />
 				<Route path="/dashboard" element={<Dashboard />} />				
-				<Route path="/profile" element={<ProfilePage />} />
+				<Route path="/profile/:id" element={<ProfilePage />} />
 				<Route path="/profile-edit" element={<EditProfilePage />} />				
+				<Route path="/work/:id" element={<WorkPage />} />				
 			</Routes>
 		</div>
 	)

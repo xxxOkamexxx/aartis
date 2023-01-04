@@ -26,7 +26,7 @@ const NavItems = () => {
       },
     },
   });
-
+  
   return (
     <div className='d-flex align-items-center justify-content-end'>
       
@@ -49,11 +49,12 @@ const NavItems = () => {
                       height={30}
                       width={30}
                       roundedCircle
+                      style={{backgroundColor:'#fcfcfc'}}
                   />
                 }
           id='offcanvasNavbarDropdown'
         >
-          <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+          <NavDropdown.Item href={`/profile/${currentUser.uid}`}>Profile</NavDropdown.Item>
           <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item href="/logout">

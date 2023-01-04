@@ -1,20 +1,22 @@
 import { useState } from 'react';
-
+import { Link } from 'react-router-dom';
 
 // bootstrap
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image';
 
-import moment from 'moment';
-
 // icon
 import { IconButton } from '@mui/material';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 // context
 import { useAuthContext } from '../../context/AuthContext';
+import moment from 'moment';
+
+
 
 
 const AllWorks = ({ image }) => {
@@ -36,7 +38,8 @@ const AllWorks = ({ image }) => {
 
 	return (
 		<>
-				<Card className="thumbnail-box">
+
+				<Card className="thumbnail-box" as={Link} to={`/work/${image.id}`}>
 
 					<div 				
 						className='thumbnail-image-box'
@@ -55,17 +58,34 @@ const AllWorks = ({ image }) => {
 									/>
 							<span className='ms-2'>{image.author_name}</span>
 						</div>
+						<span>created: {created}</span>
 
-						<div className='d-flex justify-content-between align-items-center'>
-							<span>created: {created}</span>
-							<div>
-								<IconButton className={ `like-button ${isClicked && 'liked'}` } onClick={ handleClick }>	
-									<span>{ isClicked
-										? < FavoriteIcon className='like-icon' /> 
-										: < FavoriteBorderIcon className='like-icon' />}</span>					
-									<span className="likes-counter"> {likes}</span>	
-								</IconButton>					
-							</div>
+						<div className='d-flex justify-content-end align-items-center flex-row'>
+							
+								<div className="commentBtn">
+									<IconButton 
+										className='comment-button' 
+										// onClick={ handleClick }
+										style={{ width:'30px', height:'30px'}}
+									>	
+										<span>< ChatBubbleOutlineIcon className='comment-icon' /></span>					
+									</IconButton>					
+									<span className="action-counter"> 2</span>	
+								</div>
+
+								<div className="likeBtn ms-2">
+									<IconButton 
+										className={`like-button ${isClicked && 'liked'}` } 
+										onClick={ handleClick }
+										style={{ width:'30px', height:'30px'}}
+									>	
+										<span>{ isClicked
+											? < FavoriteIcon className='like-icon' /> 
+											: < FavoriteBorderIcon className='like-icon' />}</span>					
+									</IconButton>					
+									<span className="action-counter"> {likes}</span>	
+								</div>
+							
 						</div>
 					</div>
 

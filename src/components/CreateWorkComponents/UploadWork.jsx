@@ -91,7 +91,7 @@ const UploadWork = () => {
     
     // setIsUploaded(true)
     console.log('changed!')   
-    navigate('/dashbord')
+    navigate('/dashboard')
                 
   }
   //console.log('url', images)

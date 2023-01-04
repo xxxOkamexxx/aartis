@@ -14,7 +14,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <h1>Works Management Page</h1>
       <Link to='/upload'>
-        <Button>Create</Button>
+        <Button >Create</Button>
       </Link>
       
       < MyWorksList query={imageQuery} />

@@ -3,6 +3,7 @@ import MyWorks from './MyWorks'
 
 import { Container, Alert, ListGroup } from 'react-bootstrap'
 import BeatLoader from 'react-spinners/BeatLoader'
+import { Link } from 'react-router-dom'
 
 const MyWorksList = ({ query }) => {
   if (query.isError) {
@@ -20,19 +21,19 @@ const MyWorksList = ({ query }) => {
 	}
 
   return (
-    <>
-      <Container>
-        <div>MyWorksList</div>
-        <p>Create your works!</p>
+
         <ListGroup>
           {query.data && query.data.map(image => (
-            <ListGroup.Item key={image.id} className="d-flex mb-4 list-container">
-              <MyWorks image={image} />
+            
+            <ListGroup.Item key={image.id}>
+              
+                <MyWorks image={image} />
+      
             </ListGroup.Item>
           ))}
         </ListGroup>
-      </Container>
-    </>
+
+
   )
 }
 

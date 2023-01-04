@@ -1,21 +1,88 @@
 
 .list-container{
-  height: 200px;
+  //height: 200px;
   padding: 10px;
-
-
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: row !important;
+ 
+  // Thumbnail area
   .myworks-thumbnail-box {
     position: relative;
     overflow: hidden;
     width: 150px;
-    height: 150px !important;
-
+    height: 150px;
 
       .myworks-thumbnail-image {
         position: absolute;
         object-fit: cover;
         width: 100%;
-        height: 100%;        
+        height: 100%; 
+        margin: auto;       
       }
   }
+  
+  // info area
+  .info-box {
+    display: flex;
+    flex-direction: row !important;
+    padding-left: 2em;
+    width: 100%;
+
+
+    .info {
+      display: flex;
+      flex-direction: column !important;
+      width: auto;
+    }
+
+    .action-box{
+      display: flex;
+      flex-direction: row !important;
+      width: 20vw;
+      margin-left: auto;
+    }
+
+  }
+
+  // edit area
+  .edit-box {
+    width: 20vw;
+    display: flex;
+    flex-direction: row !important;
+  }
+
+}
+
+@media (max-width: 844px) {
+  .list-container {
+    flex-direction: column !important;
+  
+    // Thumbnail area
+    .myworks-thumbnail-box {
+      justify-content: center !important;
+      margin: auto;
+    }
+    
+    // info area
+    .info-box {
+      margin-top: 2em;
+      padding-left: 0;
+
+      .info {
+        flex-direction: column !important;
+        margin-right: 2em;
+
+        .action-box {
+          margin-left: 0;
+        }
+      }
+    }
+    // edit area
+    .edit-box {
+      justify-content: center !important;
+    }
+    
+  }
+ 
 }
