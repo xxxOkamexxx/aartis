@@ -1,10 +1,12 @@
 import { useState, useRef } from 'react'
 
 import { Container, Alert, Col, Row, Form } from 'react-bootstrap'
+import { Typeahead } from 'react-bootstrap-typeahead';
 
 
 const SearchForm = ({ onSearch, options }) => {
-  const [searchInput, setSearchInput] = useState('')
+  const [searchInput, setSearchInput] = useState([])
+
 	
 	const searchInputRef = useRef()
 	
@@ -17,7 +19,8 @@ const SearchForm = ({ onSearch, options }) => {
 			return
 		}
 
-		onSearch(searchInput)
+		
+		onSearch(searchInputRef)
   }
 
 
@@ -26,7 +29,17 @@ const SearchForm = ({ onSearch, options }) => {
       <div className='header'>
 				<Form onSubmit={handleSubmit}>
 					<Form.Group>
-						<Form.Control 
+						<Typeahead
+							id="basic-typeahead-single"
+							labelKey="name"
+							onChange={setSearchInput}
+							options={options}
+							placeholder="Search"
+							selected={searchInput}
+							ref={searchInputRef}
+							//value={searchInput}
+						/>
+						{/* <Form.Control 
 							aria-label="Search"
 							onChange={e => setSearchInput(e.target.value)}
 							placeholder="Search"
@@ -34,7 +47,7 @@ const SearchForm = ({ onSearch, options }) => {
 							required
 							type="text"
 							value={searchInput}
-						/>
+						/> */}
 					</Form.Group>
 				</Form>
 			</div>
