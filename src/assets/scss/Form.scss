@@ -10,7 +10,7 @@
 
     .formWrapper {
         margin: auto;
-        max-width: 50vw;
+        width: 50vw;
         background-color: #343530;
         opacity: 90%;
         padding: 3em 5em 3em 5em;  
@@ -25,6 +25,15 @@
             font-size: small;
             margin-bottom: 0.1rem;
             color: #fcfcfc;
+        }
+
+        .input_icon {                 
+            cursor: pointer !important;
+            
+           
+            input {
+                display: none;
+            }
         }
 
         

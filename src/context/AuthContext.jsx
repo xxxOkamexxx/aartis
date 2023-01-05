@@ -80,7 +80,7 @@ const AuthContextProvider = ({ children }) => {
 		console.log('auth.currentUser', auth.currentUser)
 	
 		await updateDoc(doc(db, 'user', auth.currentUser.uid), {
-			email,
+			email:auth.currentUser.email,
 			name:auth.currentUser.displayName,
 			photoURL:auth.currentUser.photoURL		
 		})

@@ -17,8 +17,6 @@ import { useAuthContext } from '../../context/AuthContext';
 import moment from 'moment';
 
 
-
-
 const AllWorks = ({ image }) => {
 	const [likes, setLikes] = useState(100);
   const [isClicked, setIsClicked] = useState(false);
@@ -39,7 +37,12 @@ const AllWorks = ({ image }) => {
 	return (
 		<>
 
-				<Card className="thumbnail-box" as={Link} to={`/work/${image.id}`}>
+				<Card 
+				 className="thumbnail-box" 
+				 as={Link} 
+				 to={`/work/${image.id}`}
+				 style={{textDecoration:'none', color:'#343530'}}
+				>
 
 					<div 				
 						className='thumbnail-image-box'

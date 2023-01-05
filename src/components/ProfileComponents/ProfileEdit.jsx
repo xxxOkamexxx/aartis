@@ -3,11 +3,16 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { useAuthContext } from '../../context/AuthContext'
 
+import useUser from '../../hooks/useUser';
+
 import { doc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../../firebase/config'
 
-// bootstrap
+// bootstrap style images
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
+import EditIcon from '@mui/icons-material/Edit';
+import { IconButton } from '@mui/material';
+import { VerticalAlignBottom } from '@mui/icons-material';
 
 const ProfileEdit = () => {
   const userNameRef = useRef()
@@ -25,10 +30,13 @@ const ProfileEdit = () => {
     setUserDisplay, 
     setEmail, 
     setPassword, 
+    setUserDescription,
   } = useAuthContext()
   const navigate = useNavigate()
 
-  
+  // get current users info 
+  const { data } = useUser(currentUser.uid)
+  console.log(data.description)
 
   const handleFileChange = (e) => {
     if (!e.target.files.length) {
@@ -43,9 +51,9 @@ const ProfileEdit = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
 
-		if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-			return setError("The passwords does not match")
-		}
+		// if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+		// 	return setError("The passwords does not match")
+		// }
 
 		setError(null);
 		setMessage(null);
@@ -62,22 +70,26 @@ const ProfileEdit = () => {
 				await setUserDisplay(userNameRef.current.value, photo)
 			}
 
-			// update email
-			if (emailRef.current.value !== currentUser.email) {
-				await setEmail(emailRef.current.value)
-			}
+			// // update email
+			// if (emailRef.current.value !== currentUser.email) {
+			// 	await setEmail(emailRef.current.value)
+			// }
 
-			// update password
-			if (passwordRef.current.value) {
-				await setPassword(passwordRef.current.value)
-			}
+			// // update password
+			// if (passwordRef.current.value) {
+			// 	await setPassword(passwordRef.current.value)
+			// }
+
+     
+
+      
 			
       const updateRef = doc(db, "user", currentUser.uid);
 
       await updateDoc(updateRef, {
         name:userNameRef.current.value, 
-        email:emailRef.current.value, 
-        //photo,
+        //email:emailRef.current.value, 
+        //photo: photo,
         description:descriptionRef.current.value
       });
 			
@@ -86,7 +98,7 @@ const ProfileEdit = () => {
 			setMessage("Profile successfully updated")
 			setLoading(false)
    
-      navigate('/profile')
+      navigate(`/profile/${currentUser.uid}`)
 
 
 		} catch (err) {
@@ -97,70 +109,87 @@ const ProfileEdit = () => {
 
   }
   
-  console.log(currentUser.photoURL)
+ 
   return ( 
+    
+      <div className='page-bg'>
+        <div className='formWrapper'>
+          <Form onSubmit={handleSubmit}>
+            
+            <Form.Group className='d-flex align-content-end'> 
 
-      <div>
-        <Form onSubmit={handleSubmit}>
-          
-          <Form.Group>
+              <label className='input_icon'>
+                  <Image 
+                    src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
+                    className='icon_image'
+                    width='100px !important'
+                    height='100px !important'
+                    roundedCircle                  
+                  /> 
+                  <input 
+                    type="file" 
+                    onChange={handleFileChange} 
+                  /> 
+                  
+              </label>
+              <IconButton
+                style={{width:'30px', height:'30px'}}
+                type="file" 
+                //onChange={handleFileChange} 
+              >
+                <EditIcon 
+                  className='edit_icon' 
+                  style={{color:'#fcfcfc'}}
+                />
+              </IconButton> 
+            </Form.Group>
             
 
-                <Image 
-                  src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
-                  
-                  width='100px !important'
-                  height='100px !important'
-                  roundedCircle
-                
-                  //style={{objectFit: 'cover !important', overflow:'hidden'}}
-                />
-              
-            <input type="file" onChange={handleFileChange} />  
-          </Form.Group>
-          
+            <Form.Group>
+              <Form.Label>User name</Form.Label>
+              <Form.Control 
+                type='text' 
+                ref={userNameRef} 
+                defaultValue={currentUser.displayName}
+              />
+            </Form.Group> 
+            
+            <Form.Group>
+              <Form.Label>Description</Form.Label>
+              <Form.Control 
+                type='text' 
+                as="textarea" 
+                rows={3}
+                ref={descriptionRef} 
+                defaultValue={data.description}
+              />
+            </Form.Group> 
 
-          <Form.Group>
-            <Form.Label>User name</Form.Label>
-            <Form.Control 
-              type='text' 
-              ref={userNameRef} 
-              defaultValue={currentUser.displayName}
-            />
-          </Form.Group> 
-          
-          <Form.Group>
-            <Form.Label>Description</Form.Label>
-            <Form.Control 
-              type='text' 
-              as="textarea" 
-              rows={3}
-              ref={descriptionRef} 
-              defaultValue={currentUser.description}
-            />
-          </Form.Group> 
+            {/* <Form.Group id="email" className="mb-3">
+              <Form.Label>E-mail</Form.Label>
+              <Form.Control 
+                type="email" 
+                ref={emailRef} 
+                defaultValue={currentUser.email}
+              />
+            </Form.Group> */}
 
-          <Form.Group id="email" className="mb-3">
-            <Form.Label>E-mail</Form.Label>
-            <Form.Control type="email" ref={emailRef} />
-          </Form.Group>
+            {/* <Form.Group id="password" className="mb-3">
+              <Form.Label>New Password</Form.Label>
+              <Form.Control type="password" ref={passwordRef} autoComplete="new-password" />
+            </Form.Group>
 
-          <Form.Group id="password" className="mb-3">
-            <Form.Label>New Password</Form.Label>
-            <Form.Control type="password" ref={passwordRef} autoComplete="new-password" />
-          </Form.Group>
+            <Form.Group id="password-confirm" className="mb-3">
+              <Form.Label>Confirm New Password</Form.Label>
+              <Form.Control type="password" ref={passwordConfirmRef} autoComplete="new-password" />
+            </Form.Group> */}
+            
+            <Button disabled={loading} type="submit" className='btnField'>UPPDATE</Button>
 
-          <Form.Group id="password-confirm" className="mb-3">
-            <Form.Label>Confirm New Password</Form.Label>
-            <Form.Control type="password" ref={passwordConfirmRef} autoComplete="new-password" />
-          </Form.Group>
-          
-          <Button disabled={loading} type="submit" className='btn-color'>UPPDATE</Button>
-
-        </Form>     
+          </Form>     
+        </div>
       </div>
-    
-    )
+  )
 }
 
 export default ProfileEdit
