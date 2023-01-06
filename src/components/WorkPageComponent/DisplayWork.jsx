@@ -19,7 +19,7 @@ const DisplayWork = ({data}) => {
 
 
   //const created = moment( data.created.toMillis() ).format('YYYY-MM-DD')
-  console.log(created)
+  //console.log(created)
 
   const handleClick = () => {
     if (isClicked) {
