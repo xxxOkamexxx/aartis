@@ -20,7 +20,7 @@ const AllWorks = ({ image }) => {
 	const [likes, setLikes] = useState(100);
   const [isClicked, setIsClicked] = useState(false);
 
-	const created = moment( image.created.toMillis() ).format('YYYY-MM-DD')
+	const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH')
 
 
 	const handleClick = () => {
@@ -60,7 +60,6 @@ const AllWorks = ({ image }) => {
 									/>
 							<span className='ms-2'>{image.creator_name}</span>
 						</div>
-						<span>created: {created}</span>
 
 						<div className='d-flex justify-content-end align-items-center flex-row'>
 							
@@ -69,7 +68,7 @@ const AllWorks = ({ image }) => {
 										className='comment-button' 
 										// onClick={ handleClick }
 										style={{ width:'30px', height:'30px'}}
-									>	
+										>	
 										<span>< ChatBubbleOutlineIcon className='comment-icon' /></span>					
 									</IconButton>					
 									<span className="action-counter"> 2</span>	
@@ -80,7 +79,7 @@ const AllWorks = ({ image }) => {
 										className={`like-button ${isClicked && 'liked'}` } 
 										onClick={ handleClick }
 										style={{ width:'30px', height:'30px'}}
-									>	
+										>	
 										<span>{ isClicked
 											? < FavoriteIcon className='like-icon' /> 
 											: < FavoriteBorderIcon className='like-icon' />}</span>					
@@ -90,6 +89,7 @@ const AllWorks = ({ image }) => {
 							
 						</div>
 					</div>
+											<span><small>created: {created}</small></span>
 
 				</Card>
     </>
