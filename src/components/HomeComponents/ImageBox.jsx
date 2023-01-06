@@ -11,7 +11,7 @@ import SearchForm from './SearchForm'
 const ImageBox = ({ query }) => {
 	const [options, setOptions] = useState([])
 
-	console.log(query)
+	//console.log(query)
 
 	// Get search keywords (Tags) from all 'work'documents.
 	const getTags = async() => {
@@ -30,7 +30,7 @@ const ImageBox = ({ query }) => {
 
 	},[query])
 
-  console.log(options)
+  //console.log(options)
 
 
 	if (query.isError) {

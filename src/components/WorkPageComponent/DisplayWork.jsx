@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import moment from 'moment';
 
 // bootstrap Icon Style
 import { Button, Container, Image } from 'react-bootstrap'
@@ -10,16 +11,18 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 
 // context
 import { useAuthContext } from '../../context/AuthContext'
-import moment from 'moment';
 
 
 const DisplayWork = ({data}) => {
   const [likes, setLikes] = useState(100);
   const [isClicked, setIsClicked] = useState(false);
 
-
-  //const created = moment( data.created.toMillis() ).format('YYYY-MM-DD')
-  //console.log(created)
+  if(!data.created){
+    return
+  }
+    const created = moment( data.created.toMillis() ).format('YYYY-MM-DD')
+  
+  console.log(data.created, created)
 
   const handleClick = () => {
     if (isClicked) {
@@ -92,19 +95,12 @@ const DisplayWork = ({data}) => {
           <div>
             <h2>{data.title}</h2>
             <p>{data.caption}</p>
+            <p>Creeated: {created}</p>
+
 
           </div>          
         </div> 
 
-        {/* comments */}
-        <div>
-          {/* {data.comment && data.comment.map(c => (
-            <li key={i}>
-              <p>{c.content}</p>
-            </li>
-          ))} */}
-
-        </div>
       
       </div> 
       
