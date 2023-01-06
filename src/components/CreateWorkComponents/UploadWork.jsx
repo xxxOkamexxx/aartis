@@ -162,7 +162,7 @@ const UploadWork = () => {
             <div></div>
                        
             <div className='formWrapper'>
-                <Form.Group id='title' className='mb-3 formFont'>
+                <Form.Group id='title' className='mb-3 form-font'>
                     <Form.Label>Title *</Form.Label>
                     <Form.Control 
                         type='text' 
@@ -171,7 +171,7 @@ const UploadWork = () => {
                     />
                 </Form.Group>
 
-                <Form.Group id='caption' className='mb-3 formFont'>
+                <Form.Group id='caption' className='mb-3 form-font'>
                     <Form.Label>Caption</Form.Label>
                     <Form.Control 
                         type='text' 
@@ -181,7 +181,7 @@ const UploadWork = () => {
                     />
                 </Form.Group>
 
-                <Form.Group id='tags' className='mb-3 formFont'>
+                <Form.Group id='tags' className='mb-3 form-font'>
                     <Form.Label>Tags</Form.Label>
                     <TagsInput
                         value={tags}
@@ -191,7 +191,7 @@ const UploadWork = () => {
                     />
                 </Form.Group>
 
-                <Form.Group id='category' className='mb-3 formFont formRadio'>
+                <Form.Group id='category' className='mb-3 form-font formRadio'>
                     <Form.Label>Category</Form.Label>
                     <div>
                         <Form.Check

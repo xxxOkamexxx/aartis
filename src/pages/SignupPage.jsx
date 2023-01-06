@@ -76,7 +76,7 @@ const SignupPage = () => {
 
               {error && (<Alert variant="danger">{error}</Alert>)}
 
-              <Form.Group id='userName' className='mb-3 formFont'>
+              <Form.Group id='userName' className='mb-3 form-font'>
                 <Form.Label>User Name *</Form.Label>
                 <Form.Control 
                   type='text' 
@@ -84,7 +84,7 @@ const SignupPage = () => {
                   required />
               </Form.Group>
 
-              <Form.Group id="photo" className="mb-3 formFont">
+              <Form.Group id="photo" className="mb-3 form-font">
 									<Form.Label>Avatar</Form.Label>
 									<Form.Control type="file" onChange={handleFileChange} className="custom-file-input"/>
 									<Form.Text>
@@ -96,7 +96,7 @@ const SignupPage = () => {
 									</Form.Text>
 								</Form.Group>
               
-              <Form.Group id='email' className='mb-3 formFont'>
+              <Form.Group id='email' className='mb-3 form-font'>
                 <Form.Label>E-mail *</Form.Label>
                 <Form.Control 
                   type='email' 
@@ -104,7 +104,7 @@ const SignupPage = () => {
                   required />
               </Form.Group>
               
-              <Form.Group id='password' className='mb-3 formFont'>
+              <Form.Group id='password' className='mb-3 form-font'>
                 <Form.Label>Password *</Form.Label>
                 <Form.Control 
                   type='password' 
@@ -112,7 +112,7 @@ const SignupPage = () => {
                   required />
               </Form.Group>
               
-              <Form.Group id="password-confirm" className="mb-3 formFont">
+              <Form.Group id="password-confirm" className="mb-3 form-font">
                 <Form.Label>Password Confirmation *</Form.Label>
                 <Form.Control 
                   type='password' 
@@ -125,7 +125,7 @@ const SignupPage = () => {
                   
                   <Button
                     disabled={loading} 
-                    className='btnField btnFont'
+                    className='btnField btn-font'
                     type="submit"
                   >
                     CREATE ACCOUNT

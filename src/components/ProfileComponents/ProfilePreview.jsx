@@ -3,7 +3,6 @@ import { Link, useParams } from 'react-router-dom'
 
 import ProfileBox from '../ProfileBox'
 
-
 // hooks
 import useUser from '../../hooks/useUser'
 
@@ -12,6 +11,7 @@ import { useAuthContext } from '../../context/AuthContext'
 // images styles bootstrap
 import { Button, Image } from 'react-bootstrap'
 import BGImage from '../../assets/bg-img/banner.svg'
+
 
 
 const ProfilePreview = () => {
@@ -55,12 +55,12 @@ const ProfilePreview = () => {
             <div className='btn-container d-flex justify-content-end'>
                 { id == currentUser.uid &&
                     <Link to="/profile-edit" style={{textDecoration:'none'}}>
-                        <Button className='btnFont btn-submit'>EDIT</Button>
+                        <Button className='btn-font btn-submit'>EDIT</Button>
                     </Link>
                 }
                 { id != currentUser.uid &&
                 
-                    <Button className='btnFont btn-submit'>Follow</Button>
+                    <Button className='btn-font btn-submit'>Follow</Button>
         
                 }
             </div>

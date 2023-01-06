@@ -1,16 +1,20 @@
+import { useParams } from 'react-router-dom'
 import { useFirestoreQueryData } from '@react-query-firebase/firestore'
 import { collection, query, where, orderBy } from 'firebase/firestore'
 import { db } from '../firebase/config'
 import { useAuthContext } from '../context/AuthContext'
 
+
+
 const useWorks = (options = {}) => {
 	const { currentUser } = useAuthContext()
+
 
 	// create ref to collection 'works'
 	const collectionRef = collection(db, 'work')
 
 	// create queryKey based on whether all works or only the current user's works are requested
-	const queryKey = options.fetchOnlyCurrentUser
+	const queryKey = options.fetchOnlyCurrentUser		
 		? ['work', { user: currentUser.uid }]
 		: ['work']
 

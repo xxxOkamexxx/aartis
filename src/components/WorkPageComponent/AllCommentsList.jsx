@@ -7,7 +7,7 @@ const AllCommentsList = ({data}) => {
 
 
   return (
-    <Container>
+    <Container className='mb-5'>
  
         { data.comment == 0 &&
           
@@ -19,11 +19,11 @@ const AllCommentsList = ({data}) => {
             { data.comment.map(come => 
               <Card 
                 key={come.id} 
-                className='comment-card p-2 mb-1'
+                className='comment-card p-3 mb-1'
               >
 
                 {/* sender */}
-                <div>
+                <div >
                   <Image 
                     src={come ?  come.photoURL : ''}
                     width='30px !important'
@@ -35,13 +35,13 @@ const AllCommentsList = ({data}) => {
                 </div>
 
                 {/* message */}
-                <div>
+                <Card className='mt-2 p-2 mb-2'>
                   <p>{come.content}</p> 
-                    <p>
-                      {moment( come.created.toMillis() ).format('YYYY-MM-DD')}
-                    </p>
 
-                </div>
+                </Card>
+                    <p className='my-auto text-end display-date'>
+                      {moment( come.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')}
+                    </p>
 
               </Card>
             )}

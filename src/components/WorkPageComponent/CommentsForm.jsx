@@ -41,7 +41,7 @@ const CommentsForm = ({data}) => {
  //console.log( currentUser.displayName, newComment)
   
   return (
-    <Container>
+    <Container className='mb-5'>
 
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -54,7 +54,7 @@ const CommentsForm = ({data}) => {
             onChange={(e) => setNewComment(e.target.value)}
             value={newComment}
           />
-          <Button type='submit' className='btn'>Add Comment</Button>
+          <Button type='submit' className='btn btn-font mt-2'>Add Comment</Button>
         </Form.Group> 
       </Form>
     </Container>

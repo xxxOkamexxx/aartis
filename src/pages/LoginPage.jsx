@@ -46,7 +46,7 @@ const LoginPage = () => {
       <div className='formWrapper'>
           <Form title='Log in' onSubmit={handleSubmit}>
               <h3 className='text-center title'>LOGIN</h3>
-              <Form.Group id='email' className='mb-3 formFont'>
+              <Form.Group id='email' className='mb-3 form-font'>
                 <Form.Label>E-mail *</Form.Label>
                 <Form.Control 
                   type='email' 
@@ -54,7 +54,7 @@ const LoginPage = () => {
                   required />
               </Form.Group>
               
-              <Form.Group id='password' className='mb-3 formFont'>
+              <Form.Group id='password' className='mb-3 form-font'>
                 <Form.Label>Password *</Form.Label>
                 <Form.Control 
                   type='password' 
@@ -69,7 +69,7 @@ const LoginPage = () => {
 
               <Button 
                   disabled={loading} 
-                  className='btnField btnFont'
+                  className='btnField btn-font'
                   type="submit"
               >
                 LOGIN

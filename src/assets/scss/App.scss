@@ -12,15 +12,60 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 
-h1, h2, h3, h4, h5 {
-    font-family: 'Bebas Neue', cursive;
+.btn-primary {
+    --bs-btn-color: #fcfcfc;
+    --bs-btn-bg: #2aa0ad;
+    --bs-btn-border-color: #2aa0ad;
+    --bs-btn-hover-color: #fcfcfc;
+    --bs-btn-hover-bg: #AD9510;
+    --bs-btn-hover-border-color: #AD9510;
+    --bs-btn-focus-shadow-rgb: 49, 132, 253;
+    --bs-btn-active-color: #fcfcfc;
+    --bs-btn-active-bg: #AD9510;
+    --bs-btn-active-border-color: #AD9510;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fcfcfc;
+    --bs-btn-disabled-bg: #2aa0ad;
+    --bs-btn-disabled-border-color: #2aa0ad;
 }
 
-p, .btnFont, .formFont, a {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+
+h1, h2, h3, h4, h5,.btn-font {
+    font-family: 'Bebas Neue', cursive;
+    
+}
+
+p, a, .form-font {
+    font-size: larger;
+    text-decoration: none;
+}
+
+p.display-date {
+    font-size: small;
 }
 
 .link-text {
     text-decoration: none;
 }
 
+// basic button setting
+.btn {
+    font-weight: 700;
+    text-decoration: none;
+    background-color: #2aa0ad;
+    color: #fcfcfc;
+    border: none;
+    font-family: 'Bebas Neue', cursive;
+}
+
+.btn:hover {
+    background-color: #2aa0ad;
+    opacity: 80%;    
+} 
+
+
+.btn-lg {
+    font-size: large;
+    width: 15em;
+    margin: 1em;
+}

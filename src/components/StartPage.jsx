@@ -5,8 +5,8 @@ import Ellipse2 from '../assets/bg-img/ellipse-2.svg'
 import Ellipse3 from '../assets/bg-img/ellipse-3.svg'
 import Logo from '../assets/logo/logo-white.svg'
 
-// material ui
-import Button from '@mui/material/Button';
+// bootstrap
+import { Button } from 'react-bootstrap'
 
 
 const StartPage = () => {
@@ -19,10 +19,10 @@ const StartPage = () => {
             <img src={Logo} className="circle startLogo" />
             <div className='buttonGroup'>
               <Link to="/login" style={{textDecoration:'none'}}>                
-                <Button className='btn btnFont'>Login</Button>
+                <Button className='btn btn-lg btn-font start-button'>Login</Button>
               </Link>
               <Link to="/signup" style={{textDecoration:'none'}}>
-                <Button className='btn btnFont'>Join AArtis</Button>               
+                <Button className='btn btn-lg btn-font start-button'>Join AArtis</Button>               
               </Link>
             </div>  
 

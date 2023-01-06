@@ -92,7 +92,7 @@ const Navigation = () => {
                     <Nav className="d-flex align-items-center justify-content-end flex-grow-1 pe-3">
 
                       <Nav.Link href="/upload">
-                        <Button>CREATE</Button>
+                        <Button className="btn-font">CREATE</Button>
                       </Nav.Link>
                       
                       <Form onSubmit={handleSubmit} className="d-flex">
