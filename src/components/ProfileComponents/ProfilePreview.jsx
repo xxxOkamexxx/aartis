@@ -23,7 +23,7 @@ const ProfilePreview = () => {
     
     //const id = currentUser.uid
     
-    console.log(id)
+    //console.log(id)
     const { data, loading } = useUser(id)
 
       console.log(data.description)

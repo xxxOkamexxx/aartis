@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
-
-// hooks
-import useWork from '../../hooks/useWork'
+import { Link } from 'react-router-dom'
 
 // bootstrap Icon Style
 import { Button, Container, Image } from 'react-bootstrap'
@@ -16,15 +13,13 @@ import { useAuthContext } from '../../context/AuthContext'
 import moment from 'moment';
 
 
-const DisplayWork = () => {
+const DisplayWork = ({data}) => {
   const [likes, setLikes] = useState(100);
   const [isClicked, setIsClicked] = useState(false);
-  const { currentUser } = useAuthContext()
 
-  const { id } = useParams()
-  const { data, loading } = useWork(id)
 
   //const created = moment( data.created.toMillis() ).format('YYYY-MM-DD')
+  console.log(created)
 
   const handleClick = () => {
     if (isClicked) {
@@ -99,7 +94,17 @@ const DisplayWork = () => {
             <p>{data.caption}</p>
 
           </div>          
-        </div>      
+        </div> 
+
+        {/* comments */}
+        <div>
+          {/* {data.comment && data.comment.map(c => (
+            <li key={i}>
+              <p>{c.content}</p>
+            </li>
+          ))} */}
+
+        </div>
       
       </div> 
       

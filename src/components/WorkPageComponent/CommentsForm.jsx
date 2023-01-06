@@ -1,20 +1,29 @@
-import { Timestamp } from 'firebase/firestore'
 import { useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// firebase
+import { updateDoc, doc } from 'firebase/firestore'
+import { db } from '../../firebase/config'
+import { Timestamp } from 'firebase/firestore'
 
+
+// bootstrap style icons 
 import { Button, Container, Form } from 'react-bootstrap'
 
 import { useAuthContext } from '../../context/AuthContext'
+import { v4 as uuidv4 } from 'uuid'
 
-const CommentsForm = () => {
+
+const CommentsForm = ({data}) => {
   const [newComment, setNewComment] = useState('')
 
+ 
   const { currentUser } = useAuthContext()
   const uuid = uuidv4() 
+
+ console.log(data.comment)
   
   const handleSubmit = async (e) => {
     e.preventDefault()
-
+    
     const commentToAdd = {
       displayName: currentUser.displayName,
       photoURL: currentUser.photoURL,
@@ -22,6 +31,11 @@ const CommentsForm = () => {
       created: Timestamp.fromDate(new Date()),
       id: uuid
     }
+    
+    await updateDoc(doc(db, 'work', data.uuid),{
+      comment: [...data.comment, commentToAdd]
+    } ,{ merge: true })
+
     console.log(commentToAdd)
   }
  //console.log( currentUser.displayName, newComment)

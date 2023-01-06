@@ -4,11 +4,10 @@ import { Link, useNavigate } from 'react-router-dom';
 
 
 // firebase
-import { ref, getDownloadURL, uploadBytes, uploadBytesResumable } from 'firebase/storage'
-import { storage } from '../../firebase/config'
-import { useAuthContext } from '../../context/AuthContext'
-import { collection, setDoc, doc } from 'firebase/firestore';
+import { setDoc, doc } from 'firebase/firestore';
 import { db } from '../../firebase/config';
+
+import { useAuthContext } from '../../context/AuthContext'
 
 // components
 import { TagsInput } from "react-tag-input-component";
@@ -87,8 +86,8 @@ const UploadWork = () => {
         category: category,
         creator_id: currentUser.uid,
         creator_name: currentUser.displayName,
-        creator_avatar: currentUser.photoURL
-
+        creator_avatar: currentUser.photoURL,
+        comment:[]
     }, { merge: true }) 
     
     // setIsUploaded(true)
