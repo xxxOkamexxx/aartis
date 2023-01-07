@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import moment from 'moment';
 
@@ -16,7 +16,7 @@ import { useAuthContext } from '../../context/AuthContext'
 import useUser from '../../hooks/useUser'
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
-import {  } from 'react';
+
 
 const DisplayWork = ({data}) => {
   const { currentUser } = useAuthContext()
