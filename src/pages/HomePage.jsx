@@ -3,6 +3,7 @@ import React from 'react'
 //import useWorks from '../hooks/useWorks'
 import useWorks from '../hooks/useWorks'
 
+
 import ImageBox from '../components/HomeComponents/ImageBox'
 
 const HomePage = () => {
@@ -10,10 +11,11 @@ const HomePage = () => {
   const imageQuery = useWorks()
 
   return (
-    <div>
-
-      <ImageBox query={imageQuery}/>
-    </div>
+    <>
+      <div >
+        <ImageBox query={imageQuery}/>
+      </div>
+    </>
   )
 }
 

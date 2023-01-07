@@ -57,6 +57,7 @@ const ImageBox = ({ query }) => {
 
 	return (
 		<Container>
+			
 			<SearchForm onSearch={handleSearch} options={options}/>
 
 

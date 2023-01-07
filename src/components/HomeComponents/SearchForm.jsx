@@ -26,7 +26,7 @@ const SearchForm = ({ onSearch, options }) => {
 
   return (
     <>
-      <div className='header'>
+      <div className='header my-5'>
 				<Form onSubmit={handleSubmit}>
 					<Form.Group>
 						<Typeahead

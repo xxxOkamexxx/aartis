@@ -28,6 +28,7 @@ const CommentsForm = ({data}) => {
       displayName: currentUser.displayName,
       photoURL: currentUser.photoURL,
       content: newComment,
+      user_id: currentUser.uid,
       created: Timestamp.fromDate(new Date()),
       id: uuid
     }
