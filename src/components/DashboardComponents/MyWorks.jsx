@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 // bootstrap
 import { Image, Button, Row, Col, Container, Alert } from 'react-bootstrap';
@@ -18,17 +19,24 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { margin } from '@mui/system';
+import { useEffect } from 'react';
 
 
 const MyWorks = ({image}) => {
   const [likes, setLikes] = useState(100);
-  const [comments, setComments] = useState(2);
+  const [comments, setComments] = useState(0);
   const { currentUser } = useAuthContext()
 	const deleteImageMutation = useDeleteImage()
 
-  const created = moment( image.created.toMillis() ).format('YYYY-MM-DD')
+  const navigate = useNavigate()
 
+  const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+
+  //console.log(image.comment.length)
   
+  useEffect(() => {
+    setComments(image.comment.length)
+  },[])
 
   return (
     <div className={`list-container ${deleteImageMutation.isMutating ? 'mutating' : ''}`}>
@@ -79,6 +87,9 @@ const MyWorks = ({image}) => {
         <IconButton
           className='ms-3'
           style={{ width:'30px', height:'30px', backgroundColor:'#343530' }}
+          onClick={()=> navigate(`/edit-work/${image.id}`)}
+          // as={Link}
+          // to={`/edit-work/${image.id}`}
         >
           <EditIcon style={{color:'#fcfcfc'}} />
         </IconButton>

@@ -40,7 +40,7 @@ const ProfilePreview = () => {
                     height={70}
                     width={70}
                     roundedCircle
-                    style={{backgroundColor:'#fcfcfc'}}
+                    style={{ backgroundImage: `url("https://via.placeholder.com/500")` }}
                 />
 
                 <div>

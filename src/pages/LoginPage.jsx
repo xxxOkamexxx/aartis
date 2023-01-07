@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { Alert } from 'react-bootstrap';
+
 // context
 import { useAuthContext } from '../context/AuthContext'
 
@@ -14,6 +16,7 @@ import {
   Card, 
   Image 
 } from 'react-bootstrap'
+import { useEffect } from 'react';
 
 const LoginPage = () => {
   const emailRef = useRef()
@@ -28,16 +31,21 @@ const LoginPage = () => {
 		e.preventDefault()
 		setError(null);
 
+
 		try {
 			setLoading(true)
 			await login(emailRef.current.value, passwordRef.current.value)
 			navigate('/home')
 
-		} catch (err) {
-			setError(err.message)
+		} catch (err) {      
+			setError('Email address or password is incorrect')
 			setLoading(false)
+      console.log(err.message)
 		}
+
 	}
+
+
 
   
 
@@ -66,6 +74,9 @@ const LoginPage = () => {
 
                 <Link to='#' >Forgot Password?</Link>
               </div>
+              {error && (
+                <Alert variant='danger'>{error}</Alert>
+              )}
 
               <Button 
                   disabled={loading} 

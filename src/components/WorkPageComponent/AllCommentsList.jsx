@@ -11,7 +11,7 @@ const AllCommentsList = ({data}) => {
  
         { data.comment == 0 &&
           
-          <h3>No comments yet. Be the first to send a comment!</h3>
+          <h3 className='mb-5'>No comments yet. Be the first to send a comment!</h3>
         }
 
         { data.comment &&
@@ -29,6 +29,7 @@ const AllCommentsList = ({data}) => {
                     width='30px !important'
                     height='30px !important'
                     roundedCircle
+                    style={{ backgroundImage: `url("https://via.placeholder.com/500")` }}
                   />
                   <span className='ms-2'>{come.displayName}</span>
 

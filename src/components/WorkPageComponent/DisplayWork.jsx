@@ -15,7 +15,6 @@ import { useAuthContext } from '../../context/AuthContext'
 
 const DisplayWork = ({data}) => {
   const { currentUser } = useAuthContext()
-
   const [likes, setLikes] = useState(100);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -35,7 +34,7 @@ const DisplayWork = ({data}) => {
     setIsClicked(!isClicked);
   };
 
-  
+
   console.log(data.creator_id)
 
   return (
@@ -48,6 +47,11 @@ const DisplayWork = ({data}) => {
 
         {/* action */}
         <div className="likeBtn ms-2 mt-1 d-flex justify-content-end align-items-center">
+
+            <span>
+              < ChatBubbleOutlineIcon />
+            </span>	
+            <span className="action-counter"> {data.comment.length}</span>
           <IconButton 
             className={`like-button ${isClicked && 'liked'}` } 
             onClick={ handleClick }
@@ -64,8 +68,6 @@ const DisplayWork = ({data}) => {
 
       </div>
       {/* image end */}
-
-
 
       <div className='mt-5'>  
       

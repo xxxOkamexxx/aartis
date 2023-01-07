@@ -19,7 +19,7 @@ const CommentsForm = ({data}) => {
   const { currentUser } = useAuthContext()
   const uuid = uuidv4() 
 
- console.log(data.comment)
+ //console.log(data.comment)
   
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -36,7 +36,7 @@ const CommentsForm = ({data}) => {
       comment: [...data.comment, commentToAdd]
     } ,{ merge: true })
 
-    console.log(commentToAdd)
+    //console.log(commentToAdd)
   }
  //console.log( currentUser.displayName, newComment)
   

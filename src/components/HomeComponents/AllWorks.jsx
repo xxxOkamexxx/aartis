@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -18,9 +18,14 @@ import { useAuthContext } from '../../context/AuthContext';
 
 const AllWorks = ({ image }) => {
 	const [likes, setLikes] = useState(100);
+	const [comments, setComments] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
 
 	const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH')
+
+	useEffect(() => {
+    setComments(image.comment.length)
+  },[])
 
 
 	const handleClick = () => {
@@ -38,25 +43,30 @@ const AllWorks = ({ image }) => {
 
 				<Card 
 				 className="thumbnail-box" 
-				 as={Link} 
-				 to={`/work/${image.id}`}
 				 style={{textDecoration:'none', color:'#343530'}}
 				>
 
 					<div 				
 						className='thumbnail-image-box'
 					>
-						<Image className='thumbnail-image' src={image.url} alt={image.title} />
+						<Link to={`/work/${image.id}`}>
+							<Image 
+								className='thumbnail-image' 
+								src={image.url} 
+								alt={image.title}  								
+							/>
+						</Link>
 					</div>
 
 					<div className='thumbnail-footer'>
 						<h5>{image.title}</h5>
 						<div>
 							<Image 
-										src={image ?  image.creator_avatar : ''}
+										src={image ?  image.creator_avatar : 'https://via.placeholder.com/225'}
 										width='30px !important'
 										height='30px !important'
 										roundedCircle
+										
 									/>
 							<span className='ms-2'>{image.creator_name}</span>
 						</div>
@@ -71,7 +81,7 @@ const AllWorks = ({ image }) => {
 										>	
 										<span>< ChatBubbleOutlineIcon className='comment-icon' /></span>					
 									</IconButton>					
-									<span className="action-counter"> 2</span>	
+									<span className="action-counter">{comments}</span>	
 								</div>
 
 								<div className="likeBtn ms-2">
