@@ -87,7 +87,7 @@ const MyWorks = ({image}) => {
         <IconButton
           className='ms-3'
           style={{ width:'30px', height:'30px', backgroundColor:'#343530' }}
-          onClick={()=> navigate(`/edit-work/${image.id}`)}
+          onClick={()=> navigate(`/work-edit/${image.id}`)}
           // as={Link}
           // to={`/edit-work/${image.id}`}
         >

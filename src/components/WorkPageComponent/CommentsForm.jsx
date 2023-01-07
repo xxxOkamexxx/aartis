@@ -34,7 +34,7 @@ const CommentsForm = ({data}) => {
     
     await updateDoc(doc(db, 'work', data.uuid),{
       comment: [...data.comment, commentToAdd]
-    } ,{ merge: true })
+    })
 
     //console.log(commentToAdd)
   }

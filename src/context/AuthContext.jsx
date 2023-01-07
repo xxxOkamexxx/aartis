@@ -63,6 +63,8 @@ const AuthContextProvider = ({ children }) => {
 		})
 	}
 
+	
+
 	const login = (email, password) => {
 		return signInWithEmailAndPassword(auth, email, password)
 	}

@@ -14,6 +14,8 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 // context
 import { useAuthContext } from '../../context/AuthContext';
 
+import useUser from '../../hooks/useUser'
+
 
 
 const AllWorks = ({ image }) => {
@@ -21,7 +23,10 @@ const AllWorks = ({ image }) => {
 	const [comments, setComments] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
 
-	const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH')
+	const { data } = useUser(image.user)
+
+	const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+	const updated = moment( image.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
 
 	useEffect(() => {
     setComments(image.comment.length)
@@ -62,13 +67,13 @@ const AllWorks = ({ image }) => {
 						<h5>{image.title}</h5>
 						<div>
 							<Image 
-										src={image ?  image.creator_avatar : 'https://via.placeholder.com/225'}
+										src={data ?  data.photoURL : 'https://via.placeholder.com/225'}
 										width='30px !important'
 										height='30px !important'
 										roundedCircle
 										
 									/>
-							<span className='ms-2'>{image.creator_name}</span>
+							<span className='ms-2'>{data.name}</span>
 						</div>
 
 						<div className='d-flex justify-content-end align-items-center flex-row'>
@@ -99,7 +104,13 @@ const AllWorks = ({ image }) => {
 							
 						</div>
 					</div>
-											<span><small>created: {created}</small></span>
+											{ !image.updated &&
+												<span><small>Created: {created}</small></span>
+											}
+											
+											{ image.updated &&
+												<span><small>Updated: {updated}</small></span>
+											}
 
 				</Card>
     </>

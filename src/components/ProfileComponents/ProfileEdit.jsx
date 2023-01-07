@@ -5,7 +5,7 @@ import { useAuthContext } from '../../context/AuthContext'
 
 import useUser from '../../hooks/useUser';
 
-import { doc, updateDoc } from "firebase/firestore";
+import { doc, setDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from '../../firebase/config'
 
 // bootstrap style images
@@ -14,17 +14,23 @@ import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import { VerticalAlignBottom } from '@mui/icons-material';
 
+
+
 const ProfileEdit = () => {
-  const userNameRef = useRef()
+  
+  const displayNameRef = useRef()
   const emailRef = useRef()
+  const photoRef = useRef()
 	const passwordRef = useRef()
 	const passwordConfirmRef = useRef()
-	const descriptionRef = useRef()
+  const descriptionRef = useRef()
 	const [photo, setPhoto] = useState()
   const [error, setError] = useState(null)
 	const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState(null)
+  const navigate = useNavigate() 
   const {  
+    update,
     currentUser, 
     reloadUser, 
     setUserDisplay, 
@@ -32,12 +38,13 @@ const ProfileEdit = () => {
     setPassword, 
     setUserDescription,
   } = useAuthContext()
-  const navigate = useNavigate()
 
   // get current users info 
   const { data } = useUser(currentUser.uid)
   console.log(data.description)
 
+  
+  // change photo
   const handleFileChange = (e) => {
     if (!e.target.files.length) {
 			setPhoto(null)
@@ -46,51 +53,44 @@ const ProfileEdit = () => {
 
 		setPhoto(e.target.files[0])
 		console.log("File changed!", e.target.files[0])    
+    console.log('photo', photo)
   }
 
+  // submit edit
   const handleSubmit = async (e) => {
     e.preventDefault()
+		
+    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
+			return setError("The passwords does not match")
+    }
 
-		// if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-		// 	return setError("The passwords does not match")
-		// }
-
-		setError(null);
+    setError(null);
 		setMessage(null);
-		console.log(descriptionRef.current.value, currentUser.description)
 
 		// update user profile
 		try {
 			setLoading(true)
 			// upldate users name or photo
 			if (
-				userNameRef.current.value !== currentUser.displayName
-				
+				displayNameRef.current.value !== currentUser.displayName
+				|| photo
 			) {
-				await setUserDisplay(userNameRef.current.value, photo)
+				await setUserDisplay(displayNameRef.current.value, photo)
 			}
-
-			// // update email
-			// if (emailRef.current.value !== currentUser.email) {
-			// 	await setEmail(emailRef.current.value)
-			// }
-
-			// // update password
-			// if (passwordRef.current.value) {
-			// 	await setPassword(passwordRef.current.value)
-			// }
-
+			// update email
+			if (emailRef.current.value !== currentUser.email) {
+				await setEmail(emailRef.current.value)
+			}
+			//update password
+			if (passwordRef.current.value) {
+				await setPassword(passwordRef.current.value)
+			}
      
-
-      
-			
-      const updateRef = doc(db, "user", currentUser.uid);
-
-      await updateDoc(updateRef, {
-        name:userNameRef.current.value, 
-        //email:emailRef.current.value, 
-        //photo: photo,
-        description:descriptionRef.current.value
+      await update({
+        name:displayNameRef.current.value,
+        email:emailRef.current.value, 
+        photoURL: photo,
+        description:descriptionRef.current.value,
       });
 			
 			await reloadUser()
@@ -115,6 +115,9 @@ const ProfileEdit = () => {
       <div className='page-bg'>
         <div className='formWrapper'>
           <Form onSubmit={handleSubmit}>
+            {error && (
+                <Alert variant='danger'>{error}</Alert>
+            )}
             
             <Form.Group className='d-flex align-content-end'> 
 
@@ -148,8 +151,8 @@ const ProfileEdit = () => {
             <Form.Group>
               <Form.Label>User name</Form.Label>
               <Form.Control 
-                type='text' 
-                ref={userNameRef} 
+                type="text" 
+                ref={displayNameRef} 
                 defaultValue={currentUser.displayName}
               />
             </Form.Group> 
@@ -160,29 +163,34 @@ const ProfileEdit = () => {
                 type='text' 
                 as="textarea" 
                 rows={3}
-                ref={descriptionRef} 
+                ref={descriptionRef}
                 defaultValue={data.description}
               />
             </Form.Group> 
 
-            {/* <Form.Group id="email" className="mb-3">
+            <Form.Group id="email" className="mb-3">
               <Form.Label>E-mail</Form.Label>
               <Form.Control 
                 type="email" 
                 ref={emailRef} 
                 defaultValue={currentUser.email}
               />
-            </Form.Group> */}
+            </Form.Group>
 
-            {/* <Form.Group id="password" className="mb-3">
+            <Form.Group id="password" className="mb-3">
               <Form.Label>New Password</Form.Label>
-              <Form.Control type="password" ref={passwordRef} autoComplete="new-password" />
+              <Form.Control 
+                type="password" 
+                ref={passwordRef} 
+                defaultValue={currentUser.password}
+                autoComplete="new-password" 
+              />
             </Form.Group>
 
             <Form.Group id="password-confirm" className="mb-3">
               <Form.Label>Confirm New Password</Form.Label>
               <Form.Control type="password" ref={passwordConfirmRef} autoComplete="new-password" />
-            </Form.Group> */}
+            </Form.Group>
             
             <Button disabled={loading} type="submit" className='btnField'>UPPDATE</Button>
 

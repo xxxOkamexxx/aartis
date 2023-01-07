@@ -13,6 +13,7 @@ import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import { useAuthContext } from '../../context/AuthContext'
 
 
+
 const DisplayWork = ({data}) => {
   const { currentUser } = useAuthContext()
   const [likes, setLikes] = useState(100);

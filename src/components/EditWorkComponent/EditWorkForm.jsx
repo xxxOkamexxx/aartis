@@ -3,8 +3,9 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 
 // firebase
-import { doc, updateDoc} from 'firebase/firestore'
+import { setDoc, doc, updateDoc, Timestamp } from 'firebase/firestore'
 import { db } from '../../firebase/config';
+
 
 import { useAuthContext } from '../../context/AuthContext'
 
@@ -20,52 +21,51 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material'
 
-import useWorks from '../../hooks/useWorks'
+import useWork from '../../hooks/useWork';
 
 
 
 const EditWorkForm = () => {
-  
-  const titleRef = useRef('')
-  const captionRef = useRef('')
-  const [tags, setTags] = useState([])
-  const [category, setCategory] = useState(null)
-  const [image, setImage] = useState([])
-  const [error, setError] = useState(null)
-	const [loading, setLoading] = useState(false)
-	const [isUploaded, setIsUploaded] = useState(false)
-
   const { id } = useParams()
   const { currentUser } = useAuthContext()
   const navigate = useNavigate()
 
+  const {data, loading} = useWork(id)
+  
+  const titleRef = useRef('')
+  const captionRef = useRef('')
+  const [tags, setTags] = useState([])
+  const [newTags, setNewTags] = useState([])
+  const [category, setCategory] = useState(null)
+  const [image, setImage] = useState([])
+  const [error, setError] = useState(null)
 
-   console.log(id)
+	const [isUploaded, setIsUploaded] = useState(false)
+
+  console.log(data.tags, newTags)
+ 
+  console.log(data.tags)
+  //setTags(data.tags)
 
   const handleSubmit = async(e) => {  
     e.preventDefault() 
-    
-    console.log(uploadFile.isUuid)
           
     // Merge fields onto work-document
-    await updateDoc(doc(db, 'work', uploadFile.isUuid), { 
+    await updateDoc(doc(db, 'work', data.uuid), { 
         title: titleRef.current.value,
         caption: captionRef.current.value,
-        tags: tags,
+        //tags: [...data.tags, newTags],
         category: category,
-        creator_id: currentUser.uid,
-        creator_name: currentUser.displayName,
-        creator_avatar: currentUser.photoURL,
-        comment:[]
-    }, { merge: true }) 
-    
+        updated: Timestamp.fromDate(new Date()),
+    }) 
+
+   
     // setIsUploaded(true)
     console.log('changed!')   
     navigate('/dashboard')
                 
   }
-  //console.log('url', images)
-  //console.log('user', currentUser?.displayName) // 'aaa' ok
+ 
 
   return (
     
@@ -73,68 +73,29 @@ const EditWorkForm = () => {
 
         <Form onSubmit={handleSubmit} title='upload' >
            
-           {/* ---------------dropzone---------------- */}
+           {/* ---------------image---------------- */}
            <>
-            <div className="outerBox">
-              {  !uploadFile.isUrl && 
+            <div className="outerBox">           
                 <>
-                  <div {...getRootProps()} id="dropzone-wrapper">
-                    <input {...getInputProps()} className="imageUploadInput" required/>
-
-                    <div className="indicator" >
-                                                            
-                      <div className="imageUplodeBox">
-                        <div className="imageLogoAndText">
-                            
-                          <IconButton>
-                            <CloudUploadIcon  sx={{ fontSize: "50px", color:'#fcfcfc'}} />
-                          </IconButton>
-                                                          
-                          <h3>Drag and drop files here!</h3>
-                        </div>
-                      </div>
-                                                            
-                    </div>
-
-                    {/* Upload Progress Bar */}
-                    {uploadFile.progress !== null && (
-                      <ProgressBar
-                      className='progress_bar'
-                      now={uploadFile.progress}
-                      label={`${uploadFile.progress}%`}
-                      />
-                    )}
-
+                  <div>
+                    <Image src={data.url}/>
                   </div>
-                </>  
-              }
-              {uploadFile.isError && <Alert variant='danger'>{uploadFile.error.message}</Alert>}
-              {uploadFile.isSuccess && (
-                <>
-                  <Image alt='preview' src={uploadFile.isUrl} className="img-thumbnail" />
-                  <IconButton 
-                    sx={{backgroundColor:'#AD9510', marginTop: 2,}}
-                    //onChange={deleteFile.mutate()}
-                  >
-                    <DeleteIcon sx={{color:'#fcfcfc'}}/>
-                  </IconButton>
-                </>
-              )}
+                </>             
             </div>
         </>
 
-           {/* ---------------dropzone---------------- */}
+           {/* ---------------image end---------------- */}
        
             
             {/* form */}
             {error && (<Alert variant="danger">{error}</Alert>)}
-            <div></div>
                        
             <div className='formWrapper'>
                 <Form.Group id='title' className='mb-3 form-font'>
                     <Form.Label>Title *</Form.Label>
                     <Form.Control 
                         type='text' 
+                        defaultValue={data.title}
                         ref={titleRef} 
                         required 
                     />
@@ -146,6 +107,7 @@ const EditWorkForm = () => {
                         type='text' 
                         as="textarea" 
                         rows={3}
+                        defaultValue={data.caption}
                         ref={captionRef} 
                     />
                 </Form.Group>
@@ -153,11 +115,14 @@ const EditWorkForm = () => {
                 <Form.Group id='tags' className='mb-3 form-font'>
                     <Form.Label>Tags</Form.Label>
                     <TagsInput
-                        value={tags}
-                        onChange={setTags}
+                        value={newTags}
+                        onChange={setNewTags}
                         name="tags"
                         placeHolder="enter tags"
                     />
+                    {/* { data.tags.map( tag =><p>{tag}</p> )} */}
+                    
+
                 </Form.Group>
 
                 <Form.Group id='category' className='mb-3 form-font formRadio'>
