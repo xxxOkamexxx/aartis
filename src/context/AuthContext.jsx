@@ -73,7 +73,7 @@ const AuthContextProvider = ({ children }) => {
 		return signOut(auth)
 	}
 
-	const update = async({name, email, photo}) => {
+	const update = async({name, email, photo, description}) => {
 		await setUserDisplay(name, photo)
 
 		await setEmail(email)
@@ -84,7 +84,8 @@ const AuthContextProvider = ({ children }) => {
 		await updateDoc(doc(db, 'user', auth.currentUser.uid), {
 			email:auth.currentUser.email,
 			name:auth.currentUser.displayName,
-			photoURL:auth.currentUser.photoURL		
+			photoURL:auth.currentUser.photoURL,
+			description: description
 		})
 	}
 	

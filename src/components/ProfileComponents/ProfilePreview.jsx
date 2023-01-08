@@ -1,7 +1,9 @@
 import { useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
+// components
 import ProfileBox from '../ProfileBox'
+import CreatorsWorks from './CreatorsWorks'
 
 // hooks
 import useUser from '../../hooks/useUser'
@@ -9,7 +11,7 @@ import useUser from '../../hooks/useUser'
 import { useAuthContext } from '../../context/AuthContext'
 
 // images styles bootstrap
-import { Button, Image } from 'react-bootstrap'
+import { Button, Image, Row } from 'react-bootstrap'
 import BGImage from '../../assets/bg-img/banner.svg'
 
 
@@ -67,9 +69,12 @@ const ProfilePreview = () => {
             <div className="details-container">
                 <p>{data.description}</p>
             </div>
+            
             <div className='works-container'>
                 <h3>Works</h3>
-                
+
+                <CreatorsWorks id={id}/>
+               
             </div>
 
             
