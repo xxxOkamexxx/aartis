@@ -36,7 +36,7 @@ const EditWorkForm = () => {
   const captionRef = useRef('')
   const [tags, setTags] = useState([])
   const [newTags, setNewTags] = useState([])
-  const [category, setCategory] = useState(null)
+  const [category, setCategory] = useState()
   const [image, setImage] = useState([])
   const [error, setError] = useState(null)
 
@@ -44,12 +44,13 @@ const EditWorkForm = () => {
 
   console.log(data.tags, newTags)
  
-  console.log(data.tags)
-  //setTags(data.tags)
 
+  
   const handleSubmit = async(e) => {  
-    e.preventDefault() 
-          
+      e.preventDefault() 
+      
+      console.log('after',category)
+         
     // Merge fields onto work-document
     await updateDoc(doc(db, 'work', data.uuid), { 
         title: titleRef.current.value,
@@ -65,6 +66,13 @@ const EditWorkForm = () => {
     navigate('/dashboard')
                 
   }
+
+  useEffect(()=> {
+    if(!category){
+        setCategory(data.category)
+      }
+    
+  },[])
  
 
   return (
@@ -135,6 +143,7 @@ const EditWorkForm = () => {
                             type='radio'
                             id='radio-il'
                             value='illustration'
+                            checked={data.category == 'illustration' }
                             onChange={() => setCategory('illustration')}
                         />
                         <Form.Check
@@ -144,6 +153,7 @@ const EditWorkForm = () => {
                             type='radio'
                             id='radio-ph'
                             value='photography'
+                            checked={data.category == 'photography'}
                             onChange={() => setCategory('photography')}
                         />
                     </div>

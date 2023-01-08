@@ -87,7 +87,8 @@ const UploadWork = () => {
         creator_id: currentUser.uid,
         creator_name: currentUser.displayName,
         creator_avatar: currentUser.photoURL,
-        comment:[]
+        comment:[],
+        updated:''
     }, { merge: true }) 
     
     // setIsUploaded(true)

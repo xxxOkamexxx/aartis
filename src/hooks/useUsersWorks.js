@@ -4,7 +4,9 @@ import { collection, query, where, orderBy } from 'firebase/firestore'
 import { db } from '../firebase/config'
 import { useAuthContext } from '../context/AuthContext'
 
-
+/**
+ * get specific users works
+ */
 
 const useUsersWorks = (id) => {
 	const { currentUser } = useAuthContext()

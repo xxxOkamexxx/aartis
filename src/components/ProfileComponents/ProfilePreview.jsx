@@ -13,6 +13,10 @@ import { useAuthContext } from '../../context/AuthContext'
 // images styles bootstrap
 import { Button, Image, Row } from 'react-bootstrap'
 import BGImage from '../../assets/bg-img/banner.svg'
+import { IconButton } from '@mui/material'
+import MailIcon from '@mui/icons-material/Mail';
+import EditIcon from '@mui/icons-material/Edit';
+
 
 
 
@@ -56,13 +60,22 @@ const ProfilePreview = () => {
         <div className='profile-container'>
             <div className='btn-container d-flex justify-content-end'>
                 { id == currentUser.uid &&
-                    <Link to="/profile-edit" style={{textDecoration:'none'}}>
-                        <Button className='btn-font btn-submit'>EDIT</Button>
-                    </Link>
+                    <div>
+                        <Link to="/profile-edit" style={{textDecoration:'none'}}>
+                            <Button className='btn-font btn-submit'>
+                                <EditIcon />
+                            </Button>
+                        </Link>
+                    </div>
                 }
                 { id != currentUser.uid &&
-                
-                    <Button className='btn-font btn-submit'>Follow</Button>
+                    <div>
+                        <IconButton sx={{width:'50px', height:'50px'}}>
+                            <MailIcon sx={{ fontSize: "30px", color:'#fcfcfc'}} />
+                        </IconButton>
+
+                        <Button className='btn-font btn-submit'>Follow</Button>
+                    </div>
         
                 }
             </div>

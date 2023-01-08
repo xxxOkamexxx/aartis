@@ -1,13 +1,13 @@
 import React from 'react'
 
-import useWorks from '../hooks/useWorks'
+import useOwnWorks from '../hooks/useOwnWorks' 
 import MyWorksList from '../components/DashboardComponents/MyWorksList'
 import { Link } from 'react-router-dom'
 import { Button, Container } from 'react-bootstrap'
 
 const Dashboard = () => {
   // get works
-  const imageQuery = useWorks({ fetchOnlyCurrentUser: true})
+  const imageQuery = useOwnWorks()
 
   return (
     <Container>

@@ -30,7 +30,12 @@ const MyWorks = ({image}) => {
 
   const navigate = useNavigate()
 
+  
   const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+
+  let updated = moment( image.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+  
+
 
   //console.log(image.comment.length)
   
@@ -56,7 +61,18 @@ const MyWorks = ({image}) => {
         {/* info */}
         <div className='info'>
           <h5>{image.title}</h5>
-          <p>Created: {created}</p>
+
+            
+						<span>Created: {created}</span>						
+						
+						{ image.updated &&
+							<span>Updated: {updated}</span>
+						}
+						{ !image.updated &&
+							<span>Updated: - </span>
+						}
+
+         
           <p>Category: {image.category}</p>        
         </div>
       

@@ -5,21 +5,22 @@ import { db } from '../firebase/config'
 import { useAuthContext } from '../context/AuthContext'
 
 /**
- * get all users works
+ * get only current users works
  */
 
-const useWorks = () => {
+const useOwnWorks = () => {
 	const { currentUser } = useAuthContext()
 
 
 	// create ref to collection 'works'
 	const collectionRef = collection(db, 'work')
 
-	// create queryKey based on whether all works 
-	const queryKey = ['work']
+	// create queryKey based on whether only the current user's works are requested
+	const queryKey = ['work', { user: currentUser.uid }]
+
 
 	// create query for collectionRef, order result in reverse cronological order
-	const queryRef = query(collectionRef, orderBy('created', 'desc'))
+	const queryRef = query(collectionRef, where('user', '==', currentUser.uid), orderBy('created', 'desc'))
 
 	// run query
 	const worksQuery = useFirestoreQueryData(queryKey, queryRef, {
@@ -30,4 +31,4 @@ const useWorks = () => {
 	return worksQuery
 }
 
-export default useWorks
+export default useOwnWorks
