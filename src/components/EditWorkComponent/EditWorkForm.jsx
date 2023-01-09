@@ -40,10 +40,10 @@ const EditWorkForm = () => {
   const [image, setImage] = useState([])
   const [error, setError] = useState(null)
 
-	const [isUploaded, setIsUploaded] = useState(false)
+  const [isUploaded, setIsUploaded] = useState(false)
 
   console.log(data.tags, newTags)
- 
+
 
   
   const handleSubmit = async(e) => {  
@@ -68,103 +68,99 @@ const EditWorkForm = () => {
   }
 
   useEffect(()=> {
-    if(!category){
+    if(data){
         setCategory(data.category)
       }
     
-  },[])
- 
+  },[data])
+ console.log(category)
 
   return (
     
-    <div className='uploadWrapper'>
+    <Container>
 
-        <Form onSubmit={handleSubmit} title='upload' >
-           
+        <div  className='image-box'>
            {/* ---------------image---------------- */}
-           <>
-            <div className="outerBox">           
-                <>
-                  <div>
-                    <Image src={data.url}/>
-                  </div>
-                </>             
+           <div className='mb-5'>
+                                                      
+                <Image src={data.url} fluid/>
+                              
             </div>
-        </>
 
            {/* ---------------image end---------------- */}
        
-            
-            {/* form */}
-            {error && (<Alert variant="danger">{error}</Alert>)}
-                       
-            <div className='formWrapper mb-5'>
-                <Form.Group id='title' className='mb-3 form-font'>
-                    <Form.Label>Title *</Form.Label>
-                    <Form.Control 
-                        type='text' 
-                        defaultValue={data.title}
-                        ref={titleRef} 
-                        required 
-                    />
-                </Form.Group>
-
-                <Form.Group id='caption' className='mb-3 form-font'>
-                    <Form.Label>Caption</Form.Label>
-                    <Form.Control 
-                        type='text' 
-                        as="textarea" 
-                        rows={3}
-                        defaultValue={data.caption}
-                        ref={captionRef} 
-                    />
-                </Form.Group>
-
-                <Form.Group id='tags' className='mb-3 form-font'>
-                    <Form.Label>Tags</Form.Label>
-                    <TagsInput
-                        value={newTags}
-                        onChange={setNewTags}
-                        name="tags"
-                        placeHolder="enter tags"
-                    />
-                    {/* { data.tags.map( tag =><p>{tag}</p> )} */}
-                    
-
-                </Form.Group>
-
-                <Form.Group id='category' className='mb-3 form-font formRadio'>
-                    <Form.Label>Category</Form.Label>
-                    <div>
-                        <Form.Check
-                            inline
-                            label="Illustration"
-                            name="category"
-                            type='radio'
-                            id='radio-il'
-                            value='illustration'
-                            checked={data.category == 'illustration' }
-                            onChange={() => setCategory('illustration')}
-                        />
-                        <Form.Check
-                            inline
-                            label="photograph"
-                            name="category"
-                            type='radio'
-                            id='radio-ph'
-                            value='photograph'
-                            checked={data.category == 'photograph'}
-                            onChange={() => setCategory('photograph')}
-                        />
-                    </div>
-                </Form.Group>
-                        
+            <Form onSubmit={handleSubmit} title='upload' >
                 
-                <Button type='submit' className='btnSave btn-lg'>SAVE</Button>
-            </div>
-        </Form>
-        
-    </div> 
+                {/* form */}
+                {error && (<Alert variant="danger">{error}</Alert>)}
+                        
+                <div className='formWrapper mb-5'>
+                    <Form.Group id='title' className='mb-3 form-font'>
+                        <Form.Label>Title *</Form.Label>
+                        <Form.Control 
+                            type='text' 
+                            defaultValue={data.title}
+                            ref={titleRef} 
+                            required 
+                        />
+                    </Form.Group>
+
+                    <Form.Group id='caption' className='mb-3 form-font'>
+                        <Form.Label>Caption</Form.Label>
+                        <Form.Control 
+                            type='text' 
+                            as="textarea" 
+                            rows={3}
+                            defaultValue={data.caption}
+                            ref={captionRef} 
+                        />
+                    </Form.Group>
+
+                    <Form.Group id='tags' className='mb-3 form-font'>
+                        <Form.Label>Tags</Form.Label>
+                        <TagsInput
+                            value={newTags}
+                            onChange={setNewTags}
+                            name="tags"
+                            placeHolder="enter tags"
+                        />
+                        {/* { data.tags.map( tag =><p>{tag}</p> )} */}
+                        
+
+                    </Form.Group>
+
+                    <Form.Group id='category' className='mb-3 form-font formRadio'>
+                        <Form.Label>Category</Form.Label>
+                        <div>
+                            <Form.Check
+                                inline
+                                label="Illustration"
+                                name="category"
+                                type='radio'
+                                id='radio-il'
+                                value='illustration'
+                                checked={category == 'illustration' }
+                                onChange={() => setCategory('illustration')}
+                            />
+                            <Form.Check
+                                inline
+                                label="photograph"
+                                name="category"
+                                type='radio'
+                                id='radio-ph'
+                                value='photograph'
+                                checked={category == 'photograph'}
+                                onChange={() => setCategory('photograph')}
+                            />
+                        </div>
+                    </Form.Group>
+                            
+                    
+                    <Button type='submit' className='btn-secondary btn-lg'>SAVE</Button>
+                </div>
+            </Form>
+        </div>   
+    </Container> 
         
       
     

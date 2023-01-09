@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
 
 import HomePage from './pages/HomePage'
+import SearchPage from './pages/SearchPage'
 
 import NotFound from './pages/NotFound'
 import LogoutPage from './pages/LogoutPage'
@@ -41,6 +42,11 @@ function App() {
 				<Route path="/" element={
 					<RequireAuth >
 						<HomePage />
+					</RequireAuth>
+				} />
+				<Route path="/search/" element={
+					<RequireAuth >
+						<SearchPage />
 					</RequireAuth>
 				} />
 				<Route path="/upload" element={

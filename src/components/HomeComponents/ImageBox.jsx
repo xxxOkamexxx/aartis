@@ -28,6 +28,8 @@ const ImageBox = ({ query }) => {
 			setOptions(tags)
 		}
 	}
+
+	
 	console.log(currentFilter)
 	// check current filter 
 	useEffect(() => {
@@ -89,9 +91,10 @@ const ImageBox = ({ query }) => {
 
 	return (
 		<Container>
-			
-			<SearchForm onSearch={handleSearch} options={options}/>
-			
+			<div className='header my-5'>
+				<SearchForm onSearch={handleSearch} options={options}/> 
+			</div>
+
 			<FilterButtons currentFilter={currentFilter} changeFilter={changeFilter}/>
   
 

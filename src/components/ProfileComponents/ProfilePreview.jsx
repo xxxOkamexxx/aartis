@@ -21,6 +21,9 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 const ProfilePreview = () => {
+    const [isFollowed, setIsFollowed] = useState(false)
+    const [followButton, setFollowButton] = useState('Follow')
+    const [className, setClassName] = useState('btn-outline-secondary')
     const { 
         currentUser, 
     } = useAuthContext()
@@ -32,7 +35,24 @@ const ProfilePreview = () => {
     //console.log(id)
     const { data, loading } = useUser(id)
 
-      console.log(data.description)
+    console.log(data.description)
+
+    // check follow button
+    const handleFollow = () => {
+        if(!isFollowed) {
+            setIsFollowed(true)
+            setFollowButton('Following')
+            setClassName ('btn-secondary')
+        } else{
+            setIsFollowed(false)
+            setFollowButton('Follow')
+            setClassName('btn-outline-secondary')
+        }
+    }
+
+
+
+
   return (
     <ProfileBox>
         <div className='profile-header'>
@@ -58,7 +78,7 @@ const ProfilePreview = () => {
 
 
         <div className='profile-container'>
-            <div className='btn-container d-flex justify-content-end'>
+            <div className='btn-container d-flex justify-content-end mb-5'>
                 { id == currentUser.uid &&
                     <div>
                         <Link to="/profile-edit" style={{textDecoration:'none'}}>
@@ -69,17 +89,24 @@ const ProfilePreview = () => {
                     </div>
                 }
                 { id != currentUser.uid &&
-                    <div>
-                        <IconButton sx={{width:'50px', height:'50px'}}>
-                            <MailIcon sx={{ fontSize: "30px", color:'#fcfcfc'}} />
-                        </IconButton>
-
-                        <Button className='btn-font btn-submit'>Follow</Button>
+                    <div className='d-flex flex-row'>
+                        <div>
+                            <IconButton sx={{width:'50px', height:'50px'}}>
+                                <MailIcon sx={{ fontSize: "30px", color:'#fcfcfc'}} />
+                            </IconButton>
+                        </div>
+                        <div>             
+                            <Button 
+                            onClick={handleFollow}
+                            className={`btn-font ms-3 ${className}`}>
+                                {followButton}
+                            </Button>  
+                        </div>
                     </div>
         
                 }
             </div>
-            <div className="details-container">
+            <div className="details-container mb-5">
                 <p>{data.description}</p>
             </div>
             

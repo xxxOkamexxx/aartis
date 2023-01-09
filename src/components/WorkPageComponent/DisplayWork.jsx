@@ -76,7 +76,7 @@ const DisplayWork = ({data}) => {
   const handleFollow = () => {
     if(!isFollowed) {
       setIsFollowed(true)
-      setFollowButton('Followed')
+      setFollowButton('Following')
       setClassName ('btn-secondary')
     } else{
       setIsFollowed(false)
@@ -85,6 +85,8 @@ const DisplayWork = ({data}) => {
     }
   }
 
+
+  
   return (
     <Container className='mb-5'>
       { isLoading && 
