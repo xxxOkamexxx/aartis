@@ -10,18 +10,13 @@ import FilterButtons from './FilterButtons'
 import { async } from '@firebase/util'
 
 
-
-
 const ImageBox = ({ query }) => {
 	const [options, setOptions] = useState([])
 	const [currentFilter, setCurrentFilter] = useState('all')
 
-	const [isCategory, setIsCategory] = useState()
+	const [isDoc, setIsDoc] = useState()
 
-	
-	
-	
-	
+
 	
 	// Get search keywords (Tags) from all 'work'documents.
 	const getTags = async() => {
@@ -33,21 +28,32 @@ const ImageBox = ({ query }) => {
 			setOptions(tags)
 		}
 	}
-	
-	
+	console.log(currentFilter)
+	// check current filter 
 	useEffect(() => {
 		if(!query.data){	
 			return
 		}
 		const documents = query.data
 		const document = documents
-				.filter(doc => doc.category == currentFilter)
-				.map (doc => doc.id)
+				// .filter(doc => doc.category == currentFilter)
+				// //.map (doc => doc.id)
+				.filter(doc => {
+					if(currentFilter == 'all') {
+						return true
+					} else if(currentFilter == 'illustration' || currentFilter == 'photograph'){
+						return doc.category === currentFilter
+					}					
+				})
 	
-		console.log(document)
+		console.log(document.map(d => d.id))
+		setIsDoc(document)
 
 	},[query, currentFilter])
 	
+	console.log(isDoc)
+	
+	// get tags
 	useEffect(() => {			
 		getTags()
 	},[query])
@@ -96,7 +102,7 @@ const ImageBox = ({ query }) => {
 				</h3>
 
 				<Row xs={1} sm={2} md={3} lg={4}>
-					{query.data && query.data.map(image => (
+					{isDoc && isDoc.map(image => (
 						<Col key={image.id} className="d-flex mb-4">
 					
 								<AllWorks image={image} />

@@ -1,13 +1,14 @@
 import { Button } from 'react-bootstrap'
 
 
-const filterList = ['all', 'illustrations', 'Photographs']
+const filterList = ['all', 'illustration', 'photograph']
+
+
 
 const FilterButtons = ({currentFilter, changeFilter}) => {
-  
+
 
   const handleClick = (newFilter) => {
-
     changeFilter(newFilter)
   }
 
