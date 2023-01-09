@@ -55,7 +55,7 @@ const AllCommentsList = ({data}) => {
             { data.comment.map(come => 
               <Card 
                 key={come.id} 
-                className='comment-card p-3 mb-1'
+                className='comment-card p-3 mb-1 work-info-box'
               >
 
                 {/* sender */}

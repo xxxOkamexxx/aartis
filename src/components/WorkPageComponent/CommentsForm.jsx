@@ -44,7 +44,7 @@ const CommentsForm = ({data}) => {
   return (
     <Container className='mb-5'>
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className='work-info-box'>
         <Form.Group>
           <Form.Label as='p'>Add new comments</Form.Label>
           <Form.Control 
@@ -55,7 +55,7 @@ const CommentsForm = ({data}) => {
             onChange={(e) => setNewComment(e.target.value)}
             value={newComment}
           />
-          <Button type='submit' className='btn btn-font mt-2'>Add Comment</Button>
+          <Button type='submit' className='btn-secondary btn-font mt-2'>Add Comment</Button>
         </Form.Group> 
       </Form>
     </Container>

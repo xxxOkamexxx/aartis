@@ -28,7 +28,7 @@ const NavItems = () => {
   });
   
   return (
-    <div className='d-flex align-items-center justify-content-end'>
+    < >
       
       <ThemeProvider theme={theme}>
 
@@ -41,10 +41,11 @@ const NavItems = () => {
         </Badge>
 
       </ThemeProvider>
+
       <NavDropdown
           title={ 
                   <Image
-                      className="photo-placeholder me-5"
+                      className="photo-placeholder ms-3"
                       src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
                       height={30}
                       width={30}
@@ -61,7 +62,7 @@ const NavItems = () => {
             Logout
           </NavDropdown.Item>
       </NavDropdown>
-    </div>
+    </>
   )
 }
 

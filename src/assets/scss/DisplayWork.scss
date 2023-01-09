@@ -1,0 +1,16 @@
+.image-box {
+  background-color: #fcfcfc;
+  padding: 3em;
+}
+
+.work-info-box {
+  margin: auto;
+  width: 70%;
+}
+
+@media (max-width: 844px){
+  .work-info-box {
+    width: 100%;
+  }
+
+}

@@ -32,13 +32,13 @@ function App() {
 			<Navigation />
 
 			<Routes>
-				<Route path="/" element={<StartPage />} />
+				<Route path="/en" element={<StartPage />} />
 				<Route path="*" element={<NotFound />} />
 				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/login" element={<LoginPage />} />
 
 
-				<Route path="/home" element={
+				<Route path="/" element={
 					<RequireAuth >
 						<HomePage />
 					</RequireAuth>

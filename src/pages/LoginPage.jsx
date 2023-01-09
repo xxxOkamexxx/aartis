@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { Alert } from 'react-bootstrap';
 
-// context
+// context contents
 import { useAuthContext } from '../context/AuthContext'
+import FormBox from '../components/FormBox';
 
 // bootstrap
 import { 
@@ -35,7 +36,7 @@ const LoginPage = () => {
 		try {
 			setLoading(true)
 			await login(emailRef.current.value, passwordRef.current.value)
-			navigate('/home')
+			navigate('/')
 
 		} catch (err) {      
 			setError('Email address or password is incorrect')
@@ -45,15 +46,15 @@ const LoginPage = () => {
 
 	}
 
-
-
   
 
   return (
-    <div className='page-bg'>
-      <div className='formWrapper'>
-          <Form title='Log in' onSubmit={handleSubmit}>
+    <FormBox>
+      <>
+          <Form title='Log in' onSubmit={handleSubmit} style={{width:'100%'}}>
+
               <h3 className='text-center title'>LOGIN</h3>
+
               <Form.Group id='email' className='mb-3 form-font'>
                 <Form.Label>E-mail *</Form.Label>
                 <Form.Control 
@@ -70,7 +71,7 @@ const LoginPage = () => {
                   required />
               </Form.Group>
 
-              <div className="text-center mt-3">
+              <div className="text-center mt-5">
 
                 <Link to='#' >Forgot Password?</Link>
               </div>
@@ -78,21 +79,24 @@ const LoginPage = () => {
                 <Alert variant='danger'>{error}</Alert>
               )}
 
-              <Button 
-                  disabled={loading} 
-                  className='btnField btn-font'
-                  type="submit"
-              >
-                LOGIN
-              </Button>
+              <div className='d-flex justify-content-center'>
+                <Button 
+                    disabled={loading} 
+                    className='btnField btn-font btn-lg'
+                    type="submit"
+                >
+                  LOGIN
+                </Button>             
+              </div>
+                
               
                 
               <div className='text-center'>Join AARTIS? <Link to='/signup' className='linkText'>CREATE ACCOUNT</Link></div>
                 <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
                                 
           </Form>
-      </div>
-    </div> 
+      </>
+    </FormBox> 
     
   
   )

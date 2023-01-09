@@ -23,6 +23,7 @@
 }
 
 .uploadWrapper {
+    background-image: url(../bg-img/Steampunk_room06.png);
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -75,6 +76,7 @@
         color: #fcfcfc;
         margin-top: 2em;
         margin-bottom: 2em;
+        align-self: center;
     }
 
     .btnSave:hover {
@@ -138,7 +140,7 @@
 }
   
 
-  @media (max-width: 992px){
+  @media (max-width: 844px){
     .uploadWrapper {
         margin: auto;
         background-size: cover;

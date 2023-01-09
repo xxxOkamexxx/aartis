@@ -4,6 +4,9 @@ import { Link, useNavigate } from 'react-router-dom';
 // context
 import { useAuthContext } from '../context/AuthContext'
 
+// component
+import FormBox from '../components/FormBox';
+
 // bootstrap
 import { 
   Container, 
@@ -58,7 +61,7 @@ const SignupPage = () => {
       await signup(userNameRef.current.value, emailRef.current.value, passwordRef.current.value, photo)
       
       await reloadUser()
-      navigate('/home')
+      navigate('/')
 
     } catch (err) {
       setError(err.message)
@@ -69,13 +72,42 @@ const SignupPage = () => {
 
 
   return (
-    <div className='page-bg'>
-      <div className='formWrapper'>
-          <Form onSubmit={handleSubmit} title='Signup'>
-              <h3 className='text-center title'>SIGN UP</h3>
+      <FormBox>
+        <>
+          <Form onSubmit={handleSubmit} title='Signup' style={{width:'100%'}}>
+              <h3 className='text-center title'>SIGN UP</h3>             
 
-              {error && (<Alert variant="danger">{error}</Alert>)}
+              {error && (
+              <Alert variant="danger">{error}</Alert>
+              )}
 
+              <Form.Group className='d-flex align-content-end profile-header'> 
+
+              <label className='input_icon'>
+                  <Image 
+                    src={'https://via.placeholder.com/225'} 
+                    className='icon_image user-displa'
+                    width='100px !important'
+                    height='100px !important'
+                    roundedCircle                  
+                  /> 
+                  <input 
+                    type="file" 
+                    onChange={handleFileChange} 
+                  /> 
+                  
+                </label>
+                <Form.Text>
+                  {
+                    photo
+                      ? `${photo.name} (${Math.round(photo.size/1024)} kB)`
+                      : 'No photo selected'
+                  }
+                 </Form.Text>
+              </Form.Group>
+              
+              
+              
               <Form.Group id='userName' className='mb-3 form-font'>
                 <Form.Label>User Name *</Form.Label>
                 <Form.Control 
@@ -84,17 +116,6 @@ const SignupPage = () => {
                   required />
               </Form.Group>
 
-              <Form.Group id="photo" className="mb-3 form-font">
-									<Form.Label>Avatar</Form.Label>
-									<Form.Control type="file" onChange={handleFileChange} className="custom-file-input"/>
-									<Form.Text>
-										{
-											photo
-												? `${photo.name} (${Math.round(photo.size/1024)} kB)`
-												: 'No photo selected'
-										}
-									</Form.Text>
-								</Form.Group>
               
               <Form.Group id='email' className='mb-3 form-font'>
                 <Form.Label>E-mail *</Form.Label>
@@ -122,20 +143,22 @@ const SignupPage = () => {
                  
                 
                   <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
-                  
+
+                <div className='d-flex justify-content-center'>  
                   <Button
                     disabled={loading} 
-                    className='btnField btn-font'
+                    className='btnField btn-font btn-lg'
                     type="submit"
                   >
                     CREATE ACCOUNT
                   </Button>               
-               
+                </div>
+                
               <div className='text-center'>Already a member? <Link to="/login" className='linkText'>LOGIN</Link></div>
 
           </Form>
-      </div>
-    </div>    
+        </>
+      </FormBox> 
   )
 }
 

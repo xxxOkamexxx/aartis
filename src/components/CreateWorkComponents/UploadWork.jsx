@@ -160,9 +160,9 @@ const UploadWork = () => {
             
             {/* form */}
             {error && (<Alert variant="danger">{error}</Alert>)}
-            <div></div>
+         
                        
-            <div className='formWrapper'>
+            <div className='formWrapper mb-5'>
                 <Form.Group id='title' className='mb-3 form-font'>
                     <Form.Label>Title *</Form.Label>
                     <Form.Control 
@@ -206,18 +206,18 @@ const UploadWork = () => {
                         />
                         <Form.Check
                             inline
-                            label="Photography"
+                            label="photograph"
                             name="category"
                             type='radio'
                             id='radio-ph'
-                            value='photography'
-                            onChange={() => setCategory('photography')}
+                            value='photograph'
+                            onChange={() => setCategory('photograph')}
                         />
                     </div>
                 </Form.Group>
                         
                 
-                <Button type='submit' className='btnSave'>SAVE</Button>
+                <Button type='submit' className='btnSave btn-lg'>SAVE</Button>
             </div>
         </Form>
         

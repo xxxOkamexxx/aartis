@@ -3,18 +3,22 @@
     height: 100vh;
     margin: auto;
     display: flex;
-    justify-content: center;
+    justify-content: end;
     align-items: center;
     background-size: cover;
     background-position: center;
+    padding: 0;
 
     .formWrapper {
-        margin: auto;
-        width: 50vw;
+        display: flex;
+        width: 40vw;
+        height: 100%;
         background-color: #343530;
         opacity: 90%;
         padding: 3em 5em 3em 5em;  
         color: #fcfcfc;
+        align-items: center;
+       
 
         .title {
             color: #E2AE2A;
@@ -38,13 +42,11 @@
 
         
         .btnField{
-            width: 100%;
+            background-color: #AD9510;
+            border-color: #AD9510;
+            color: #fcfcfc;
             margin-top: 2em;
             margin-bottom: 2em;
-            background-color: #E2AE2A;
-            border: #E2AE2A;
-            color: #fcfcfc;
-            font-weight: 700;
         }
         
         .btnField:hover{
@@ -67,7 +69,7 @@
 
 }
 
-@media (max-width: 992px){
+@media (max-width: 844px){
     .page-bg {
         margin: auto;
         background-size: cover;

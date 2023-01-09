@@ -24,6 +24,9 @@ const DisplayWork = ({data}) => {
   const [isClicked, setIsClicked] = useState(false);
   const [isUser, setIsUser] = useState()
   const [isLoading, setIsLoading] = useState(false)
+  const [isFollowed, setIsFollowed] = useState(false)
+  const [followButton, setFollowButton] = useState('Follow')
+  const [className, setClassName] = useState('btn-outline-secondary')
   
 
   useEffect(()=>{
@@ -52,20 +55,35 @@ const DisplayWork = ({data}) => {
   }
     const created = moment( data.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
   
-  console.log(data.created, created)
+  //console.log(data.created, created)
 
+
+  // check like button
   const handleClick = () => {
     if (isClicked) {
       setLikes(likes - 1);
+      
     } else {
       setLikes(likes + 1);
     }
     setIsClicked(!isClicked);
-  };
+    
+  }; 
 
-  
+  //console.log(data.creator_id)
 
-  console.log(data.creator_id)
+  // check follow button
+  const handleFollow = () => {
+    if(!isFollowed) {
+      setIsFollowed(true)
+      setFollowButton('Followed')
+      setClassName ('btn-secondary')
+    } else{
+      setIsFollowed(false)
+      setFollowButton('Follow')
+      setClassName('btn-outline-secondary')
+    }
+  }
 
   return (
     <Container className='mb-5'>
@@ -76,7 +94,7 @@ const DisplayWork = ({data}) => {
       }
       
       { !isLoading && 
-          <>
+          <div className='image-box'>
             {/* image */}
             <div className='d-flex flex-column mt-5'>
 
@@ -85,12 +103,15 @@ const DisplayWork = ({data}) => {
               {/* action */}
               <div className="likeBtn ms-2 mt-1 d-flex justify-content-end align-items-center">
 
-                  <span>
+                <span className='me-2'>
+                  <span >
                     < ChatBubbleOutlineIcon />
                   </span>	
                   <span className="action-counter"> {data.comment.length}</span>
+                </span> 
+
                 <IconButton 
-                  className={`like-button ${isClicked && 'liked'}` } 
+                  className={`like-button  ${isClicked && 'liked'}` } 
                   onClick={ handleClick }
                   style={{ width:'30px', height:'30px'}}
                 >	
@@ -109,7 +130,7 @@ const DisplayWork = ({data}) => {
             <div className='mt-5'>  
             
             {/* creator info */}
-              <div className='d-flex flex-row justify-content-between'>
+              <div className='d-flex flex-row justify-content-between work-info-box'>
                 <div>
                   <Link 
                     to={`/profile/${data.user}`} 
@@ -135,26 +156,28 @@ const DisplayWork = ({data}) => {
                 </div>
                 { data.user != currentUser.uid &&  
                   <div>             
-                    <Button className='btn-font btn-submit ms-3'>Follow</Button>  
+                    <Button 
+                      onClick={handleFollow}
+                      className={`btn-font ms-3 ${className}`}>
+                        {followButton}
+                    </Button>  
                   </div>
                 }
               </div>
-              {/* creatorinfo end */}
+            {/* creatorinfo end */}
 
-              {/*Project info*/}
-              <div className='mt-5'>
+            {/*Project info*/}
+              <div className='mt-5 work-info-box'>
                 <div>
                   <h2>{data.title}</h2>
                   <p>{data.caption}</p>
                   <p className='display-date'>Created: {created}</p>
-
-
                 </div>          
               </div> 
 
             
             </div> 
-          </>
+          </div>
         }
         
       </Container>

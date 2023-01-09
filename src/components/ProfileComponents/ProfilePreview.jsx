@@ -43,8 +43,8 @@ const ProfilePreview = () => {
                 <Image
                     className="photo-placeholder "
                     src={data ?  data.photoURL : ''}
-                    height={70}
-                    width={70}
+                    height={100}
+                    width={100}
                     roundedCircle
                     style={{ backgroundImage: `url("https://via.placeholder.com/500")` }}
                 />

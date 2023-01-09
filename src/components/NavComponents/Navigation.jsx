@@ -33,7 +33,7 @@ const Navigation = () => {
       try {
 
         console.log('start search')
-        navigate('/home')
+        navigate('/')
   
       } catch (err) {       
         console.log('something is wrong')
@@ -58,61 +58,68 @@ const Navigation = () => {
 
 
   return (
-    <Navbar bg="dark" expand='lg' className="navbar navbar-dark">
-          
-          <Container fluid>
+        <Navbar bg="dark" expand='lg' className="navbar navbar-dark">         
+          <Container className="d-flex align-items-center">
             
-              <Navbar.Brand as={Link} to={currentUser? '/home' :'/'}>
-              <img
-                src={Logo}
-                height="30"
-                className="d-inline-block align-top"
-                alt="logo"
-              />
-            </Navbar.Brand>
-            
+            {/* Logo */}
+            <div className="d-flex align-self-start">
+                <Navbar.Brand as={Link} to={currentUser? '/' :'/en'}>
+                <img
+                  src={Logo}
+                  height="30"
+                  className="d-inline-block"
+                  alt="logo"
+                />
+              </Navbar.Brand>
+            </div>
+
+       
             { currentUser ?( 
-              <>  
+              <div className="d-flex flex-row justify-content-end align-item-center"> 
+                {/* users setting */}
+                <div className='d-flex align-items-center justify-content-end'>              
+                    <NavItems />
+                  </div>
 
-                <NavItems />
 
-                <Navbar.Toggle aria-controls='offcanvasNavbar' />
-                <Navbar.Offcanvas
-                  id='offcanvasNavbar'
-                  aria-labelledby='offcanvasNavbarLabel'
-                  placement="start"
-                >
-                  <Offcanvas.Header closeButton>
-                    <Offcanvas.Title id='offcanvasNavbarLabel'>
-                      Offcanvas
-                    </Offcanvas.Title>
-                  </Offcanvas.Header>
-                  
-                  <Offcanvas.Body>
-                    <Nav className="d-flex align-items-center justify-content-end flex-grow-1 pe-3">
+                 {/* menu  */}
+                <div >
 
-                      <Nav.Link href="/upload">
-                        <Button className="btn-font">CREATE</Button>
-                      </Nav.Link>
+         
+                    <Navbar.Toggle aria-controls='offcanvasNavbar' />
+                    <Navbar.Offcanvas
+                      id='offcanvasNavbar'
+                      aria-labelledby='offcanvasNavbarLabel'
+                      placement="start"
+                      className='offcanva'
+                    >
+                      <Offcanvas.Header closeButton>
+                        <Offcanvas.Title id='offcanvasNavbarLabel'>
+                          Offcanvas
+                        </Offcanvas.Title>
+                      </Offcanvas.Header>
                       
-                      <Form onSubmit={handleSubmit} className="d-flex">
-                        <Form.Control
-                          type="search"
-                          placeholder="Search"
-                          className="mx-2"
-                          aria-label="Search"                         
-                        />
-                      </Form>
-                      
-                      
-                      
-                    </Nav>
-                    
-                  </Offcanvas.Body>
-                  
-                </Navbar.Offcanvas>
+                      <Offcanvas.Body>
+                        <Nav className="d-flex align-items-center justify-content-end flex-grow-1 pe-3">
 
-              </>
+                          <Nav.Link href="/upload">
+                            <Button className="btn-font">CREATE</Button>
+                          </Nav.Link>
+                          
+                          <Form onSubmit={handleSubmit} className="d-flex">
+                            <Form.Control
+                              type="search"
+                              placeholder="Search"
+                              className="mx-2"
+                              aria-label="Search"
+                            />
+                          </Form>                                      
+                      </Nav>                    
+                      </Offcanvas.Body>                 
+                    </Navbar.Offcanvas>
+
+                </div>
+              </div>
             )
             :(
               <div className="d-flex">

@@ -3,7 +3,7 @@ import { useAuthContext } from '../context/AuthContext'
 
 const RequireAuth = ({
 	children,
-	redirectTo = "/login",
+	redirectTo = "/en",
 }) => {
 	const { currentUser } = useAuthContext()
 

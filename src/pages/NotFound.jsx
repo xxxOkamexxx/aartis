@@ -12,7 +12,7 @@ const NotFound = () => {
 		<div className='page-bg'>
 			<div className='formWrapper'>
 				<h1>That page could not be found</h1>
-				<Link to={currentUser? '/home' : '/'} >
+				<Link to={currentUser? '/' : '/en'} >
 					<Button className='btnField btn-font'>
 						BACK
 					</Button>

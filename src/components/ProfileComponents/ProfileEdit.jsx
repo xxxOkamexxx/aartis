@@ -1,18 +1,20 @@
 import { createRef, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 
+// context components
 import { useAuthContext } from '../../context/AuthContext'
+import FormBox from '../FormBox';
 
+// hooks
 import useUser from '../../hooks/useUser';
 
-import { doc, setDoc, updateDoc } from "firebase/firestore";
-import { db, storage } from '../../firebase/config'
 
 // bootstrap style images
 import { Container, Row, Col, Form, Button, Card, Alert, Image } from 'react-bootstrap'
 import EditIcon from '@mui/icons-material/Edit';
 import { IconButton } from '@mui/material';
 import { VerticalAlignBottom } from '@mui/icons-material';
+
 
 
 
@@ -112,91 +114,103 @@ const ProfileEdit = () => {
  
   return ( 
     
-      <div className='page-bg'>
-        <div className='formWrapper'>
-          <Form onSubmit={handleSubmit}>
+      <FormBox>
+        <>
+          <Form onSubmit={handleSubmit} title='edit-profile' style={{width:'100%'}}>
+
             {error && (
                 <Alert variant='danger'>{error}</Alert>
             )}
-            
-            <Form.Group className='d-flex align-content-end'> 
 
-              <label className='input_icon'>
-                  <Image 
-                    src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
-                    className='icon_image'
-                    width='100px !important'
-                    height='100px !important'
-                    roundedCircle                  
-                  /> 
-                  <input 
-                    type="file" 
-                    onChange={handleFileChange} 
-                  /> 
-                  
-              </label>
-              <IconButton
-                style={{width:'30px', height:'30px'}}
-                type="file" 
-                //onChange={handleFileChange} 
-              >
-                <EditIcon 
-                  className='edit_icon' 
-                  style={{color:'#fcfcfc'}}
+              <Form.Group className='d-flex align-content-end profile-header'> 
+
+                <label className='input_icon'>
+                    <Image 
+                      src={currentUser.photoURL? currentUser.photoURL : 'https://via.placeholder.com/225' }
+                      className='icon_image user-displa'
+                      width='100px !important'
+                      height='100px !important'
+                      roundedCircle                  
+                    /> 
+                    <input 
+                      type="file" 
+                      onChange={handleFileChange} 
+                    /> 
+                    
+                </label>
+                <IconButton
+                  style={{width:'30px', height:'30px'}}
+                  type="file" 
+                  //onChange={handleFileChange} 
+                >
+                  <EditIcon 
+                    className='edit_icon' 
+                    style={{color:'#fcfcfc'}}
+                  />
+                </IconButton> 
+                <Form.Text>
+                  {
+                    photo
+                      ? `${photo.name} (${Math.round(photo.size/1024)} kB)`
+                      : ''
+                  }
+                 </Form.Text>
+              </Form.Group>
+              
+
+              <Form.Group className='mb-3 form-font'>
+                <Form.Label>User name</Form.Label>
+                <Form.Control 
+                  type="text" 
+                  ref={displayNameRef} 
+                  defaultValue={currentUser.displayName}
                 />
-              </IconButton> 
-            </Form.Group>
-            
+              </Form.Group> 
+              
+              <Form.Group className='mb-3 form-font'>
+                <Form.Label>Description</Form.Label>
+                <Form.Control 
+                  type='text' 
+                  as="textarea" 
+                  rows={3}
+                  ref={descriptionRef}
+                  defaultValue={data.description}
+                />
+              </Form.Group> 
 
-            <Form.Group>
-              <Form.Label>User name</Form.Label>
-              <Form.Control 
-                type="text" 
-                ref={displayNameRef} 
-                defaultValue={currentUser.displayName}
-              />
-            </Form.Group> 
-            
-            <Form.Group>
-              <Form.Label>Description</Form.Label>
-              <Form.Control 
-                type='text' 
-                as="textarea" 
-                rows={3}
-                ref={descriptionRef}
-                defaultValue={data.description}
-              />
-            </Form.Group> 
+              <Form.Group id="email" className='mb-3 form-font'>
+                <Form.Label>E-mail</Form.Label>
+                <Form.Control 
+                  type="email" 
+                  ref={emailRef} 
+                  defaultValue={currentUser.email}
+                />
+              </Form.Group>
 
-            <Form.Group id="email" className="mb-3">
-              <Form.Label>E-mail</Form.Label>
-              <Form.Control 
-                type="email" 
-                ref={emailRef} 
-                defaultValue={currentUser.email}
-              />
-            </Form.Group>
+              <Form.Group id="password" className='mb-3 form-font'>
+                <Form.Label>New Password</Form.Label>
+                <Form.Control 
+                  type="password" 
+                  ref={passwordRef} 
+                  defaultValue={currentUser.password}
+                  autoComplete="new-password" 
+                />
+              </Form.Group>
 
-            <Form.Group id="password" className="mb-3">
-              <Form.Label>New Password</Form.Label>
-              <Form.Control 
-                type="password" 
-                ref={passwordRef} 
-                defaultValue={currentUser.password}
-                autoComplete="new-password" 
-              />
-            </Form.Group>
+              <Form.Group id="password-confirm" className='mb-3 form-font'>
+                <Form.Label>Confirm New Password</Form.Label>
+                <Form.Control type="password" ref={passwordConfirmRef} autoComplete="new-password" />
+              </Form.Group>
 
-            <Form.Group id="password-confirm" className="mb-3">
-              <Form.Label>Confirm New Password</Form.Label>
-              <Form.Control type="password" ref={passwordConfirmRef} autoComplete="new-password" />
-            </Form.Group>
-            
-            <Button disabled={loading} type="submit" className='btnField'>UPPDATE</Button>
+              <p></p>
 
+              <div className='d-flex justify-content-center'>  
+                <Button disabled={loading} type="submit" className='btnField btn-lg'>UPPDATE</Button>
+              </div>
+           
           </Form>     
-        </div>
-      </div>
+        </>
+      </FormBox>
   )
 }
 
