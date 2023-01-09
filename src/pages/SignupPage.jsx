@@ -142,7 +142,7 @@ const SignupPage = () => {
               </Form.Group>
                  
                 
-                  <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
+                  {/* <p><small>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</small></p> */}
 
                 <div className='d-flex justify-content-center'>  
                   <Button

@@ -92,7 +92,7 @@ const LoginPage = () => {
               
                 
               <div className='text-center'>Join AARTIS? <Link to='/signup' className='linkText'>CREATE ACCOUNT</Link></div>
-                <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p>
+                {/* <p>By logging in to AARTIS, I confirm that I have read and agree to the AARTIS Terms of Service, Privacy Policy, and to receive emails and updates.</p> */}
                                 
           </Form>
       </>
