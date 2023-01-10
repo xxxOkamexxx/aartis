@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { RemoveRoad } from '@mui/icons-material'
+import { reload } from 'firebase/auth'
+import { useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { Input } from 'react-bootstrap-typeahead'
 import { useNavigate } from 'react-router-dom'
@@ -12,7 +14,13 @@ const SearchForm = () => {
 	
 		// redirect: add query parameter
 		navigate(`/search?q=${term}`)
+		setTearm('')
+		
 	}
+
+	useEffect(() => {
+		console.log('changed term')
+	},[term])
 	
 	return (
 		<div className='search-bar'>
