@@ -92,7 +92,7 @@ const ImageBox = ({ query }) => {
 	return (
 		<Container>
 			<div className='header my-5'>
-				<SearchForm onSearch={handleSearch} options={options}/> 
+				<SearchForm/> 
 			</div>
 
 			<FilterButtons currentFilter={currentFilter} changeFilter={changeFilter}/>

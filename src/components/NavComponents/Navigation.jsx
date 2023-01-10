@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from "react-router-dom"
 
 // components
 import NavItems from "./NavItems"
+import SearchForm from "../SearchForm"
 
 // firebase
 import { useAuthContext } from '../../context/AuthContext'
@@ -106,14 +107,7 @@ const Navigation = () => {
                             <Button className="btn-font">CREATE</Button>
                           </Nav.Link>
                           
-                          <Form onSubmit={handleSubmit} className="d-flex">
-                            <Form.Control
-                              type="search"
-                              placeholder="Search"
-                              className="mx-2"
-                              aria-label="Search"
-                            />
-                          </Form>                                      
+                          <SearchForm />                                      
                       </Nav>                    
                       </Offcanvas.Body>                 
                     </Navbar.Offcanvas>
