@@ -8,22 +8,22 @@ import { useAuthContext } from '../context/AuthContext'
  * get all users works
  */
 
-const useSearchWorks = (term) => {
+const useSearchWorks = (q) => {
 
 
 	// create ref to collection 'works'
 	const collectionRef = collection(db, 'work')
 
 	// create queryKey based on whether all works 
-	const queryKey = ['work', term]
+	const queryKey = ['work', q]
 
 	// create query for collectionRef, order result in reverse cronological order
-	let queryRef 
-		if(term){
-			query(collectionRef, where('tags', '==', term),orderBy('created', 'desc'))
-		}else{
-			query(collectionRef, orderBy('created', 'desc'))
-		}
+	let queryRef = q !== ''
+		
+			? query(collectionRef, where('tags', 'in', [q]),orderBy('created', 'desc'))
+	
+			:query(collectionRef, orderBy('created', 'desc'))
+	
 
 	// run query
 	const worksQuery = useFirestoreQueryData(queryKey, queryRef, {

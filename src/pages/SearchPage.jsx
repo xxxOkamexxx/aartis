@@ -9,34 +9,38 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 import SearchForm from '../components/SearchForm'
 import AllWorks from '../components/HomeComponents/AllWorks'
+import useSearchWorks from '../hooks/useSearchWorks'
 
 
 const SearchPage = () => {
   const queryString = useLocation().search
   const queryParams = new URLSearchParams(queryString)
   const q = queryParams.get('q')
+
+  //const { data } = useSearchWorks(q)
   
   const collectionRef = collection(db, 'work')
 
-  const queryKey = ['work']
-  let queryRef  
-  
-  if(q == ''){ 
-    queryRef = query(collectionRef, orderBy('created', 'desc'))
-  } queryRef = query(collectionRef, where('tags', 'array-contains', q), orderBy('created', 'desc'))
+  const queryKey = ['work', {tags: q}]
+  let queryRef = q !=='' 
+    ? query(collectionRef, where('tags', 'array-contains', q), orderBy('created', 'desc'))
+    : query(collectionRef, orderBy('created', 'desc'))
 
   const searchQuery = useFirestoreQueryData(queryKey,
     queryRef,{
       idField: 'id',
       subscribe: true,
+    },{
+      refetchOnMount: "always",
     })
   console.log('query', searchQuery.data)
 
 
   useEffect(() => {
-    if(!searchQuery){
-    return
-    }
+    // console.log('fired')
+    // if(!data){
+    // return
+    // }
     
   },[q])
 
