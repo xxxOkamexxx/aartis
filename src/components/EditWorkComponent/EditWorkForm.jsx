@@ -22,6 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { IconButton } from '@mui/material'
 
 import useWork from '../../hooks/useWork';
+import { useFieldArray } from 'react-hook-form';
 
 
 
@@ -49,16 +50,21 @@ const EditWorkForm = () => {
   const handleSubmit = async(e) => {  
       e.preventDefault() 
       
-      console.log('after',category)
+      //console.log('after',category)
          
     // Merge fields onto work-document
     await updateDoc(doc(db, 'work', data.uuid), { 
         title: titleRef.current.value,
         caption: captionRef.current.value,
-        //tags: [...data.tags, newTags],
+        tags: newTags,
+        // tags: [...data.tags, newTags],
         category: category,
         updated: Timestamp.fromDate(new Date()),
     }) 
+    // await updateDoc(doc(db, 'work', data.uuid), { 
+    //     tags: arrayUnion(newTags),        
+    // }) 
+    
 
    
     // setIsUploaded(true)
@@ -71,6 +77,10 @@ const EditWorkForm = () => {
     if(data){
         setCategory(data.category)
       }
+    if(!data.tags){
+      return
+    }
+    setTags(data.tags)
     
   },[data])
  console.log(category)
@@ -80,85 +90,89 @@ const EditWorkForm = () => {
     <Container>
 
         <div  className='image-box'>
-           {/* ---------------image---------------- */}
-           <div className='mb-5'>
-                                                      
-                <Image src={data.url} fluid/>
+          { data &&
+            <>
+            {/* ---------------image---------------- */}
+            <div className='mb-5'>
+                                                        
+                  <Image src={data.url} fluid/>
+                                
+              </div>
+
+            {/* ---------------image end---------------- */}
+        
+              <Form onSubmit={handleSubmit} title='upload' >
+                  
+                  {/* form */}
+                  {error && (<Alert variant="danger">{error}</Alert>)}
+                          
+                  <div className='formWrapper mb-5'>
+                      <Form.Group id='title' className='mb-3 form-font'>
+                          <Form.Label>Title *</Form.Label>
+                          <Form.Control 
+                              type='text' 
+                              defaultValue={data.title}
+                              ref={titleRef} 
+                              required 
+                          />
+                      </Form.Group>
+
+                      <Form.Group id='caption' className='mb-3 form-font'>
+                          <Form.Label>Caption</Form.Label>
+                          <Form.Control 
+                              type='text' 
+                              as="textarea" 
+                              rows={3}
+                              defaultValue={data.caption}
+                              ref={captionRef} 
+                          />
+                      </Form.Group>
+
+                      <Form.Group id='tags' className='mb-3 form-font'>
+                          <Form.Label>Tags</Form.Label>
+                          <TagsInput
+                              value={tags}
+                              onChange={setNewTags}
+                              name="tags"
+                              placeHolder="enter tags"
+                          />
+                          {/* { data.tags.map( tag =><p>{tag}</p> )} */}
+                          
+
+                      </Form.Group>
+
+                      <Form.Group id='category' className='mb-3 form-font formRadio'>
+                          <Form.Label>Category</Form.Label>
+                          <div>
+                              <Form.Check
+                                  inline
+                                  label="Illustration"
+                                  name="category"
+                                  type='radio'
+                                  id='radio-il'
+                                  value='illustration'
+                                  checked={category == 'illustration' }
+                                  onChange={() => setCategory('illustration')}
+                              />
+                              <Form.Check
+                                  inline
+                                  label="photograph"
+                                  name="category"
+                                  type='radio'
+                                  id='radio-ph'
+                                  value='photograph'
+                                  checked={category == 'photograph'}
+                                  onChange={() => setCategory('photograph')}
+                              />
+                          </div>
+                      </Form.Group>
                               
-            </div>
-
-           {/* ---------------image end---------------- */}
-       
-            <Form onSubmit={handleSubmit} title='upload' >
-                
-                {/* form */}
-                {error && (<Alert variant="danger">{error}</Alert>)}
-                        
-                <div className='formWrapper mb-5'>
-                    <Form.Group id='title' className='mb-3 form-font'>
-                        <Form.Label>Title *</Form.Label>
-                        <Form.Control 
-                            type='text' 
-                            defaultValue={data.title}
-                            ref={titleRef} 
-                            required 
-                        />
-                    </Form.Group>
-
-                    <Form.Group id='caption' className='mb-3 form-font'>
-                        <Form.Label>Caption</Form.Label>
-                        <Form.Control 
-                            type='text' 
-                            as="textarea" 
-                            rows={3}
-                            defaultValue={data.caption}
-                            ref={captionRef} 
-                        />
-                    </Form.Group>
-
-                    <Form.Group id='tags' className='mb-3 form-font'>
-                        <Form.Label>Tags</Form.Label>
-                        <TagsInput
-                            value={newTags}
-                            onChange={setNewTags}
-                            name="tags"
-                            placeHolder="enter tags"
-                        />
-                        {/* { data.tags.map( tag =><p>{tag}</p> )} */}
-                        
-
-                    </Form.Group>
-
-                    <Form.Group id='category' className='mb-3 form-font formRadio'>
-                        <Form.Label>Category</Form.Label>
-                        <div>
-                            <Form.Check
-                                inline
-                                label="Illustration"
-                                name="category"
-                                type='radio'
-                                id='radio-il'
-                                value='illustration'
-                                checked={category == 'illustration' }
-                                onChange={() => setCategory('illustration')}
-                            />
-                            <Form.Check
-                                inline
-                                label="photograph"
-                                name="category"
-                                type='radio'
-                                id='radio-ph'
-                                value='photograph'
-                                checked={category == 'photograph'}
-                                onChange={() => setCategory('photograph')}
-                            />
-                        </div>
-                    </Form.Group>
-                            
-                    
-                    <Button type='submit' className='btn-secondary btn-lg'>SAVE</Button>
-                </div>
-            </Form>
+                      
+                      <Button type='submit' className='btn-secondary btn-lg'>SAVE</Button>
+                  </div>
+              </Form>
+            </>
+          }
         </div>   
     </Container> 
         
