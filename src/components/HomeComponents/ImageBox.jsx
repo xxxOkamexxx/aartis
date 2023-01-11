@@ -7,7 +7,7 @@ import BeatLoader from 'react-spinners/BeatLoader'
 import AllWorks from './AllWorks'
 import SearchForm from '../SearchForm'
 import FilterButtons from './FilterButtons'
-import { async } from '@firebase/util'
+
 
 
 const ImageBox = ({ query }) => {
@@ -18,16 +18,16 @@ const ImageBox = ({ query }) => {
 
 
 	
-	// Get search keywords (Tags) from all 'work'documents.
-	const getTags = async() => {
-		if(query.data){
-			const tags = query.data
-			.map(work => work.tags)
-			.flat(1)
-			.filter((value, index, self) => self.indexOf(value) === index)
-			setOptions(tags)
-		}
-	}
+	// // Get search keywords (Tags) from all 'work'documents.
+	// const getTags = async() => {
+	// 	if(query.data){
+	// 		const tags = query.data
+	// 		.map(work => work.tags)
+	// 		.flat(1)
+	// 		.filter((value, index, self) => self.indexOf(value) === index)
+	// 		setOptions(tags)
+	// 	}
+	// }
 
 	
 	console.log(currentFilter)
@@ -56,9 +56,9 @@ const ImageBox = ({ query }) => {
 	console.log(isDoc)
 	
 	// get tags
-	useEffect(() => {			
-		getTags()
-	},[query])
+	// useEffect(() => {			
+	// 	getTags()
+	// },[query])
 
   //console.log(options)
 

@@ -1,39 +1,102 @@
-import { RemoveRoad } from '@mui/icons-material'
-import { reload } from 'firebase/auth'
-import { useEffect, useState } from 'react'
-import { Form } from 'react-bootstrap'
-import { Input } from 'react-bootstrap-typeahead'
+import { useEffect, useState, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { Form } from 'react-bootstrap'
+
+import { Typeahead } from 'react-bootstrap-typeahead'
+
+import useStreamCollection from '../hooks/useStreamCollection'
+
+
 const SearchForm = () => {
-	const [term, setTearm] = useState('')
+	const [singleSelections, setSingleSelections] = useState([])
+	const [options, setOptions] = useState([])
+	const [term, setTerm] = useState('')
 	const navigate = useNavigate()
+	const searchInputRef = useRef()
+
+/**
+ * Get tags for autocomplete
+ */
+	const { data } = useStreamCollection('work')
+	//console.log(data)
+	const getTags = async () => {
+		if(data) {
+			const tags = data
+			.map(work => work.tags)
+			.flat(1)
+			.filter((value, index, self) => self.indexOf(value) === index)
+			setOptions(tags)
+		}
+	}
+
+
+	useEffect(() => {
+		setTerm(singleSelections.toString())
+	},[singleSelections])
+
+
 
 	const handleSubmit = (e) => {
-		e.preventDefault()
-	
+		e.preventDefault()	
+		console.log('klicked')
 		// redirect: add query parameter
 		navigate(`/search?q=${term}`)
 		setTearm('')
 		
 	}
-
 	useEffect(() => {
-		console.log('changed term')
-	},[term])
+		getTags()
+		console.log(options)
+	},[data])
+	
+	
+	
+	console.log(singleSelections.toString())
+	console.log(term)
+	console.log(searchInputRef)
+	
 	
 	return (
 		<div className='search-bar'>
 			<Form
 				onSubmit={handleSubmit} 
 			>
-				<Form.Control 
+
+				<Typeahead
+					id="search"
+					labelKey="search"
+					onChange={setSingleSelections}
+					options={options}
+					placeholder="Search"
+					selected={singleSelections}
+					ref={searchInputRef}
+					onKeyDown={(e) => {
+						// Submit the form when the user hits enter.
+						console.log('klicked')
+						setTerm(singleSelections.toString())
+						// redirect: add query parameter
+						navigate(`/search?q=${term}`)
+						}}
+					//value={searchInput}
+				/>
+
+				{/* <Form.Select 
 					placeholder='Search'
 					type="text"
 					id='search'
 					onChange={(e) => setTearm(e.target.value)} 
 					required
-				/>
+					onSelect={options}
+				>
+					<options></options>
+					{
+						options.map(option => (
+							<options key={option}>{option}</options>
+						))
+					}
+				</Form.Select> */}
+
 			</Form>
 		</div>
 	)

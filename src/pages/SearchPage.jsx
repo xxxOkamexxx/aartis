@@ -9,7 +9,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 import SearchForm from '../components/SearchForm'
 import AllWorks from '../components/HomeComponents/AllWorks'
-import useSearchWorks from '../hooks/useSearchWorks'
+//import useSearchWorks from '../hooks/useSearchWorks'
 
 
 const SearchPage = () => {
@@ -17,8 +17,11 @@ const SearchPage = () => {
   const queryParams = new URLSearchParams(queryString)
   const q = queryParams.get('q')
 
-  //const { data } = useSearchWorks(q)
+  // const { data } = useSearchWorks(q) // Not loaded
   
+  /**
+   *  Hook to get works from firebase with query constraints
+   */
   const collectionRef = collection(db, 'work')
 
   const queryKey = ['work', {tags: q}]
@@ -35,25 +38,18 @@ const SearchPage = () => {
     })
   console.log('query', searchQuery.data)
 
-
-  useEffect(() => {
-    // console.log('fired')
-    // if(!data){
-    // return
-    // }
-    
-  },[q])
+  const searchWorks = searchQuery.data
 
 
 
   return (
     <Container>
-      <SearchForm />
+      {/* <SearchForm /> */}
       <h2>Search Result for: {q}</h2>
-      <p>{searchQuery.data?.length} items found</p>
+      <p>{searchWorks?.length} items found</p>
 
       <Row xs={1} sm={2} md={3} lg={4}>
-        {searchQuery.data && searchQuery.data.map(image => (
+        {searchWorks && searchWorks.map(image => (
           <Col key={image.id} className="d-flex mb-4">
         
               <AllWorks image={image} />
