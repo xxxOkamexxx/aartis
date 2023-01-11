@@ -37,15 +37,15 @@ const SearchForm = () => {
 
 
 
-	// // use onKeyDown instead av handle submit
-	// const handleSubmit = (e) => {
-	// 	e.preventDefault()	
-	// 	console.log('klicked')
-	// 	// redirect: add query parameter
-	// 	navigate(`/search?q=${term}`)
-	// 	setTearm('')
+	// use onKeyDown instead av handle submit
+	const handleSubmit = (e) => {
+		e.preventDefault()	
+		console.log('klicked')
+		// redirect: add query parameter
+		navigate(`/search?q=${term}`)
+		setTearm('')
 		
-	// }
+	}
 	
 	useEffect(() => {
 		getTags()
