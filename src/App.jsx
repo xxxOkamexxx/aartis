@@ -7,6 +7,7 @@ import Navigation from './components/NavComponents/Navigation'
 import StartPage from './pages/StartPage'
 import LoginPage from './pages/LoginPage'
 import SignupPage from './pages/SignupPage'
+import ForgotPasswordPage from './pages/ForgotPasswordPage'
 
 import HomePage from './pages/HomePage'
 import SearchPage from './pages/SearchPage'
@@ -37,6 +38,7 @@ function App() {
 				<Route path="*" element={<NotFound />} />
 				<Route path="/signup" element={<SignupPage />} />
 				<Route path="/login" element={<LoginPage />} />
+				<Route path="/reset-password" element={<ForgotPasswordPage />} />
 
 
 				<Route path="/" element={

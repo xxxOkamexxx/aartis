@@ -73,7 +73,7 @@ const LoginPage = () => {
 
               <div className="text-center mt-5">
 
-                <Link to='#' >Forgot Password?</Link>
+                <Link to="/reset-password" >Forgot Password?</Link>
               </div>
               {error && (
                 <Alert variant='danger'>{error}</Alert>

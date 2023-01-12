@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom'
 
 import { Form } from 'react-bootstrap'
 
-import { Typeahead } from 'react-bootstrap-typeahead'
+import { Typeahead, TypeaheadMenu } from 'react-bootstrap-typeahead'
 
 import useStreamCollection from '../hooks/useStreamCollection'
 
 
-const SearchForm = () => {
+const SearchForm = ({onSubmit}) => {
 	const [singleSelections, setSingleSelections] = useState([])
 	const [options, setOptions] = useState([])
 	const [term, setTerm] = useState('')
@@ -42,8 +42,11 @@ const SearchForm = () => {
 		e.preventDefault()	
 		console.log('klicked')
 		// redirect: add query parameter
-		navigate(`/search?q=${term}`)
-		setTearm('')
+		//navigate(`/search?q=${term}`)
+		//setTearm('')
+		onSubmit(searchInputRef.current.value)
+
+		searchInputRef.current.value = ''
 		
 	}
 	
@@ -51,6 +54,11 @@ const SearchForm = () => {
 		getTags()
 		console.log(options)
 	},[data])
+
+	// react to changes in page state
+	useEffect(() => {
+		searchInputRef.current
+	}, [])
 	
 	
 	
@@ -74,30 +82,20 @@ const SearchForm = () => {
 					selected={singleSelections}
 					ref={searchInputRef}
 					onKeyDown={(e) => {
+						e.preventDefault()
 						// Submit the form when the user hits enter.
 						console.log('klicked')
 						setTerm(singleSelections.toString())
 						// redirect: add query parameter
 						navigate(`/search?q=${term}`)
-						}}
-					//value={searchInput}
+						searchInputRef.current.value
+					}}
+					// renderMenu={(e, props) => {
+					// 	if(e.length == 0){
+					// 		return
+					// 	} return <TypeaheadMenu {...props} options={e}/>
+					// }}
 				/>
-
-				{/* <Form.Select 
-					placeholder='Search'
-					type="text"
-					id='search'
-					onChange={(e) => setTearm(e.target.value)} 
-					required
-					onSelect={options}
-				>
-					<options></options>
-					{
-						options.map(option => (
-							<options key={option}>{option}</options>
-						))
-					}
-				</Form.Select> */}
 
 			</Form>
 		</div>

@@ -10,28 +10,26 @@ import { useAuthContext } from '../context/AuthContext'
 
 const useSearchWorks = (q) => {
 
+	 /**
+   *  Hook to get works from firebase with query constraints
+   */
 
-	// create ref to collection 'works'
 	const collectionRef = collection(db, 'work')
 
-	// create queryKey based on whether all works 
-	const queryKey = ['work', q]
+  const queryKey = ['work', {tags: q}]
+  let queryRef = q !=='' 
+    ? query(collectionRef, where('tags', 'array-contains', q), orderBy('created', 'desc'))
+    : query(collectionRef, orderBy('created', 'desc'))
 
-	// create query for collectionRef, order result in reverse cronological order
-	let queryRef = q !== ''
-		
-			? query(collectionRef, where('tags', 'in', [q]),orderBy('created', 'desc'))
-	
-			:query(collectionRef, orderBy('created', 'desc'))
-	
+  const searchQuery = useFirestoreQueryData(queryKey,
+    queryRef,{
+      idField: 'id',
+      subscribe: true,
+    },{
+      refetchOnMount: "always",
+    })  
 
-	// run query
-	const worksQuery = useFirestoreQueryData(queryKey, queryRef, {
-		idField: 'id',
-		subscribe: true,
-	})
-
-	return worksQuery
+	return searchQuery
 }
 
 export default useSearchWorks
