@@ -33,14 +33,14 @@ const MyWorks = ({image}) => {
   
   const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
 
-  let updated = moment( image.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+  const updated = moment( image.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
   
 
 
   //console.log(image.comment.length)
   
   useEffect(() => {
-    setComments(image.comment.length)
+    setComments(image.comment?.length)
   },[])
 
   return (

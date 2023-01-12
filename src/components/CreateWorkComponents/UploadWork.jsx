@@ -23,21 +23,30 @@ import { IconButton } from '@mui/material'
 
 // hooks
 import useUploadImage from '../../hooks/useUploadImage';
-import useDeleteImage from '../../hooks/useDeleteImage'
-
 
 
 
 const UploadWork = () => {
-  const uploadFile = useUploadImage()
-  const deleteFile = useDeleteImage()
+  // const uploadFile = useUploadImage()
+  const { 
+    error, 
+    isError, 
+    isSuccess, 
+    isUploading, 
+    progress, 
+    upload, 
+    remove, 
+    isUrl, 
+    isUuid
+  } = useUploadImage()
+
   
   const titleRef = useRef('')
   const captionRef = useRef('')
   const [tags, setTags] = useState([])
   const [category, setCategory] = useState(null)
-  const [image, setImage] = useState([])
-  const [error, setError] = useState(null)
+  const [image, setImage] = useState('')
+  const [fieldError, setFieldError] = useState(null)
 	const [loading, setLoading] = useState(false)
 	const [isUploaded, setIsUploaded] = useState(false)
 
@@ -58,7 +67,8 @@ const UploadWork = () => {
 		console.log("acceptedFiles", acceptedFiles[0]) // 変換前のパス（オリジナル）
 
 		// trigger upload of the first image
-		uploadFile.upload(acceptedFiles[0]) // ここでプロパティの変換（UUID）
+		upload(acceptedFiles[0]) // ここでプロパティの変換（UUID）
+    setImage(isUrl)
             
 	}, [])
 
@@ -73,13 +83,31 @@ const UploadWork = () => {
     onDrop,
 	})
 
+  /**
+   * Delete upload image
+   */
+  const handleDelete = async(e) => {
+   
+    console.log(isUuid)
+    remove(isUuid)
+    setImage('File is not selected')
+  }
+
+  /**
+   * Upload image with images info
+   */
+
   const handleSubmit = async(e) => {  
     e.preventDefault() 
+
+    if(image == '') {
+      setFieldError('You ')
+    }
     
-    console.log(uploadFile.isUuid)
+    console.log(isUuid)
           
     // Merge fields onto work-document
-    await setDoc(doc(db, 'work', uploadFile.isUuid), { 
+    await setDoc(doc(db, 'work', isUuid), { 
         title: titleRef.current.value,
         caption: captionRef.current.value,
         tags: tags,
@@ -88,8 +116,9 @@ const UploadWork = () => {
         creator_name: currentUser.displayName,
         creator_avatar: currentUser.photoURL,
         comment:[],
-        updated:''
-    }, { merge: true }) 
+        updated:null
+    }, { merge: true })
+    
     
     // setIsUploaded(true)
     console.log('changed!')   
@@ -108,45 +137,60 @@ const UploadWork = () => {
            {/* ---------------dropzone---------------- */}
            <>
             <div className="outerBox">
-              {  !uploadFile.isUrl && 
                 <>
                   <div {...getRootProps()} id="dropzone-wrapper">
-                    <input {...getInputProps()} className="imageUploadInput" required/>
+                    <input {...getInputProps()} className="imageUploadInput"/>
 
                     <div className="indicator" >
                                                             
-                      <div className="imageUplodeBox">
-                        <div className="imageLogoAndText">
-                            
-                          <IconButton>
-                            <CloudUploadIcon  sx={{ fontSize: "50px", color:'#fcfcfc'}} />
-                          </IconButton>
-                                                          
-                          <h3>Drag and drop files here!</h3>
-                        </div>
-                      </div>
+                      { image == '' && 
+                        <div className="imageUplodeBox">
+                          <div className="imageLogoAndText">
+                              
+                            <IconButton>
+                              <CloudUploadIcon  sx={{ fontSize: "50px", color:'#fcfcfc'}} />
+                            </IconButton>
                                                             
+                            <h3>Drag and drop files here!</h3>
+                          </div>
+                        </div>
+                      }
+
+                      {/* Upload Progress Bar */}
+                      {progress !== null && (
+                        <div style={{width:'70vw'}}>
+                          <ProgressBar
+                            className='progress_bar'
+                            now={progress}
+                            label={`${progress}%`}
+                            variant="info"                         
+                          />
+                        </div>
+                      )}
+
+                      {isError && <Alert variant='danger'>{error.message}</Alert>}
+
+                    
                     </div>
-
-                    {/* Upload Progress Bar */}
-                    {uploadFile.progress !== null && (
-                      <ProgressBar
-                      className='progress_bar'
-                      now={uploadFile.progress}
-                      label={`${uploadFile.progress}%`}
-                      />
-                    )}
-
                   </div>
                 </>  
-              }
-              {uploadFile.isError && <Alert variant='danger'>{uploadFile.error.message}</Alert>}
-              {uploadFile.isSuccess && (
+              {/* Upload Progress Bar */}
+              {/* {progress !== null && (
+                <ProgressBar
+                className='progress_bar'
+                now={progress}
+                label={`${progress}%`}
+                />
+              )} */}
+
+              {isError && <Alert variant='danger'>{error.message}</Alert>}
+              
+              {isSuccess && image !== '' && (
                 <>
-                  <Image alt='preview' src={uploadFile.isUrl} className="img-thumbnail" />
+                  <Image alt='preview' src={isUrl} className="img-thumbnail" />
                   <IconButton 
                     sx={{backgroundColor:'#AD9510', marginTop: 2,}}
-                    //onChange={deleteFile.mutate()}
+                    onClick={handleDelete}
                   >
                     <DeleteIcon sx={{color:'#fcfcfc'}}/>
                   </IconButton>
@@ -159,7 +203,7 @@ const UploadWork = () => {
        
             
             {/* form */}
-            {error && (<Alert variant="danger">{error}</Alert>)}
+            {fieldError && (<Alert variant="danger">{fieldError}</Alert>)}
          
                        
             <div className='formWrapper mb-5'>

@@ -1,15 +1,29 @@
 import { useState } from 'react'
-import { collection, addDoc, serverTimestamp, doc, setDoc } from 'firebase/firestore'
-import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage'
+import { 
+	collection, 
+	addDoc, 
+	serverTimestamp, 
+	doc, 
+	setDoc,
+	deleteDoc, 
+} from 'firebase/firestore'
+import { 
+	getStorage, 
+	ref, 
+	getDownloadURL, 
+	uploadBytesResumable, 
+	deleteObject 
+} from 'firebase/storage'
 import { v4 as uuidv4 } from 'uuid'
 import { useAuthContext } from '../context/AuthContext'
 import { db, storage } from '../firebase/config'
 
+
 const useUploadImage = () => {
 	const [error, setError] = useState(null)
-	const [isError, setIsError] = useState(null)
-	const [isSuccess, setIsSuccess] = useState(null)
-	const [isUploading, setIsUploading] = useState(null)
+	const [isError, setIsError] = useState(false)
+	const [isSuccess, setIsSuccess] = useState(false)
+	const [isUploading, setIsUploading] = useState(false)
 	const [progress, setProgress] = useState(null)
   const [isUrl, setisUrl] = useState(null)
 	const [isUuid, setIsUuid] = useState(null)
@@ -17,20 +31,18 @@ const useUploadImage = () => {
 
 	const { currentUser } = useAuthContext()
 
+	/**
+	 * upload image
+	 */
 	const upload = async (image) => {
 		// reset internal state
 		setError(null)
-		setIsError(null)
-		setIsSuccess(null)
-		setIsUploading(null)
+		setIsError(false)
+		setIsSuccess(false)
+		setIsUploading(true)
+		setProgress(null)
 
-		try {
-
-			// // generate random 16 digits string
-			// const S = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-			// const N = 16;
-			// const fileName = Array.from(crypto.getRandomValues(new Uint32Array(N))).map((n) => S[n%S.length]).join('')
-			
+		try {			
 			// generate a uuid for the file
 			const uuid = uuidv4() 
 
@@ -60,7 +72,7 @@ const useUploadImage = () => {
 			setIsUuid(uuid)
 		
 			console.log(uuid)
-			const collectionRef = doc(db, 'work',`${uuid}`)
+			//const collectionRef = doc(db, 'work',`${uuid}`)
 
 			// create document in db for the uploaded image
 			await setDoc(doc(db, 'work', `${uuid}`),{
@@ -90,6 +102,31 @@ const useUploadImage = () => {
 		}
 	}
 
+
+	/**
+	 * delete image
+	 */
+	const remove = async(id) => {
+		const storage = getStorage()
+		// Create a reference to the file to delete
+		const desertRef = ref(storage, `works_image/${id}`);
+
+		// Delete the file in storage
+		deleteObject(desertRef).then(() => {
+			console.log('File deleted successfully')
+			// File deleted successfully
+		}).catch((error) => {
+			console.log('Uh-oh, an error occurred!')
+			// Uh-oh, an error occurred!
+		});
+
+
+		// Delete the document in db
+		await deleteDoc(doc(db, 'work', `${id}`))
+		
+	}
+
+
 	return {
 		error,
 		isError,
@@ -97,6 +134,7 @@ const useUploadImage = () => {
 		isUploading,
 		progress,
 		upload,
+		remove,
     isUrl,
 		isUuid
 	}

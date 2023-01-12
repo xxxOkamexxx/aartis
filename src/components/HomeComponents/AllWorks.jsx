@@ -105,13 +105,13 @@ const AllWorks = ({ image }) => {
 							
 						</div>
 					</div>
-						{ !image.updated &&
-							<span><small>Created: {created}</small></span>
-						}
-						
-						{ image.updated &&
-							<span><small>Updated: {updated}</small></span>
-						}
+							{ !image.updated &&
+								<span><small>Created: {created}</small></span>
+							}
+							
+							{ image.updated &&
+								<span><small>Updated: {updated}</small></span>
+							}
 
 				</Card>
     </>
