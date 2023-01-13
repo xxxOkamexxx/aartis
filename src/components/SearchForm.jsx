@@ -48,6 +48,7 @@ const SearchForm = ({onSubmit}) => {
 		onSubmit(searchInputRef.current.value)
 
 		searchInputRef.current.value = ''
+		setSingleSelections([])
 		
 	}
 	
@@ -57,9 +58,10 @@ const SearchForm = ({onSubmit}) => {
 	},[data])
 
 	// react to changes in page state
-	// useEffect(() => {
-	// 	searchInputRef.current
-	// }, [])
+	useEffect(() => {
+		setSingleSelections([])
+		//searchInputRef.current.clear()
+	}, [])
 	
 	
 	
@@ -92,6 +94,8 @@ const SearchForm = ({onSubmit}) => {
 						if(singleSelections.length > 0){
 							return navigate(`/search?q=${singleSelections.toString()}`)
 						}
+						setSingleSelections([])
+						searchInputRef.current.value = ''
 					}}
 					
 				/>

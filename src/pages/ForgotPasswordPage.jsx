@@ -1,9 +1,15 @@
 import React, { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+
 // contexts
 import { useAuthContext } from '../context/AuthContext'
+
 // bootstrap
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap'
+
+// component
+import FormBox from '../components/FormBox'
+
 
 const ForgotPasswordPage = () => {
 	const emailRef = useRef()
@@ -33,40 +39,44 @@ const ForgotPasswordPage = () => {
 	}
 
 	return (
-		<Container className="py-3 center-y">
-			<Row>
-				<Col md={{ span: 6, offset: 3 }}>
-					<Card>
-						<Card.Body>
-							<Card.Title className="mb-3 h-text-color-dark">Forgot Password?</Card.Title>
+		<FormBox className="py-3 center-y">
+			<Form 
+				onSubmit={handleSubmit} 
+				style={{width:'100%'}}
+			>
+			
+				{error && (<Alert variant="danger">{error}</Alert>)}
+				{message && (<Alert variant="success">{message}</Alert>)}
 
-							{error && (<Alert variant="danger">{error}</Alert>)}
-							{message && (<Alert variant="success">{message}</Alert>)}
+				<p>Enter your email address and we will send you a password reset link.</p>
 
-							<p>Enter your email address and we will send you a password reset link.</p>
+				<p><small><em>Please check your spam-folder if you do not receive the email.</em></small></p>
 
-							<p><small><em>Please check your spam-folder if you do not receive the email.</em></small></p>
 
-							<Form onSubmit={handleSubmit}>
+					<Form.Group 
+						id="email" 
+						className='mb-3 form-font'
+					>
+						<Form.Label className='input_icon'>Email</Form.Label>
+						<Form.Control type="email" ref={emailRef} required />
+					</Form.Group>
 
-								<Form.Group id="email" className="mb-3">
-									<Form.Label>Email</Form.Label>
-									<Form.Control type="email" ref={emailRef} required />
-								</Form.Group>
-
-								<Button disabled={loading} type="submit" className='btn-color'>Send password reset email</Button>
-							</Form>
-
-						</Card.Body>
-					</Card>
-
+					<Button 
+						disabled={loading} 
+						type="submit" 
+						className='btnField btn-font btn-lg'
+					>
+						Send password reset email
+					</Button>
+					
 					<div className="text-center mt-3">
 						Suddenly remembered your password?<br/>
 						<Link to="/login">Log In</Link>
 					</div>
-				</Col>
-			</Row>
-		</Container>
+			
+			</Form>		
+		
+		</FormBox>
 	)
 }
 
