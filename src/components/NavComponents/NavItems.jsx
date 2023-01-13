@@ -13,6 +13,8 @@ import { ThemeProvider } from '@emotion/react';
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Image from 'react-bootstrap/Image'
 
+
+
 const NavItems = () => {
   const { currentUser, userName, userEmail, userPhotoUrl} = useAuthContext()
   const theme = createTheme({
@@ -44,14 +46,14 @@ const NavItems = () => {
 
       <NavDropdown
           title={ 
-                  <Image
-                      className="photo-placeholder ms-3"
-                      src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
-                      height={30}
-                      width={30}
-                      roundedCircle
-                      style={{backgroundColor:'#fcfcfc'}}
-                  />
+            <Image
+                className="photo-placeholder ms-3"
+                src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
+                height={30}
+                width={30}
+                roundedCircle
+                style={{backgroundColor:'#fcfcfc'}}
+            />
                 }
           id='offcanvasNavbarDropdown'
         >
