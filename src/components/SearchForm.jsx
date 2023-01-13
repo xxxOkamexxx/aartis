@@ -38,9 +38,9 @@ const SearchForm = ({onSubmit}) => {
 
 
 
-	// use onKeyDown instead av handle submit
+
 	const handleSubmit = (e) => {
-		e.preventDefault()	
+		//e.preventDefault()	
 		console.log('klicked')
 		// redirect: add query parameter
 		navigate(`/search?q=${singleSelections.toString()}`)
@@ -83,12 +83,15 @@ const SearchForm = ({onSubmit}) => {
 					selected={singleSelections}
 					ref={searchInputRef}
 					onKeyDown={() => {
+						
 						// Submit the form when the user hits enter.
 						console.log('klicked')
+						searchInputRef.current.value
 						
 						// redirect: add query parameter
-						navigate(`/search?q=${singleSelections.toString()}`)
-						searchInputRef.current.value
+						if(singleSelections.length > 0){
+							return navigate(`/search?q=${singleSelections.toString()}`)
+						}
 					}}
 					
 				/>
