@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useFirestoreQueryData } from '@react-query-firebase/firestore'
 import { collection, query, where, orderBy } from 'firebase/firestore'
@@ -27,7 +28,7 @@ const useSearchWorks = (q) => {
       subscribe: true,
     },{
       refetchOnMount: "always",
-    })  
+    }) 
 
 	return searchQuery
 }

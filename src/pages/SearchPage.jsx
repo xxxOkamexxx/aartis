@@ -13,34 +13,32 @@ import useSearchWorks from '../hooks/useSearchWorks'
 
 
 const SearchPage = () => {
+  const [result, setResult] = useState()
   const queryString = useLocation().search
   const queryParams = new URLSearchParams(queryString)
   const q = queryParams.get('q')
 
-  const { data } = useSearchWorks(q) // Not loaded
+
+  const { data } = useSearchWorks(q) // Not reload
 
   const handleOnSubmit = async () => {
-    if(!q) {
+    if(!data) {
       return
-    }
+    }   
   }
+
+ 
   
 
-console.log(data)
-    useEffect(() => {
-      if(!data){
-        return
-      }
-      
-    },[q])
-    
+  
+  console.log(data)
 
   return (
     <Container>
       { data && (
         <>
           {/* <SearchForm onSubmit={handleOnSubmit} />  */}
-          <h2>Search Result for: {q}</h2>
+          <h2>Search data for: {q}</h2>
           <p>{data?.length} items found</p>
 
           <Row xs={1} sm={2} md={3} lg={4}>

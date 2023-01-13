@@ -11,7 +11,7 @@ import useStreamCollection from '../hooks/useStreamCollection'
 const SearchForm = ({onSubmit}) => {
 	const [singleSelections, setSingleSelections] = useState([])
 	const [options, setOptions] = useState([])
-	const [term, setTerm] = useState('')
+	//const [term, setTerm] = useState('')
 	const navigate = useNavigate()
 	const searchInputRef = useRef()
 
@@ -19,6 +19,7 @@ const SearchForm = ({onSubmit}) => {
  * Get tags for autocomplete
  */
 	const { data } = useStreamCollection('work')
+	
 	//console.log(data)
 	const getTags = async () => {
 		if(data) {
@@ -31,9 +32,9 @@ const SearchForm = ({onSubmit}) => {
 	}
 
 
-	useEffect(() => {
-		setTerm(singleSelections.toString())
-	},[singleSelections])
+	// useEffect(() => {
+	// 	setTerm(singleSelections.toString())
+	// },[singleSelections])
 
 
 
@@ -42,7 +43,7 @@ const SearchForm = ({onSubmit}) => {
 		e.preventDefault()	
 		console.log('klicked')
 		// redirect: add query parameter
-		//navigate(`/search?q=${term}`)
+		navigate(`/search?q=${singleSelections.toString()}`)
 		//setTearm('')
 		onSubmit(searchInputRef.current.value)
 
@@ -56,14 +57,14 @@ const SearchForm = ({onSubmit}) => {
 	},[data])
 
 	// react to changes in page state
-	useEffect(() => {
-		searchInputRef.current
-	}, [])
+	// useEffect(() => {
+	// 	searchInputRef.current
+	// }, [])
 	
 	
 	
 	console.log(singleSelections.toString())
-	console.log(term)
+	//console.log(term)
 	console.log(searchInputRef)
 	
 	
@@ -81,20 +82,15 @@ const SearchForm = ({onSubmit}) => {
 					placeholder="Search"
 					selected={singleSelections}
 					ref={searchInputRef}
-					onKeyDown={(e) => {
-						e.preventDefault()
+					onKeyDown={() => {
 						// Submit the form when the user hits enter.
 						console.log('klicked')
-						setTerm(singleSelections.toString())
+						
 						// redirect: add query parameter
-						navigate(`/search?q=${term}`)
+						navigate(`/search?q=${singleSelections.toString()}`)
 						searchInputRef.current.value
 					}}
-					// renderMenu={(e, props) => {
-					// 	if(e.length == 0){
-					// 		return
-					// 	} return <TypeaheadMenu {...props} options={e}/>
-					// }}
+					
 				/>
 
 			</Form>
