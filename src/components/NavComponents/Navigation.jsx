@@ -21,25 +21,36 @@ import Button from "react-bootstrap/Button"
 import Offcanvas from 'react-bootstrap/Offcanvas';
 
 import Logo from '../../assets/logo/logo-initial-white.svg'
+import MenuIcon from '@mui/icons-material/Menu';
 
 
 const Navigation = () => {
     const [data, setData] = useState([])
-    const { currentUser, userName, userEmail, userPhotoUrl} = useAuthContext()
+    const { 
+      currentUser, 
+      userName, 
+      userEmail, 
+      userPhotoUrl
+    } = useAuthContext()
+
     const navigate = useNavigate()
+    const [show, setShow] = useState(false);
 
-    const handleSubmit = async(e) => {
-      e.preventDefault()
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
-      try {
+    
+    // const handleSubmit = async(e) => {
+    //   e.preventDefault()
+    //   try {
 
-        console.log('start search')
-        navigate('/')
+    //     console.log('start search')
+    //     //navigate('/search')
   
-      } catch (err) {       
-        console.log('something is wrong')
-      }
-    }
+    //   } catch (err) {       
+    //     console.log('something is wrong')
+    //   }
+    // }
 
     useEffect(() => {
         if (currentUser) {
@@ -77,43 +88,141 @@ const Navigation = () => {
        
             { currentUser ?( 
               <div className="d-flex flex-row justify-content-end align-item-center"> 
-                {/* users setting */}
+
+                <Nav className="no-display">
+                {/* <Nav className="no-display d-flex align-items-center justify-content-end flex-grow-1 pe-3"> */}
+                  <Nav.Link href="/upload">
+                    <Button className="btn-outline-secondary btn-font">CREATE</Button>
+                  </Nav.Link>
+                    
+    
+                  <SearchForm />    
+
+                  <Nav.Link href="/logout">
+                    <Button className="btn-secondary btn-font ">Logout</Button> 
+                  </Nav.Link>              
+                </Nav>
+
+              {/* users setting */}
                 <div className='d-flex align-items-center justify-content-end'>              
-                    <NavItems />
-                  </div>
-
-
-                 {/* menu  */}
-                <div >
-
-         
-                    <Navbar.Toggle aria-controls='offcanvasNavbar' />
-                    <Navbar.Offcanvas
-                      id='offcanvasNavbar'
-                      aria-labelledby='offcanvasNavbarLabel'
-                      placement="start"
-                      className='offcanva'
-                    >
-                      <Offcanvas.Header closeButton>
-                        <Offcanvas.Title id='offcanvasNavbarLabel'>
-                          Offcanvas
-                        </Offcanvas.Title>
-                      </Offcanvas.Header>
-                      
-                      <Offcanvas.Body>
-                        <Nav className="d-flex align-items-center justify-content-end flex-grow-1 pe-3">
-
-                          <Nav.Link href="/upload">
-                            <Button className="btn-font">CREATE</Button>
-                          </Nav.Link>
-                          
-                          <SearchForm />                                      
-                      </Nav>                    
-                      </Offcanvas.Body>                 
-                    </Navbar.Offcanvas>
-
+                  <NavItems />
                 </div>
+
+              {/* offcanvas menu */}
+                <Button 
+                  variant="outline-light"  
+                  className="ms-2 d-inline" 
+                  onClick={handleShow}
+                >
+                  <MenuIcon />
+                </Button>
+
+                <Offcanvas
+                  className='offcanvas' 
+                  show={show} 
+                  onHide={handleClose}
+                >
+                  <Offcanvas.Header 
+                    closeButton
+                    closeVariant='white'
+                    className="offcanvas-header"
+                  >
+                    <Offcanvas.Title className="d-flex flex-column">
+                      <Nav.Link href={`/profile/${currentUser.uid}`} className="d-flex flex-row mb-3">
+                        <Image
+                            className="photo-placeholder ms-3"
+                            src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
+                            height={50}
+                            width={50}
+                            roundedCircle
+                            style={{backgroundColor:'#fcfcfc'}}
+                        />
+
+                        <h3 className="ms-3 align-self-end">{userName}</h3>
+                      </Nav.Link>
+                                           
+
+                    </Offcanvas.Title>
+                  </Offcanvas.Header>
+
+                  <Offcanvas.Body>
+                  
+
+                    <Nav className="offcanvas-body">
+                      <SearchForm /> 
+
+                      <hr />
+
+                      <Nav.Link href="/">
+                        <h5>Home</h5>
+                      </Nav.Link>
+
+                      <Nav.Link href={`/profile/${currentUser.uid}`}>
+                        <h5>Profile</h5>
+                      </Nav.Link>
+
+                      <Nav.Link href="/upload">
+                        <h5>Create</h5>
+                      </Nav.Link> 
+                      
+                      <Nav.Link href="/dashboard">
+                        <h5>Dashboard</h5>
+                      </Nav.Link> 
+
+
+        
+                           
+
+                      <Nav.Link href="/logout">
+                        <Button className="btn-secondary btn-font offcanvas-btn">Logout</Button>
+                      </Nav.Link>              
+                    </Nav> 
+
+                  </Offcanvas.Body>
+                </Offcanvas>
+
               </div>
+
+              // <div className="d-flex flex-row justify-content-end align-item-center"> 
+              //   {/* users setting */}
+              //   <div className='d-flex align-items-center justify-content-end'>              
+              //     <NavItems />
+              //   </div>
+
+
+              //    {/* menu  */}
+              //   <div >
+         
+              //     <Navbar.Toggle aria-controls='offcanvasNavbar' />
+              //     <Navbar.Offcanvas
+              //       id='offcanvasNavbar'
+              //       aria-labelledby='offcanvasNavbarLabel'
+              //       className='offcanvas'
+              //     >
+              //       <Offcanvas.Header closeButton closeVariant='white' >
+              //         {/* <Offcanvas.Title id='offcanvasNavbarLabel'>
+              //           Offcanvas
+              //         </Offcanvas.Title> */}
+              //       </Offcanvas.Header>
+                    
+              //       <Offcanvas.Body>
+              //         <Nav className="d-flex align-items-center justify-content-end flex-grow-1 pe-3">
+
+              //           <Nav.Link href="/upload">
+              //             <Button className="btn-secondary btn-font">CREATE</Button>
+              //           </Nav.Link>
+                        
+              //           <SearchForm />    
+
+              //           <Button className="btn-outline-secondary btn-font ">Logout</Button>               
+              //       </Nav>                    
+              //       </Offcanvas.Body> 
+                      
+                
+              //     </Navbar.Offcanvas>
+
+              //   </div>
+              // </div>
             )
             :(
               <div className="d-flex">

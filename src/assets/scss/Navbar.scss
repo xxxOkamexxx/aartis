@@ -7,8 +7,42 @@
     object-fit: cover;
 }
 
-.offcanva {
+.offcanvas {
     background-color: #343530;
     color: #fcfcfc;
     width: 100vw;
+
+    .offcanvas-header {
+        background-image: url(../bg-img/banner.svg);      
+        background-size: cover;
+    }  
+
+    .offcanvas-body {
+        display: flex;
+        flex-direction: column;
+        .offcanvas-btn {
+            width: 100%;
+        }
+    }
 }
+
+
+
+.no-display {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: end;
+    flex-direction: row;
+    flex-grow: 1em;
+}
+
+
+
+@media (max-width: 844px) {
+    .no-display {
+    display: none;
+    }
+
+}
+

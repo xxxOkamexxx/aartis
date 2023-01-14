@@ -16,7 +16,13 @@ import Image from 'react-bootstrap/Image'
 
 
 const NavItems = () => {
-  const { currentUser, userName, userEmail, userPhotoUrl} = useAuthContext()
+  const { 
+    currentUser, 
+    userName, 
+    userEmail, 
+    userPhotoUrl
+  } = useAuthContext()
+  
   const theme = createTheme({
     palette: {
       primary: {
