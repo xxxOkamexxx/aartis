@@ -20,6 +20,7 @@ const MyWorksList = ({ query }) => {
 		return <BeatLoader color={'#AD9510'} />
 	}
 
+	console.log(query)
   return (
 
         <ListGroup>

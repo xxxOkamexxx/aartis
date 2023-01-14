@@ -1,9 +1,16 @@
 import React from 'react'
-
-import useOwnWorks from '../hooks/useOwnWorks' 
-import MyWorksList from '../components/DashboardComponents/MyWorksList'
 import { Link } from 'react-router-dom'
+
+// hooks
+import useOwnWorks from '../hooks/useOwnWorks' 
+
+// components
+import MyWorksList from '../components/DashboardComponents/MyWorksList'
+
+// image, style, bootstrap
 import { Button, Container } from 'react-bootstrap'
+
+
 
 const Dashboard = () => {
   // get works
