@@ -15,28 +15,11 @@ const HomePage = () => {
   // get works
   let imageQuery = useWorks(pageQuery)
   
-  //console.log(imageQuery)
-
-  // useEffect(() => {
-  //   console.log('pageQuery', pageQuery)
-  // },[pageQuery])
-
-  
-  // const updatePost = async() => {
-  //   setPage(page + 4)
-  // }
-
 
   return (
     <>
       <div >
         <ImageBox query={imageQuery} setPageQuery={setPageQuery} />
-        {/* <Button 
-          onClick={updatePost}
-          className='btn-secondary align-center'
-        >
-          See more...
-        </Button> */}
       </div>
     </>
   )

@@ -11,7 +11,6 @@ import { useEffect } from 'react'
 
 const useWorks = (page) => {
 	const { currentUser } = useAuthContext()
-	//console.log('hooks', page)
 
 
 	// create ref to collection 'works'
@@ -23,17 +22,16 @@ const useWorks = (page) => {
 	// create query for collectionRef, order result in reverse cronological order
 	const queryRef = query(collectionRef, orderBy('created', 'desc'), limit(page))
 
-	console.log(queryRef)
+
 
 	// run query
 	const worksQuery = useFirestoreQueryData(queryKey, queryRef, {
 		idField: 'id',
-		//subscribe: true,
 	},
 	{
 		refetchOnMount: "always",
 	})
-	console.log(worksQuery)
+	
 	return worksQuery
 
 }

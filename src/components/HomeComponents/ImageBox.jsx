@@ -50,13 +50,6 @@ const ImageBox = ({ query, setPageQuery }) => {
 	
 	console.log(isDoc)
 	
-	// get tags
-	// useEffect(() => {			
-	// 	getTags()
-	// },[query])
-
-  //console.log(options)
-
 
 	if (query.isError) {
 		// show error
@@ -76,6 +69,7 @@ const ImageBox = ({ query, setPageQuery }) => {
 		setCurrentFilter(newFilter)
 	}
 
+	console.log(query)
 
 
 	return (
