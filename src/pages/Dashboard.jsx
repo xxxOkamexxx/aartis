@@ -19,9 +19,8 @@ const Dashboard = () => {
   return (
     <Container>
       <h1>Dashboard</h1>
-      <h1>Works Management Page</h1>
       <Link to='/upload'>
-        <Button >Create</Button>
+        <Button className='btn-secondary btn-font my-1'>Create</Button>
       </Link>
       
       < MyWorksList query={imageQuery} />

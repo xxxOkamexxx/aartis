@@ -1,6 +1,6 @@
 .page-bg {
     background-image: url(../bg-img/Steampunk_room06.png);
-    height: 100vh;
+    //height: 100vh;
     margin: auto;
     display: flex;
     justify-content: end;
@@ -12,12 +12,23 @@
     .formWrapper {
         display: flex;
         width: 40vw;
-        height: 100%;
+        //height: 100%;
         background-color: #343530;
         opacity: 90%;
-        padding: 3em 5em 3em 5em;  
+        padding: 5em 5em 3em 5em;  
         color: #fcfcfc;
         align-items: center;
+        overflow-y: scroll;
+        margin-top: 5em;
+
+
+        // .form-wrapper {
+        //     overflow-y: scroll;
+        // }
+
+        .profile-header {
+            margin-top: 3em;
+        }
        
 
         .title {

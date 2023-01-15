@@ -116,12 +116,10 @@ const ProfileEdit = () => {
     
       <FormBox>
         <>
-          <Form onSubmit={handleSubmit} title='edit-profile' style={{width:'100%'}}>
+          <Form onSubmit={handleSubmit} title='edit-profile' style={{width:'100%'}} className='form-wrapper'>
 
-            {error && (
-                <Alert variant='danger'>{error}</Alert>
-            )}
 
+           
               <Form.Group className='d-flex align-content-end profile-header'> 
 
                 <label className='input_icon'>
@@ -156,6 +154,10 @@ const ProfileEdit = () => {
                   }
                  </Form.Text>
               </Form.Group>
+
+              {error && (
+                <Alert variant='danger' className='mt-3'>{error}</Alert>
+              )}
               
 
               <Form.Group className='mb-3 form-font'>

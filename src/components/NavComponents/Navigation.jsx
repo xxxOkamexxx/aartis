@@ -125,9 +125,13 @@ const Navigation = () => {
                   <Offcanvas.Header 
                     closeButton
                     closeVariant='white'
-                    className="offcanvas-header"
                   >
                     <Offcanvas.Title className="d-flex flex-column">
+                                           
+                    </Offcanvas.Title>
+                  </Offcanvas.Header>
+
+                    <div className="offcanvas-user">
                       <Nav.Link href={`/profile/${currentUser.uid}`} className="d-flex flex-row mb-3">
                         <Image
                             className="photo-placeholder ms-3"
@@ -140,12 +144,10 @@ const Navigation = () => {
 
                         <h3 className="ms-3 align-self-end">{userName}</h3>
                       </Nav.Link>
-                                           
-
-                    </Offcanvas.Title>
-                  </Offcanvas.Header>
-
+                    </div>
+                    
                   <Offcanvas.Body>
+
                   
 
                     <Nav className="offcanvas-body">

@@ -78,7 +78,7 @@ const SignupPage = () => {
               <h3 className='text-center title'>SIGN UP</h3>             
 
               {error && (
-              <Alert variant="danger">{error}</Alert>
+              <Alert variant="danger" className='mt-3'>{error}</Alert>
               )}
 
               <Form.Group className='d-flex align-content-end profile-header'> 
