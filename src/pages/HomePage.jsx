@@ -5,32 +5,38 @@ import { Button } from 'react-bootstrap'
 //import useWorks from '../hooks/useWorks'
 import useWorks from '../hooks/useWorks'
 
-
 import ImageBox from '../components/HomeComponents/ImageBox'
 
+
+
 const HomePage = () => {
-  const [page, setPage] = useState(4)
-  
+  const [pageQuery, setPageQuery] = useState(4)
+
   // get works
-  const imageQuery = useWorks(page)
-
+  let imageQuery = useWorks(pageQuery)
   
-  const updatePost = () => {
-    setPage(page + 4)
-  }
-
-
-  console.log(page)
+  //console.log(imageQuery)
 
   // useEffect(() => {
-  //   setPage(4)
-  // },[])
+  //   console.log('pageQuery', pageQuery)
+  // },[pageQuery])
+
+  
+  // const updatePost = async() => {
+  //   setPage(page + 4)
+  // }
+
 
   return (
     <>
       <div >
-        <ImageBox query={imageQuery}/>
-        <Button onClick={updatePost}>See more...</Button>
+        <ImageBox query={imageQuery} setPageQuery={setPageQuery} />
+        {/* <Button 
+          onClick={updatePost}
+          className='btn-secondary align-center'
+        >
+          See more...
+        </Button> */}
       </div>
     </>
   )

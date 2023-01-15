@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import RequireAuth from '../src/components/RequireAuth'
+import { ReactQueryDevtools } from 'react-query/devtools'
 
 //Pages 
 import Navigation from './components/NavComponents/Navigation'
@@ -87,6 +88,8 @@ function App() {
 					</RequireAuth>
 				} />				
 			</Routes>
+
+			<ReactQueryDevtools position='bottom-right' />
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 
-import { Container, Alert, Col, Row, Form } from 'react-bootstrap'
+import { Container, Alert, Col, Row, Form, Button } from 'react-bootstrap'
 
 import BeatLoader from 'react-spinners/BeatLoader'
 
@@ -10,24 +10,19 @@ import FilterButtons from './FilterButtons'
 
 
 
-const ImageBox = ({ query }) => {
-	const [options, setOptions] = useState([])
+const ImageBox = ({ query, setPageQuery }) => {
+	const [page, setPage] = useState(4)
 	const [currentFilter, setCurrentFilter] = useState('all')
+	const [newArrivals, setNewArrivals] = useState(false)
 
 	const [isDoc, setIsDoc] = useState()
 
-
-	
-	// // Get search keywords (Tags) from all 'work'documents.
-	// const getTags = async() => {
-	// 	if(query.data){
-	// 		const tags = query.data
-	// 		.map(work => work.tags)
-	// 		.flat(1)
-	// 		.filter((value, index, self) => self.indexOf(value) === index)
-	// 		setOptions(tags)
-	// 	}
-	// }
+	// 'see more...' button
+	const updatePost = async() => {
+    setPage(page + 4)
+		setPageQuery(page)
+		setNewArrivals(true)
+  }
 
 	
 	console.log(currentFilter)
@@ -82,12 +77,6 @@ const ImageBox = ({ query }) => {
 	}
 
 
-	const handleSearch = async q => {
-
-	}
-
-	
-
 
 	return (
 		<Container>
@@ -97,12 +86,13 @@ const ImageBox = ({ query }) => {
 
 			<FilterButtons currentFilter={currentFilter} changeFilter={changeFilter}/>
   
-
 			<div className='works-box'>
 
-				<h3 style={{color:'#fcfcfc'}}>
+				{ !newArrivals &&
+					<h3 style={{color:'#fcfcfc'}}>
 					New Arrivals
 				</h3>
+				}
 
 				<Row xs={1} sm={2} md={3} lg={4}>
 					{isDoc && isDoc.map(image => (
@@ -113,7 +103,15 @@ const ImageBox = ({ query }) => {
 						</Col>
 					))}
 				</Row>
+				
+				<Button 
+          onClick={updatePost}
+          className='btn-secondary'
+        >
+          See more...
+        </Button>
 			</div>
+
 		</Container>
 	)
 }
