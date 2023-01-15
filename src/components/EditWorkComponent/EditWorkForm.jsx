@@ -106,7 +106,7 @@ const EditWorkForm = () => {
                   {/* form */}
                   {error && (<Alert variant="danger">{error}</Alert>)}
                           
-                  <div className='formWrapper mb-5'>
+                  <div className='formBoxWrapper mb-5'>
                       <Form.Group id='title' className='mb-3 form-font'>
                           <Form.Label>Title *</Form.Label>
                           <Form.Control 

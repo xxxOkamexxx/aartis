@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 
+import useStreamCollection from '../../hooks/useStreamCollection'
+
 import { Container, Alert, Col, Row, Form, Button } from 'react-bootstrap'
 
 import BeatLoader from 'react-spinners/BeatLoader'
@@ -12,20 +14,34 @@ import FilterButtons from './FilterButtons'
 
 const ImageBox = ({ query, setPageQuery }) => {
 	const [page, setPage] = useState(4)
+	const [endPage, setEndPage] = useState(false)
 	const [currentFilter, setCurrentFilter] = useState('all')
 	const [newArrivals, setNewArrivals] = useState(false)
 
-	const [isDoc, setIsDoc] = useState()
-
-	// 'see more...' button
-	const updatePost = async() => {
-    setPage(page + 4)
-		setPageQuery(page)
-		setNewArrivals(true)
-  }
+	const { data } = useStreamCollection('work')
 
 	
-	console.log(currentFilter)
+	
+	const [isDoc, setIsDoc] = useState()
+	
+	
+	
+	// 'see more...' button
+	const updatePost = async() => {
+		setPage(page + 4)
+		setPageQuery(page)
+		setNewArrivals(true)
+
+		console.log(data.length, ':',page, )
+  }
+	
+	
+	useEffect(() => {
+		
+	},[])
+
+	
+	//console.log(currentFilter)
 	// check current filter 
 	useEffect(() => {
 		if(!query.data){	
@@ -101,6 +117,8 @@ const ImageBox = ({ query, setPageQuery }) => {
 				<Button 
           onClick={updatePost}
           className='btn-secondary'
+					// Originally, (data.length <= page), but there is a bug in rendering, so (data.length < page) is used.
+					disabled={data.length < page}
         >
           See more...
         </Button>

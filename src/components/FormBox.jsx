@@ -3,7 +3,7 @@ import React from 'react'
 const FormBox = ({children}) => {
   return (
     <div className='page-bg'>
-      <div className='formWrapper'>
+      <div className='formBoxWrapper'>
         {children}
       </div>
     </div>  
