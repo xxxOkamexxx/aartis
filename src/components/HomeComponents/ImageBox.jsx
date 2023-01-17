@@ -13,8 +13,6 @@ import FilterButtons from './FilterButtons'
 
 
 const ImageBox = ({ query, setPageQuery, pageQuery }) => {
-	//const [page, setPage] = useState(4)
-	const [endPage, setEndPage] = useState(false)
 	const [currentFilter, setCurrentFilter] = useState('all')
 	const [newArrivals, setNewArrivals] = useState(false)
 
@@ -114,8 +112,7 @@ const ImageBox = ({ query, setPageQuery, pageQuery }) => {
 				<Button 
           onClick={updatePost}
           className='btn-secondary'
-					// Originally, (data.length <= page), but there is a bug in rendering, so (data.length < page) is used.
-					disabled={data.length < pageQuery}
+					disabled={data.length <= pageQuery}
         >
           See more...
         </Button>
