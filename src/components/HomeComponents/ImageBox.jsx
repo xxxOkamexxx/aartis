@@ -12,8 +12,8 @@ import FilterButtons from './FilterButtons'
 
 
 
-const ImageBox = ({ query, setPageQuery }) => {
-	const [page, setPage] = useState(4)
+const ImageBox = ({ query, setPageQuery, pageQuery }) => {
+	//const [page, setPage] = useState(4)
 	const [endPage, setEndPage] = useState(false)
 	const [currentFilter, setCurrentFilter] = useState('all')
 	const [newArrivals, setNewArrivals] = useState(false)
@@ -24,21 +24,18 @@ const ImageBox = ({ query, setPageQuery }) => {
 	
 	const [isDoc, setIsDoc] = useState()
 	
-	
+	console.log('page',pageQuery)
 	
 	// 'see more...' button
-	const updatePost = async() => {
-		setPage(page + 4)
-		setPageQuery(page)
+	const updatePost = () => {
+		//setPage(page + 4)
+		setPageQuery(pageQuery + 4)
 		setNewArrivals(true)
 
-		console.log(data.length, ':',page, )
+		console.log(data.length, ':',pageQuery)
   }
 	
 	
-	useEffect(() => {
-		
-	},[])
 
 	
 	//console.log(currentFilter)
@@ -118,7 +115,7 @@ const ImageBox = ({ query, setPageQuery }) => {
           onClick={updatePost}
           className='btn-secondary'
 					// Originally, (data.length <= page), but there is a bug in rendering, so (data.length < page) is used.
-					disabled={data.length < page}
+					disabled={data.length < pageQuery}
         >
           See more...
         </Button>

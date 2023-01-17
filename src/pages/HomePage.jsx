@@ -19,7 +19,7 @@ const HomePage = () => {
   return (
     <>
       <div >
-        <ImageBox query={imageQuery} setPageQuery={setPageQuery} />
+        <ImageBox query={imageQuery} setPageQuery={setPageQuery} pageQuery={pageQuery}/>
       </div>
     </>
   )
