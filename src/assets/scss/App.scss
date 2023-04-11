@@ -94,6 +94,11 @@ h1, h2, h3, h4, h5,.btn-font {
 p, a, .form-font {
     text-decoration: none;
     font-size: large;
+    color: #fcfcfc;
+}
+
+a:hover {
+    color: #7B7C71;
 }
 
 p.display-date {

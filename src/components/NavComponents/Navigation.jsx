@@ -91,16 +91,16 @@ const Navigation = () => {
 
                 <Nav className="no-display">
                 {/* <Nav className="no-display d-flex align-items-center justify-content-end flex-grow-1 pe-3"> */}
-                  <Nav.Link href="/upload">
+                  <Link to ="/upload">
                     <Button className="btn-outline-secondary btn-font">CREATE</Button>
-                  </Nav.Link>
+                  </Link>
                     
     
                   <SearchForm />    
 
-                  <Nav.Link href="/logout">
+                  <Link to="/logout">
                     <Button className="btn-secondary btn-font ">Logout</Button> 
-                  </Nav.Link>              
+                  </Link>              
                 </Nav>
 
               {/* users setting */}
@@ -132,7 +132,7 @@ const Navigation = () => {
                   </Offcanvas.Header>
 
                     <div className="offcanvas-user">
-                      <Nav.Link href={`/profile/${currentUser.uid}`} className="d-flex flex-row mb-3">
+                      <Link to={`/profile/${currentUser.uid}`} className="d-flex flex-row mb-3">
                         <Image
                             className="photo-placeholder ms-3"
                             src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
@@ -143,7 +143,7 @@ const Navigation = () => {
                         />
 
                         <h3 className="ms-3 align-self-end">{userName}</h3>
-                      </Nav.Link>
+                      </Link>
                     </div>
                     
                   <Offcanvas.Body>
@@ -155,29 +155,29 @@ const Navigation = () => {
 
                       <hr />
 
-                      <Nav.Link href="/">
+                      <Link to="/">
                         <h5>Home</h5>
-                      </Nav.Link>
+                      </Link>
 
-                      <Nav.Link href={`/profile/${currentUser.uid}`}>
+                      <Link to={`/profile/${currentUser.uid}`}>
                         <h5>Profile</h5>
-                      </Nav.Link>
+                      </Link>
 
-                      <Nav.Link href="/upload">
+                      <Link to="/upload">
                         <h5>Create</h5>
-                      </Nav.Link> 
+                      </Link> 
                       
-                      <Nav.Link href="/dashboard">
+                      <Link to="/dashboard">
                         <h5>Dashboard</h5>
-                      </Nav.Link> 
+                      </Link> 
 
 
         
                            
 
-                      <Nav.Link href="/logout">
+                      <Link to="/logout">
                         <Button className="btn-secondary btn-font offcanvas-btn">Logout</Button>
-                      </Nav.Link>              
+                      </Link>              
                     </Nav> 
 
                   </Offcanvas.Body>

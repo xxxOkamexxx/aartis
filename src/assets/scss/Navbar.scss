@@ -3,6 +3,7 @@
     
 }
 
+
 .photo-placeholder {
     object-fit: cover;
 }
@@ -19,6 +20,7 @@
     }  
 
     .offcanvas-body {
+        color: #fcfcfc;
         display: flex;
         flex-direction: column;
         .offcanvas-btn {
