@@ -1,5 +1,5 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from "react-router-dom"
 
 import { useAuthContext } from '../../context/AuthContext'
 
@@ -63,11 +63,33 @@ const NavItems = () => {
                 }
           id='offcanvasNavbarDropdown'
         >
-          <NavDropdown.Item href={`/profile/${currentUser.uid}`}>Profile</NavDropdown.Item>
-          <NavDropdown.Item href="/dashboard">Dashboard</NavDropdown.Item>
+          <NavDropdown.Item>
+            <Link 
+              to={`/profile/${currentUser.uid}`}
+              style={{color:'#343530'}}
+            >
+              Profile
+            </Link>
+          </NavDropdown.Item>
+
+          <NavDropdown.Item>
+            <Link 
+                to={'/dashboard'}
+                style={{color:'#343530'}}
+              >
+              Dashboard
+            </Link>
+          </NavDropdown.Item>
+
           <NavDropdown.Divider />
-          <NavDropdown.Item href="/logout">
-            Logout
+
+          <NavDropdown.Item>
+            <Link
+              to={'/logout'}
+              style={{color:'#343530'}}
+            >
+              Logout
+            </Link>
           </NavDropdown.Item>
       </NavDropdown>
     </>
