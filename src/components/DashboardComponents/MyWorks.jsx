@@ -90,7 +90,7 @@ const MyWorks = ({image}) => {
             <span>
               <FavoriteIcon className='like-icon' />
             </span>
-            <span className="action-counter">{likes}</span>
+            <span className="action-counter">{image.likes}</span>
           </div>  
         </div>
 

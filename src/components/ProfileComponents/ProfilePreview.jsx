@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
 // components
@@ -50,7 +50,9 @@ const ProfilePreview = () => {
         }
     }
 
-
+    useEffect(() => {
+        console.log('id:',id)
+    },[id])
 
 
   return (

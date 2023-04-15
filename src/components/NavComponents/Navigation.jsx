@@ -132,7 +132,7 @@ const Navigation = () => {
                   </Offcanvas.Header>
 
                     <div className="offcanvas-user">
-                      <Link to={`/profile/${currentUser.uid}`} className="d-flex flex-row mb-3">
+                      <NavLink to={`/profile/${currentUser.uid}`} className="d-flex flex-row mb-3">
                         <Image
                             className="photo-placeholder ms-3"
                             src={userPhotoUrl?  userPhotoUrl : 'https://via.placeholder.com/225'}
@@ -143,7 +143,7 @@ const Navigation = () => {
                         />
 
                         <h3 className="ms-3 align-self-end">{userName}</h3>
-                      </Link>
+                      </NavLink>
                     </div>
                     
                   <Offcanvas.Body>

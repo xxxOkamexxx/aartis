@@ -83,27 +83,16 @@ const CreatorsWorks = ({id}) => {
                 <div className='d-flex justify-content-end align-items-center flex-row'>
                   
                     <div className="commentBtn">
-                      <IconButton 
-                        className='comment-button' 
-                        // onClick={ handleClick }
-                        style={{ width:'30px', height:'30px'}}
-                        >	
-                        <span>< ChatBubbleOutlineIcon className='comment-icon' /></span>					
-                      </IconButton>					
+                      <span>< ChatBubbleOutlineIcon className='comment-icon' /></span>
                       <span className="action-counter">{work.comment.length}</span>	
+
                     </div>
 
                     <div className="likeBtn ms-2">
-                      <IconButton 
-                        className={`like-button ${isClicked && 'liked'}` } 
-                        onClick={ handleClick }
-                        style={{ width:'30px', height:'30px'}}
-                        >	
-                        <span>{ isClicked
-                          ? < FavoriteIcon className='like-icon' /> 
-                          : < FavoriteBorderIcon className='like-icon' />}</span>					
-                      </IconButton>					
-                      <span className="action-counter"> {likes}</span>	
+                      <span>{ isClicked
+                            ? < FavoriteIcon className='like-icon' /> 
+                            : < FavoriteBorderIcon className='like-icon' />}</span>	
+                      <span className="action-counter"> {work.likes}</span>
                     </div>
                     
               </div>
