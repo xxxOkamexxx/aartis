@@ -19,7 +19,7 @@ import useUser from '../../hooks/useUser'
 
 
 const AllWorks = ({ image }) => {
-	const [likes, setLikes] = useState(100);
+	const [likes, setLikes] = useState(0);
 	const [comments, setComments] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
 
@@ -35,12 +35,12 @@ const AllWorks = ({ image }) => {
 
 
 	const handleClick = () => {
-    if (isClicked) {
+    if (isLiked) {
       setLikes(likes - 1);
     } else {
       setLikes(likes + 1);
     }
-    setIsClicked(!isClicked);
+    setIsLiked(!isLiked);
   };
 
 
@@ -91,16 +91,10 @@ const AllWorks = ({ image }) => {
 								</div>
 
 								<div className="likeBtn ms-2">
-									<IconButton 
-										className={`like-button ${isClicked && 'liked'}` } 
-										onClick={ handleClick }
-										style={{ width:'30px', height:'30px'}}
-										>	
-										<span>{ isClicked
-											? < FavoriteIcon className='like-icon' /> 
-											: < FavoriteBorderIcon className='like-icon' />}</span>					
-									</IconButton>					
-									<span className="action-counter"> {likes}</span>	
+									<span>{ isClicked
+												? < FavoriteIcon className='like-icon' /> 
+												: < FavoriteBorderIcon className='like-icon' />}</span>	
+									<span className="action-counter"> {image.likes}</span>
 								</div>
 							
 						</div>

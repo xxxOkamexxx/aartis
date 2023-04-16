@@ -14,25 +14,28 @@ import BeatLoader from 'react-spinners/BeatLoader'
 import { useAuthContext } from '../../context/AuthContext'
 
 import useUser from '../../hooks/useUser'
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from '../../firebase/config'
+
 
 
 const DisplayWork = ({data}) => {
   const { currentUser } = useAuthContext()
-  const [likes, setLikes] = useState(100);
+  const [likes, setLikes] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
   const [isUser, setIsUser] = useState()
   const [isLoading, setIsLoading] = useState(false)
   const [isFollowed, setIsFollowed] = useState(false)
   const [followButton, setFollowButton] = useState('Follow')
   const [className, setClassName] = useState('btn-outline-secondary')
+  const [isLiked, setIsLiked] = useState()
   
 
   useEffect(()=>{
+    setIsLiked(data.likes)
     setIsLoading(true)
     const getUser = async(id) => {
-      console.log('useEffect')
+      
       const docRef = doc(db, "user", `${id}`);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
@@ -48,27 +51,37 @@ const DisplayWork = ({data}) => {
       } 
     }
     getUser(data.user)
+    
   },[data.user])
 
   if(!data.created){
     return
   }
-    const created = moment( data.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+  const created = moment( data.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+  
   
   //console.log(data.created, created)
 
 
   // check like button
-  const handleClick = () => {
-    if (isClicked) {
-      setLikes(likes - 1);
-      
-    } else {
-      setLikes(likes + 1);
-    }
-    setIsClicked(!isClicked);
+  const handleClick = async(e) => {
     
-  }; 
+    //setIsLiked(data?.likes)
+
+    setIsClicked(!isClicked)
+    if(isClicked){
+      setLikes(-1)
+    } else{
+      setLikes(+1)
+    }
+
+    setIsLiked(data.likes + likes)
+    console.log(likes, isLiked)
+    await updateDoc(doc(db, 'work', data.uuid),{
+      likes: isLiked
+    })   
+ 
+  };
 
   //console.log(data.creator_id)
 
@@ -84,7 +97,6 @@ const DisplayWork = ({data}) => {
       setClassName('btn-outline-secondary')
     }
   }
-
 
   
   return (
@@ -121,7 +133,7 @@ const DisplayWork = ({data}) => {
                     ? < FavoriteIcon className='like-icon' /> 
                     : < FavoriteBorderIcon className='like-icon' />}</span>					
                 </IconButton>					
-                <span className="action-counter"> {likes}</span>	
+                <span className="action-counter"> {data.likes}</span>	
                 
               </div>
               

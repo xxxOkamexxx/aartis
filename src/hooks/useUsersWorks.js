@@ -17,7 +17,7 @@ const useUsersWorks = (id) => {
 
 	// create queryKey based on whether all works or only the current user's works are requested
 	const queryKey = ['work', { user: id }]
-		
+		console.log('go hooks', id)
 
 	// create query for collectionRef, order result in reverse cronological order
 	const queryRef =  query(collectionRef, where('user', '==', id), orderBy('created', 'desc'))

@@ -65,9 +65,9 @@ const SearchForm = ({onSubmit}) => {
 	
 	
 	
-	console.log(singleSelections.toString())
+	//console.log(singleSelections.toString())
 	//console.log(term)
-	console.log(searchInputRef)
+	//console.log(searchInputRef)
 	
 	
 	return (

@@ -20,7 +20,7 @@ const useStreamDocument = (col, id) => {
         })
 
         return unsubscribe
-    }, [])
+    }, [col, id])
 
   return {
         data,

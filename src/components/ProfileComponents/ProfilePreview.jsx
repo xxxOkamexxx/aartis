@@ -29,13 +29,8 @@ const ProfilePreview = () => {
     } = useAuthContext()
 
     const { id } = useParams()
-    
-    //const id = currentUser.uid
-    
-    //console.log(id)
     const { data, loading } = useUser(id)
-
-    console.log(data.description)
+    
 
     // check follow button
     const handleFollow = () => {
@@ -51,10 +46,9 @@ const ProfilePreview = () => {
     }
 
     useEffect(() => {
-        console.log('id:',id)
+        console.log('data:', data, 'id:', id)
     },[id])
-
-
+ 
   return (
     <ProfileBox>
         <div className='profile-header'>
@@ -81,7 +75,7 @@ const ProfilePreview = () => {
 
         <div className='profile-container'>
             <div className='btn-container d-flex justify-content-end mb-5'>
-                { id == currentUser.uid &&
+                { id == currentUser.uid && 
                     <div>
                         <Link to="/profile-edit" style={{textDecoration:'none'}}>
                             <Button className='btn-font btn-submit'>
@@ -109,7 +103,7 @@ const ProfilePreview = () => {
                 }
             </div>
             <div className="details-container mb-5">
-                <p>{data.description}</p>
+                <p>{data?.description}</p>
             </div>
             
             <div className='works-container'>

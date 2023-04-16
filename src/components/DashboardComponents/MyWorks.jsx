@@ -23,7 +23,7 @@ import { useEffect } from 'react';
 
 
 const MyWorks = ({image}) => {
-  const [likes, setLikes] = useState(100);
+  const [likes, setLikes] = useState();
   const [comments, setComments] = useState(0);
   const { currentUser } = useAuthContext()
 	const deleteImageMutation = useDeleteImage()

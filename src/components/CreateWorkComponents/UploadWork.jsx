@@ -116,7 +116,8 @@ const UploadWork = () => {
         creator_name: currentUser.displayName,
         creator_avatar: currentUser.photoURL,
         comment:[],
-        updated:null
+        updated:null,
+        likes:0
     }, { merge: true })
     
     
