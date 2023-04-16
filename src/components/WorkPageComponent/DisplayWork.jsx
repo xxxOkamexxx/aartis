@@ -56,7 +56,7 @@ const DisplayWork = ({data}) => {
       } 
     }
     getUser(data.user)
-    setLikes(0)
+    //setLikes(0)
   },[data.uuid])
   
 
