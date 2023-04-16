@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react"
-import { useParams } from "react-router-dom"
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from "react-router-dom"
 import moment from 'moment';
 import { doc, updateDoc } from "firebase/firestore";
+import { db } from '../../firebase/config'
+
 
 import useUsersWorks from "../../hooks/useUsersWorks"
 
@@ -17,37 +18,27 @@ const CreatorsWorks = ({id}) => {
   const [likes, setLikes] = useState(0);
 	const [comments, setComments] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
+  const [currentUserId, setCurrentUserId] = useState(id)
+ 
+  let created;
+  let updated;
+  const { data } = useUsersWorks(currentUserId)
   
-  const { data } = useUsersWorks(id)
+  useEffect(() => {
+    setCurrentUserId(id)
+  },[id])
 
-  if(!data){
-    return console.log('no data')
+  
+  if(data) {
+  console.log('has data:',data, 'id:', id) 
+  created = moment( data.created?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')   
+  updated = moment( data.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+  } else if(!data){
+  console.log('no data')
+
   }
-  console.log('data:',data, 'id:', id) 
-  
-  const created = moment( data.created?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
-  
-  const updated = moment( data.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
-   
 
   
-  const handleClick = async(e) => {
-    e.preventDefault()
-
-    if (isClicked) {
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
-    setIsClicked(!isClicked);
-    console.log(likes)
-    await updatetDoc(doc(db, 'work', data.uuid),{
-      likes: likes
-    })
-
-  };
-
-  //setComments(data.comment.length)
 
 
   return (

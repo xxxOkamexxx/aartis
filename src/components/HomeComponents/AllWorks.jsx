@@ -22,6 +22,7 @@ const AllWorks = ({ image }) => {
 	const [likes, setLikes] = useState(0);
 	const [comments, setComments] = useState(0);
   const [isClicked, setIsClicked] = useState(false);
+	const [isLiked, setIsLiked] = useState()
 
 	const { data } = useUser(image.user)
 
@@ -31,17 +32,9 @@ const AllWorks = ({ image }) => {
 
 	useEffect(() => {
     setComments(image.comment.length)
-  },[])
+		setIsLiked(image.likes)
+  },[image])
 
-
-	const handleClick = () => {
-    if (isLiked) {
-      setLikes(likes - 1);
-    } else {
-      setLikes(likes + 1);
-    }
-    setIsLiked(!isLiked);
-  };
 
 
 	return (

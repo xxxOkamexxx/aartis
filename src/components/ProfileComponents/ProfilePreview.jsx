@@ -21,15 +21,18 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 const ProfilePreview = () => {
+    const { id } = useParams()
+    const { data, loading } = useUser(id)
+
     const [isFollowed, setIsFollowed] = useState(false)
     const [followButton, setFollowButton] = useState('Follow')
+    
     const [className, setClassName] = useState('btn-outline-secondary')
     const { 
         currentUser, 
     } = useAuthContext()
 
-    const { id } = useParams()
-    const { data, loading } = useUser(id)
+    
     
 
     // check follow button

@@ -28,60 +28,73 @@ const DisplayWork = ({data}) => {
   const [isFollowed, setIsFollowed] = useState(false)
   const [followButton, setFollowButton] = useState('Follow')
   const [className, setClassName] = useState('btn-outline-secondary')
-  const [isLiked, setIsLiked] = useState()
-  
+  const [isLiked, setIsLiked] = useState(data?.likes)
 
+  
+  console.log(data.user)
+
+  // Load users document
   useEffect(()=>{
-    setIsLiked(data.likes)
     setIsLoading(true)
+    setIsLiked(data?.likes)
     const getUser = async(id) => {
       
       const docRef = doc(db, "user", `${id}`);
       const docSnap = await getDoc(docRef);
+      setIsUser(docSnap.data())
+      
       if (docSnap.exists()) {
-        setIsUser(docSnap.data())
         console.log("Document data:", docSnap.data());
-        console.log(isUser)
+        console.log(isUser, docSnap.data())
 
         setIsLoading(false)
 
       } else {
         // doc.data() will be undefined in this case
+        setIsLoading(true)
         console.log("No such document!");
       } 
     }
     getUser(data.user)
+    setLikes(0)
+  },[data.uuid])
+  
+
+   
+  // check like button
+   const handleClick = async(e) => {    
+    e.preventDefault()
+    console.log('isClicked', isClicked)
     
-  },[data.user])
+    setIsClicked(!isClicked)
+    
+    console.log(likes, isLiked)
+    
+    await updateDoc(doc(db, 'work', data.uuid),{
+      likes: isLiked + likes
+    })   
+    setLikes(0)  
+  };  
+
+  // set likes counter
+  useEffect(() => { 
+    
+    if(isClicked === true){
+      setLikes(-1)
+    } else {
+      setLikes(1)
+    } 
+    
+  },[isClicked])
+  
 
   if(!data.created){
-    return
+    return console.log('no data')
   }
   const created = moment( data.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
   
-  
   //console.log(data.created, created)
 
-
-  // check like button
-  const handleClick = async(e) => {
-    
-    //setIsLiked(data?.likes)
-
-    setIsClicked(!isClicked)
-    if(isClicked){
-      setLikes(-1)
-    } else{
-      setLikes(+1)
-    }
-
-    setIsLiked(data.likes + likes)
-    console.log(likes, isLiked)
-    await updateDoc(doc(db, 'work', data.uuid),{
-      likes: isLiked
-    })   
- 
-  };
 
   //console.log(data.creator_id)
 
