@@ -11,12 +11,12 @@ const SearchPage = () => {
   const queryParams = new URLSearchParams(queryString)
   const q = queryParams.get('q') ?? ''
 
-  console.log(q)
+  //console.log(q)
 
   const searchQuery = useSearchWorks(q) // Not reload
 
   useEffect(() => {
-    console.log('new q:', q )
+    //console.log('new q:', q )
     setSearch(q)
   },[q])
 

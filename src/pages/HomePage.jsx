@@ -4,6 +4,7 @@ import { Button } from 'react-bootstrap'
 
 //import useWorks from '../hooks/useWorks'
 import useWorks from '../hooks/useWorks'
+import useStreamCollection from '../hooks/useStreamCollection'
 
 import ImageBox from '../components/HomeComponents/ImageBox'
 
@@ -11,6 +12,7 @@ import ImageBox from '../components/HomeComponents/ImageBox'
 
 const HomePage = () => {
   const [pageQuery, setPageQuery] = useState(4)
+  const { data } = useStreamCollection('work')
 
   // get works
   let imageQuery = useWorks(pageQuery)
@@ -19,7 +21,12 @@ const HomePage = () => {
   return (
     <>
       <div >
-        <ImageBox query={imageQuery} setPageQuery={setPageQuery} pageQuery={pageQuery}/>
+        <ImageBox 
+          query={imageQuery} 
+          setPageQuery={setPageQuery} 
+          pageQuery={pageQuery}
+          data={data}
+        />
       </div>
     </>
   )

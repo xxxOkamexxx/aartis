@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom' 
 
 import useStreamCollection from '../../hooks/useStreamCollection'
 
@@ -12,17 +13,15 @@ import FilterButtons from './FilterButtons'
 
 
 
-const ImageBox = ({ query, setPageQuery, pageQuery }) => {
+const ImageBox = ({ query, setPageQuery, pageQuery, data }) => {
 	const [currentFilter, setCurrentFilter] = useState('all')
 	const [newArrivals, setNewArrivals] = useState(false)
 
-	const { data } = useStreamCollection('work')
-
-	
+	//
 	
 	const [isDoc, setIsDoc] = useState()
 	
-	console.log('page',pageQuery)
+	//console.log('page',pageQuery)
 	
 	// 'see more...' button
 	const updatePost = () => {
@@ -30,20 +29,19 @@ const ImageBox = ({ query, setPageQuery, pageQuery }) => {
 		setPageQuery(pageQuery + 4)
 		setNewArrivals(true)
 
-		console.log(data.length, ':',pageQuery)
+		//console.log(data.length, ':',pageQuery)
   }
 	
-	
-
 	
 	//console.log(currentFilter)
 	// check current filter 
 	useEffect(() => {
+		setNewArrivals(false)
 		if(!query.data){	
 			return
 		}
-		const documents = query.data
-		const document = documents
+		//const documents = query.data
+		const document = query.data
 				// .filter(doc => doc.category == currentFilter)
 				// //.map (doc => doc.id)
 				.filter(doc => {
@@ -54,12 +52,13 @@ const ImageBox = ({ query, setPageQuery, pageQuery }) => {
 					}					
 				})
 	
-		console.log(document.map(d => d.id))
+		//console.log(document.map(d => d.id))
 		setIsDoc(document)
 
-	},[query, currentFilter])
+
+	},[query, currentFilter, data])
 	
-	console.log(isDoc)
+	//console.log(isDoc)
 	
 
 	if (query.isError) {
@@ -80,7 +79,9 @@ const ImageBox = ({ query, setPageQuery, pageQuery }) => {
 		setCurrentFilter(newFilter)
 	}
 
-	console.log(query)
+	
+
+	//console.log(query)
 
 
 	return (

@@ -54,7 +54,7 @@ const SearchForm = ({onSubmit}) => {
 	
 	useEffect(() => {
 		getTags()
-		console.log(options)
+		// sconsole.log(options)
 	},[data])
 
 	// react to changes in page state

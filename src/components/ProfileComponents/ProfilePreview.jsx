@@ -20,8 +20,7 @@ import EditIcon from '@mui/icons-material/Edit';
 
 
 
-const ProfilePreview = () => {
-    const { id } = useParams()
+const ProfilePreview = ({id}) => {
     const { data, loading } = useUser(id)
 
     const [isFollowed, setIsFollowed] = useState(false)
@@ -111,8 +110,9 @@ const ProfilePreview = () => {
             
             <div className='works-container'>
                 <h3>Works</h3>
-
+                
                 <CreatorsWorks id={id}/>
+                
                
             </div>
 

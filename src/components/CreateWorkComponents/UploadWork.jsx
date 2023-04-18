@@ -64,7 +64,7 @@ const UploadWork = () => {
 			return
 		}
 
-		console.log("acceptedFiles", acceptedFiles[0]) // 変換前のパス（オリジナル）
+		//console.log("acceptedFiles", acceptedFiles[0]) // 変換前のパス（オリジナル）
 
 		// trigger upload of the first image
 		upload(acceptedFiles[0]) // ここでプロパティの変換（UUID）
@@ -88,7 +88,7 @@ const UploadWork = () => {
    */
   const handleDelete = async(e) => {
    
-    console.log(isUuid)
+    //console.log(isUuid)
     remove(isUuid)
     setImage('File is not selected')
   }
@@ -104,7 +104,7 @@ const UploadWork = () => {
       setFieldError('You ')
     }
     
-    console.log(isUuid)
+    //console.log(isUuid)
           
     // Merge fields onto work-document
     await setDoc(doc(db, 'work', isUuid), { 
@@ -122,7 +122,7 @@ const UploadWork = () => {
     
     
     // setIsUploaded(true)
-    console.log('changed!')   
+    //console.log('changed!')   
     navigate('/dashboard')
                 
   }

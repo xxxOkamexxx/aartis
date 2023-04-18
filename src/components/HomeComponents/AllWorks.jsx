@@ -87,7 +87,7 @@ const AllWorks = ({ image }) => {
 									<span>{ isClicked
 												? < FavoriteIcon className='like-icon' /> 
 												: < FavoriteBorderIcon className='like-icon' />}</span>	
-									<span className="action-counter"> {image.likes}</span>
+									<span className="action-counter"> {isLiked}</span>
 								</div>
 							
 						</div>

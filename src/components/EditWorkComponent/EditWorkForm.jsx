@@ -43,7 +43,7 @@ const EditWorkForm = () => {
 
   const [isUploaded, setIsUploaded] = useState(false)
 
-  console.log(data.tags, newTags)
+  //console.log(data.tags, newTags)
 
 
   
@@ -68,7 +68,7 @@ const EditWorkForm = () => {
 
    
     // setIsUploaded(true)
-    console.log('changed!')   
+    //console.log('changed!')   
     navigate('/dashboard')
                 
   }
