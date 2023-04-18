@@ -14,9 +14,13 @@ const HomePage = () => {
   const [pageQuery, setPageQuery] = useState(4)
   const { data } = useStreamCollection('work')
 
+
   // get works
-  let imageQuery = useWorks(pageQuery)
-  
+  let {data:imageQuery} = useWorks(pageQuery)
+
+  //console.log(data)
+  console.log(pageQuery)
+  console.log(imageQuery)
 
   return (
     <>

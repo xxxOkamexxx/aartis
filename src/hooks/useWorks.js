@@ -1,19 +1,20 @@
-import { useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+
 import { useFirestoreQueryData } from '@react-query-firebase/firestore'
-import { collection, query, where, orderBy, limit } from 'firebase/firestore'
+import { collection, query, where, orderBy, limit, onSnapshot } from 'firebase/firestore'
 import { db } from '../firebase/config'
 import { useAuthContext } from '../context/AuthContext'
-import { useEffect } from 'react'
 
 /**
  * get all users works
  */
 
 const useWorks = (page) => {
-	const { currentUser } = useAuthContext()
+	const [data, setData] = useState([])
+	const [loading, setLoading] = useState(true)
 
-
-	// create ref to collection 'works'
+	useEffect(() => {
+    // create ref to collection 'works'
 	const collectionRef = collection(db, 'work')
 
 	// create queryKey based on whether all works 
@@ -22,17 +23,34 @@ const useWorks = (page) => {
 	// create query for collectionRef, order result in reverse cronological order
 	const queryRef = query(collectionRef, orderBy('created', 'desc'), limit(page))
 
+	// subscribe to changes in collection
+	const unsubscribe = onSnapshot(queryRef, (snapshot) => {
+		// got a new snapshot 
+		const docs = snapshot.docs.map(doc => {
+			return {
+				id: doc.id,
+				...doc.data(),
+			}
+		})
 
-
-	// run query
-	const worksQuery = useFirestoreQueryData(queryKey, queryRef, {
-		idField: 'id',
-	},
-	{
-		refetchOnMount: "always",
+		setData(docs)
+		setLoading(false)
 	})
+
+	// // run query
+	// const worksQuery = useFirestoreQueryData(queryKey, queryRef, {
+	// 	idField: 'id',
+	// },
+	// {
+	// 	refetchOnMount: "always",
+	// })
 	
-	return worksQuery
+	return unsubscribe
+  },[page])
+
+	return {
+		data, loading
+	}
 
 }
 

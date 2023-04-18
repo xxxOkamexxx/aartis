@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import moment from 'moment';
 
 // bootstrap icon
@@ -24,11 +24,13 @@ const AllWorks = ({ image }) => {
   const [isClicked, setIsClicked] = useState(false);
 	const [isLiked, setIsLiked] = useState()
 
+
 	const { data } = useUser(image.user)
 
 
 	const created = moment( image.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
 	const updated = moment( image.updated?.toMillis() ).format('YYYY-MM-DD HH:mm:ss')
+	
 
 	useEffect(() => {
     setComments(image.comment.length)
@@ -87,7 +89,7 @@ const AllWorks = ({ image }) => {
 									<span>{ isClicked
 												? < FavoriteIcon className='like-icon' /> 
 												: < FavoriteBorderIcon className='like-icon' />}</span>	
-									<span className="action-counter"> {isLiked}</span>
+									<span className="action-counter"> {image.likes}</span>
 								</div>
 							
 						</div>

@@ -155,29 +155,29 @@ const Navigation = () => {
 
                       <hr />
 
-                      <Link to="/">
+                      <NavLink to="/">
                         <h5>Home</h5>
-                      </Link>
+                      </NavLink>
 
-                      <Link to={`/profile/${currentUser.uid}`}>
+                      <NavLink to={`/profile/${currentUser.uid}`}>
                         <h5>Profile</h5>
-                      </Link>
+                      </NavLink>
 
-                      <Link to="/upload">
+                      <NavLink to="/upload">
                         <h5>Create</h5>
-                      </Link> 
+                      </NavLink> 
                       
-                      <Link to="/dashboard">
+                      <NavLink to="/dashboard">
                         <h5>Dashboard</h5>
-                      </Link> 
+                      </NavLink> 
 
 
         
                            
 
-                      <Link to="/logout">
+                      <NavLink to="/logout">
                         <Button className="btn-secondary btn-font offcanvas-btn">Logout</Button>
-                      </Link>              
+                      </NavLink>              
                     </Nav> 
 
                   </Offcanvas.Body>

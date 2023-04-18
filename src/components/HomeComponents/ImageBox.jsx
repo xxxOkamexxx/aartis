@@ -19,7 +19,7 @@ const ImageBox = ({ query, setPageQuery, pageQuery, data }) => {
 
 	//
 	
-	const [isDoc, setIsDoc] = useState()
+	const [isDoc, setIsDoc] = useState(query)
 	
 	//console.log('page',pageQuery)
 	
@@ -29,7 +29,7 @@ const ImageBox = ({ query, setPageQuery, pageQuery, data }) => {
 		setPageQuery(pageQuery + 4)
 		setNewArrivals(true)
 
-		//console.log(data.length, ':',pageQuery)
+		console.log(pageQuery)
   }
 	
 	
@@ -37,11 +37,11 @@ const ImageBox = ({ query, setPageQuery, pageQuery, data }) => {
 	// check current filter 
 	useEffect(() => {
 		setNewArrivals(false)
-		if(!query.data){	
+		if(!query){	
 			return
 		}
 		//const documents = query.data
-		const document = query.data
+		const document = query
 				// .filter(doc => doc.category == currentFilter)
 				// //.map (doc => doc.id)
 				.filter(doc => {
@@ -56,7 +56,7 @@ const ImageBox = ({ query, setPageQuery, pageQuery, data }) => {
 		setIsDoc(document)
 
 
-	},[query, currentFilter, data])
+	},[query, currentFilter])
 	
 	//console.log(isDoc)
 	

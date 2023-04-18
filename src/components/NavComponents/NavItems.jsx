@@ -64,32 +64,32 @@ const NavItems = () => {
           id='offcanvasNavbarDropdown'
         >
           <NavDropdown.Item>
-            <Link 
+            <NavLink 
               to={`/profile/${currentUser.uid}`}
               style={{color:'#343530'}}
             >
               Profile
-            </Link>
+            </NavLink>
           </NavDropdown.Item>
 
           <NavDropdown.Item>
-            <Link 
+            <NavLink 
                 to={'/dashboard'}
                 style={{color:'#343530'}}
               >
               Dashboard
-            </Link>
+            </NavLink>
           </NavDropdown.Item>
 
           <NavDropdown.Divider />
 
           <NavDropdown.Item>
-            <Link
+            <NavLink
               to={'/logout'}
               style={{color:'#343530'}}
             >
               Logout
-            </Link>
+            </NavLink>
           </NavDropdown.Item>
       </NavDropdown>
     </>
