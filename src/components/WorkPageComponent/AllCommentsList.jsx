@@ -14,27 +14,16 @@ const AllCommentsList = ({data}) => {
   const [isUser, setIsUser] = useState()
   const [isLoading, setIsLoading] = useState(false)
 
-  // useEffect(()=>{
-  //   setIsLoading(true)
-  //   const getUser = async(id) => {
-  //     console.log('useEffect')
-  //     const docRef = doc(db, "user", `${id}`);
-  //     const docSnap = await getDoc(docRef);
-  //     if (docSnap.exists()) {
-  //       setIsUser(docSnap.data())
-  //       console.log("Document data:", docSnap.data());
-  //       console.log(isUser)
-
-  //       setIsLoading(false)
-
-  //     } else {
-  //       // doc.data() will be undefined in this case
-  //       console.log("No such document!");
-  //     } 
-  //   }
-  //   getUser(data.comment.user_id)
-  // },[data])
-  // console.log(data)
+  
+  useEffect(()=>{
+    if(!data){
+      setIsLoading(true)
+    }
+    setIsLoading(false)
+    console.log('data', data)
+  
+  },[data])
+ 
 
   return (
     <Container className='mb-5'>
@@ -61,22 +50,22 @@ const AllCommentsList = ({data}) => {
                 {/* sender */}
                 <div >
                   <Image 
-                    src={come ? come.photoURL : ''}
+                    src={come.photoURL}
                     width='30px !important'
                     height='30px !important'
                     roundedCircle
                     style={{ backgroundImage: `url("https://via.placeholder.com/500")` }}
                   />
-                  <span className='ms-2'>{come.disolayName}</span>
+                  <span className='ms-2'>{come.displayName}</span>
 
                 </div>
 
                 {/* message */}
                 <Card className='mt-2 p-2 mb-2'>
-                  <p>{come.content}</p> 
+                  <p style={{color: 'black'}}>{come.content}</p> 
 
                 </Card>
-                    <p className='my-auto text-end display-date'>
+                    <p className='my-auto text-end display-date' style={{color: 'black'}}>
                       {moment( come.created.toMillis() ).format('YYYY-MM-DD HH:mm:ss')}
                     </p>
 
