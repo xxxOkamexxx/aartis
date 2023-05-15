@@ -125,7 +125,7 @@ const DisplayWork = ({data}) => {
             {/* image */}
             <div className='d-flex flex-column mt-5'>
 
-              <Image src={data.url}/>
+              <Image src={data.url} style={{ maxHeight:'100vh', width:'auto', objectFit:'contain' }} />
 
               {/* action */}
               <div className="likeBtn ms-2 mt-1 d-flex justify-content-end align-items-center">
