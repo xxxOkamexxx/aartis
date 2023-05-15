@@ -17,7 +17,7 @@ const StartPage = () => {
     <>
         <div className='circles'>
             <img src={Logo} className="circle startLogo" />
-            <div className='buttonGroup'>
+            <div className='buttonGroup' style={{bottom:'20%'}}>
               <Link to="/login" style={{textDecoration:'none'}}>                
                 <Button className='btn btn-lg btn-font start-button'>Login</Button>
               </Link>
