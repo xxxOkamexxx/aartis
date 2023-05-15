@@ -19,19 +19,19 @@ body {
 
 .btn-primary {
     --bs-btn-color: #fcfcfc;
-    --bs-btn-bg: #2aa0ad;
-    --bs-btn-border-color: #2aa0ad;
+    --bs-btn-bg: #2aa0ad00;
+    --bs-btn-border-color: #2aa0ad40;
     --bs-btn-hover-color: #fcfcfc;
-    --bs-btn-hover-bg: #2aa0add5;
+    --bs-btn-hover-bg: #2aa0ad40;
     --bs-btn-hover-border-color: #2aa0add5;
     --bs-btn-focus-shadow-rgb: 49, 132, 253;
     --bs-btn-active-color: #fcfcfc;
-    --bs-btn-active-bg: #2aa0add5;
-    --bs-btn-active-border-color: #2aa0add5;
+    --bs-btn-active-bg: #2aa0ad40;
+    --bs-btn-active-border-color: #2aa0ad40;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #fcfcfc;
-    --bs-btn-disabled-bg: #2aa0add5;
-    --bs-btn-disabled-border-color: #2aa0add5;
+    --bs-btn-disabled-bg: #7ca9aed5;
+    --bs-btn-disabled-border-color: #7ca9aed5;
 }
 
 .btn-outline-primary {
