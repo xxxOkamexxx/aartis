@@ -108,7 +108,7 @@ const EditWorkForm = () => {
                           
                   <div className='formBoxWrapper mb-5'>
                       <Form.Group id='title' className='mb-3 form-font'>
-                          <Form.Label>Title *</Form.Label>
+                          <Form.Label className='formlabel'>Title *</Form.Label>
                           <Form.Control 
                               type='text' 
                               defaultValue={data.title}
@@ -118,7 +118,7 @@ const EditWorkForm = () => {
                       </Form.Group>
 
                       <Form.Group id='caption' className='mb-3 form-font'>
-                          <Form.Label>Caption</Form.Label>
+                          <Form.Label className='formlabel'>Caption</Form.Label>
                           <Form.Control 
                               type='text' 
                               as="textarea" 
@@ -129,7 +129,7 @@ const EditWorkForm = () => {
                       </Form.Group>
 
                       <Form.Group id='tags' className='mb-3 form-font'>
-                          <Form.Label>Tags</Form.Label>
+                          <Form.Label className='formlabel'>Tags</Form.Label>
                           <TagsInput
                               value={tags}
                               onChange={setNewTags}
@@ -142,10 +142,11 @@ const EditWorkForm = () => {
                       </Form.Group>
 
                       <Form.Group id='category' className='mb-3 form-font formRadio'>
-                          <Form.Label>Category</Form.Label>
+                          <Form.Label className='formlabel'>Category</Form.Label>
                           <div>
                               <Form.Check
                                   inline
+                                  className='formlabel'
                                   label="Illustration"
                                   name="category"
                                   type='radio'
@@ -156,6 +157,7 @@ const EditWorkForm = () => {
                               />
                               <Form.Check
                                   inline
+                                  className='formlabel'
                                   label="photograph"
                                   name="category"
                                   type='radio'

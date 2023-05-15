@@ -105,7 +105,7 @@ const ProfilePreview = ({id}) => {
                 }
             </div>
             <div className="details-container mb-5">
-                <p>{data?.description}</p>
+                <p style={{color:'#fcfcfc'}}>{data?.description}</p>
             </div>
             
             <div className='works-container'>

@@ -33,7 +33,7 @@ const AllWorks = ({ image }) => {
 	
 
 	useEffect(() => {
-    setComments(image.comment.length)
+    setComments(image.comment?.length)
 		setIsLiked(image.likes)
   },[image])
 
